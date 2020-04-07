@@ -50,8 +50,7 @@ b, strong {
     }
 }
 
-.btn,
-.btn:focus {
+.btn {
     padding: 3px 11px;
     max-width: 100%;
     font-size: 15px;
@@ -60,7 +59,8 @@ b, strong {
     background: #fff;
     border: 1px solid #000;
     border-radius: 0;
-    box-shadow: none;
+    box-shadow: none !important;
+    outline: none !important;
     &:hover {
         color: #fff;
         background: $blue;
@@ -94,33 +94,23 @@ b, strong {
         }
     }
 }
-.btn-sm,
-.btn-sm:focus {
-    @include small-btn;
-    padding: 0 22px;
-    height: 50px;
-}
-.btn-light,
-.btn-light:focus {
-    background: transparent;
-    color: $dark;
-    text-shadow: none;
-    border: 1px solid rgba($color: $red, $alpha: .8);
-    box-shadow: none !important;
+.btn-broun {
+    border-color: #929292;
+    color: #666666;
     &:hover {
-        color: #fff !important;
-        background: $gradient;
+        background: $broun;
+        border-color: $broun;
     }
-}
-.btn-white,
-.btn-white:focus {
-    background: #fff;
-    border: 2px solid #fff;
-    color: $red;
-    &:hover {
-        color: #fff;
-        border-color: $red-light;
-        background: $red-light;
+    &.btn-triangle {
+        &:before {
+            border-color: #929292 transparent transparent transparent;
+        }
+        &:hover {
+            &:after,
+            &:before {
+                border-color: $broun transparent transparent transparent;
+            }
+        }
     }
 }
 .form-control {
@@ -368,10 +358,6 @@ textarea.form-control {
         width: 0;
         &:checked {
             &~.checkbox__text {
-                &:before {
-                    border-color: $red;
-                    background: #fff;
-                }
                 &:after {
                     display: block;
                 }
@@ -381,30 +367,31 @@ textarea.form-control {
     }
     &__text {
         display: block;
-        padding: 6px 0 6px 51px;
-        margin-bottom: 11px;
+        padding-left: 24px;
+        color: $dark;
+        margin-bottom: 12px;
         /* внешний контур чекбокса */
         &:before {
             content: "";
             position: absolute;
             top: 2px;
             left: 0;
-            height: 30px;
-            width: 30px;
-            border-radius: 10px;
+            height: 14px;
+            width: 14px;
+            border-radius: 50%;
             background: transparent;
-            box-shadow: 10px 20px 45px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba($color: $red, $alpha: .5);
+            border: 1px solid rgb(83, 83, 83);
         }
         &:after {
             content: '';
             position: absolute;
             display: none;
-            width: 16px;
-            height: 12px;
-            background: url(../images/icons/check-radio.png);
-            top: 11px;
-            left: 7px;
+            width: 8px;
+            height: 8px;
+            background: $blue;
+            border-radius: 50%;
+            top: 5px;
+            left: 3px;
         }
     }
 }
@@ -760,39 +747,6 @@ textarea.form-control {
             margin-left: 20px;
         }
     }
-    .btn-light {
-        width: 24px;
-        height: 24px;
-        text-align: center;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: $gradient;
-        border:none;
-        opacity: 1;
-        cursor: pointer;
-        svg {
-            width: 5px;
-            height: auto;
-            path {
-                fill: #fff;
-            }
-        }
-        &:hover {
-           opacity: 0.9;
-        }
-        &.disabled {
-            cursor: auto;
-            svg path {
-                fill: #fff;
-            }
-            &:hover {
-                background: $red;
-            }
-        }
-
-    }
     .page-link {
         padding: 0;
         height: 24px;
@@ -805,15 +759,14 @@ textarea.form-control {
         font-size: 16px;
         color: #000;
         &:hover {
-            color: $red;
+            color: $blue;
         }
     }
     .page-item {
-        margin: 0 10px;
+        margin: 0 5px;
         &.active {
             .page-link {
-                color: $dark;
-                font-weight: bold;
+                color: $blue;
             }
         }
     }

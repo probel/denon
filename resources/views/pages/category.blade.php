@@ -41,9 +41,10 @@
     <!-- end slogan -->
     <!-- begin catalog -->
     <section class="catalog">
+        {{-- здесь только тизеры товаров совпадают полностью с тизерами на главной, сетка другая --}}
         <div class="catalog__in">
             <div class="container">
-                <div class="col-xl-10 mx-auto px-0">
+                <div class="catalog__in__list col-xl-10 mx-auto px-0">
                     <div class="row">
                         <div class="col-lg-9">
                             <div class="row">
@@ -335,29 +336,125 @@
                                     <a class="category-page__filter__title" data-toggle="collapse" href="#category-page-filter-1" aria-expanded="true">
                                         Наличие
                                     </a>
-                                    <div class="collapse show" id="category-page-filter-1">
+                                    <div class="category-page__filter__options collapse show" id="category-page-filter-1">
                                         <label class="checkbox">
-                                            <input type="radio" name="category-page-filter-1" value="1" checked="checked">
+                                            <input type="checkbox" name="category-page-filter-1" value="1" checked="checked">
                                             <span class="checkbox__text">В наличии</span>
                                         </label>
                                         <label class="checkbox">
-                                            <input type="radio" name="category-page-filter-1" value="2">
+                                            <input type="checkbox" name="category-page-filter-1" value="2">
                                             <span class="checkbox__text">Нет в наличии</span>
                                         </label>
                                         <label class="checkbox ">
-                                            <input type="radio" name="category-page-filter-1" value="3" >
+                                            <input type="checkbox" name="category-page-filter-1" value="3" >
                                             <span class="checkbox__text">В наличии, включая отсутсвующие</span>
                                         </label>
+                                    </div>
+                                </div>
+                                <div class="category-page__filter__block">
+                                    <a class="category-page__filter__title" data-toggle="collapse" href="#category-page-filter-2" aria-expanded="true">
+                                        Цена
+                                    </a>
+                                    <div class="category-page__filter__options collapse show" id="category-page-filter-2">
+                                        <label class="checkbox">
+                                            <input type="radio" name="category-page-filter-2" value="1" checked="checked">
+                                            <span class="checkbox__text">По возрастанию</span>
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="radio" name="category-page-filter-2" value="2">
+                                            <span class="checkbox__text">По убыванию</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="category-page__filter__block">
+                                    <a class="category-page__filter__title" data-toggle="collapse" href="#category-page-filter-3" aria-expanded="true">
+                                        Акция
+                                    </a>
+                                    <div class="category-page__filter__options collapse show" id="category-page-filter-3">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="category-page-filter-3" value="1" checked="checked">
+                                            <span class="checkbox__text">Товары со скидой</span>
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="category-page-filter-3" value="2">
+                                            <span class="checkbox__text">Подарки при покупке</span>
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="category-page-filter-3" value="3">
+                                            <span class="checkbox__text">Подарки при покупке</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="catalog__item__bottom d-flex justify-content-between">
+                                    <form action="" method="post" class="form">
+                                        <button type="submit" class="btn btn-broun">ПРИМЕНИТЬ</button>
+                                    </form>
+                                    <form action="" method="post" class="form">
+                                        <button type="submit" class="btn btn-triangle btn-broun">СБРОСИТЬ</button>
+                                    </form>
+                                </div>
+                                <div class="category-page__filter__block">
+                                    <a class="category-page__filter__title" data-toggle="collapse" href="#category-page-filter-4" aria-expanded="true">
+                                        Все товары
+                                    </a>
+                                    <div class="category-page__filter__options collapse show" id="category-page-filter-4">
+                                        <ul class="category-page__filter__list list-unstyled">
+                                            <li class="category-page__filter__list__item">
+                                                <a class="category-page__filter__list__link active" href="#">AV Ресиверы</a>
+                                            </li>
+                                            <li class="category-page__filter__list__item">
+                                                <a class="category-page__filter__list__link" href="#">Акустические системы для ТВ</a>
+                                            </li>
+                                            <li class="category-page__filter__list__item">
+                                                <a class="category-page__filter__list__link" href="#">Усилители</a>
+                                            </li>
+                                            <li class="category-page__filter__list__item">
+                                                <a class="category-page__filter__list__link" href="#">SADС/CD Проигрыватели</a>
+                                            </li>
+                                            <li class="category-page__filter__list__item">
+                                                <a class="category-page__filter__list__link" href="#">Сетевые пригрватели</a>
+                                            </li>
+                                            <li class="category-page__filter__list__item">
+                                                <a class="category-page__filter__list__link" href="#">Виниловые проигрыватели</a>
+                                            </li>
+                                            <li class="category-page__filter__list__item">
+                                                <a class="category-page__filter__list__link" href="#">On Ear Headphone</a>
+                                            </li>
+                                            <li class="category-page__filter__list__item">
+                                                <a class="category-page__filter__list__link" href="#">In Ear Headphone</a>
+                                            </li>
+                                            <li class="category-page__filter__list__item">
+                                                <a class="category-page__filter__list__link" href="#">Наушники с активной системой шумоподавления</a>
+                                            </li>
+                                            <li class="category-page__filter__list__item">
+                                                <a class="category-page__filter__list__link" href="#">Минисистемы</a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                     </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                          <li class="page-item ">
+                            <a class="page-link" href="#" aria-label="Previous">
+                              <span aria-hidden="true"><</span>
+                            </a>
+                          </li>
+                          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                          <li class="page-item"><a class="page-link" href="#">2</a></li>
+                          <li class="page-item"><a class="page-link" href="#">3</a></li>
+                          <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                              <span aria-hidden="true">></span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
                 </div>
             </div>
-            <a class="show-all w-100 text-center d-block text-uppercase"
-                href="/catalog/">ПОКАЗАТЬ ВСЮ КАТЕГОРИЮ</a>
         </div>
     </section>
     <!-- end catalog -->
