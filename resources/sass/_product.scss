@@ -3,36 +3,59 @@
                                         product-card-page
 ==================================================================================================================*/
 .product-page {
-    background: $bg-light;
-    &:before {
-        @include decor-3;
-        top: -34px;
-        left: 5px;
-    }
-    &:after {
-        @include decor-2;
-        bottom: -62px;
-        left: -300px;
-    }
-    .container {
-        position: relative;
-        z-index: 2;
-    }
-    @include media-breakpoint-down(sm) {
-        &:before,
-        &:after {
-            display: none;
-        }
-    }
+   padding: 1px 0;
 }
 .product-card {
-    margin-top: 33px;
-    .main-title {
-        font-size: 32px;
-        font-weight: 600;
-        line-height: 1.2;
-        margin-bottom: 46px;
-        margin-top: 28px;
+    background: #fff;
+    padding: 16px 26px;
+    margin-bottom: 22px;
+    .photo-big {
+        height: 487px;
+    }
+    &__title {
+        margin-top: 46px;
+        font-size: 24px;
+        font-weight: bold;
+        color: $dark;
+    }
+    &__subtitle {
+        font-size: 18px;
+        color: $dark;
+        margin-bottom: 34px;
+    }
+    .vendor-code {
+        font-size: 12px;
+        color: $grey;
+        margin-top: 50px;
+    }
+    .color-check {
+        margin-bottom: 36px;
+        &__caption {
+            color: $dark;
+            margin-right: 14px;
+        }
+        &__icon {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 1px solid;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+    }
+    &__description {
+        height: 295px;
+        color: $dark;
+        &__caption {
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+        &__text {
+            font-size: 18px;
+        }
+        &__footnote {
+            font-size: 12px;
+        }
     }
     &__form {
         .price-sum {
@@ -206,37 +229,7 @@
         }
     }
 }
-.photo-big {
-    background: #fff;
-    border-radius: 10px;
-    .slick-track,
-    .slick-list {
-        height: 100%;
-    }
-    .slick-arrow {
-        width: 56px !important;
-        height: 56px !important;
-        top: auto;
-        margin-top: 0;
-        bottom: 16px;
-        z-index: 5;
-        &.slick-prev {
-            left: 50%;
-            margin-left: -65px;
-        }
-        &.slick-next {
-            right: 50% !important;
-            margin-right: -61px !important;
-            margin-left: 0 !important;
-        }
-    }
-    @include media-breakpoint-down(md) {
-        &__wrapper {
-            height: auto !important;
-            margin-bottom: 72px;
-        }
-    }
-}
+
 .product-description {
     margin-top: 107px;
     .tab-pane {
