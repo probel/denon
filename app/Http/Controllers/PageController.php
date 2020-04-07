@@ -35,9 +35,7 @@ class PageController extends Controller
         if (!$page) abort(404);
 
         $meta = $page->getMeta();
-        $product = \App\Models\Product::first();
-        $category = \App\Models\Category::where('parent_id','<',1)->first();
-        dd('/'.$category->slug);
+        
         return view('pages.'.$page->type,compact('meta'));
 
     }
