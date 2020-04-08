@@ -11,17 +11,6 @@ Route::any('/home', function () {
 })->name('home');
 /* END FOR ADMIN */
 
-/* WORK ROUTES */
-Route::get('/', 'PageController@showFront')->name('front');
-Route::group(['prefix' => '/cart'], function () {
-    Route::get('/', 'CartController@show')->name('cart.show');
-    Route::any('/set', 'CartController@set')->name('cart.set');
-    Route::any('/remove', 'CartController@remove')->name('cart.remove');
-    Route::any('/clear', 'CartController@clear')->name('cart.clear');
-    Route::post('/order', 'OrderController@store')->name('order.set');
-});
-/* END WORK ROUTES */
-
 /* LAYOUT */
 Route::any('/category', function () {
     return view('pages.category');
@@ -33,6 +22,20 @@ Route::any('/product', function () {
     return view('pages.product');
 });
 /* END LAYOUT */
+
+/* WORK ROUTES */
+Route::get('/', 'PageController@showFront')->name('front');
+Route::group(['prefix' => '/cart'], function () {
+    Route::get('/', 'CartController@show')->name('cart.show');
+    Route::any('/set', 'CartController@set')->name('cart.set');
+    Route::any('/remove', 'CartController@remove')->name('cart.remove');
+    Route::any('/clear', 'CartController@clear')->name('cart.clear');
+    Route::post('/order', 'OrderController@store')->name('order.set');
+});
+Route::any('/{slug}/', 'CatalogController@resolver')->where('slug', '(?!admin).*')->name('resolver');
+/* END WORK ROUTES */
+
+
 
 /* OLD, FOR EXAMPLES */
 Route::group(['prefix' => '/actions'], function () {
@@ -77,7 +80,7 @@ Route::group(['prefix' => '/callback'], function () {
 
 Route::get('/contacts', 'PageController@contacts')->name('contacts.show');
 Route::get('/market.xml', 'CatalogController@market')->name('catalog.market');
-Route::any('/{slugs}/', 'CatalogController@resolver')->where('slugs','.+')->where('slugs', '(?!admin).*')->name('catalog.index');
-Route::get('/{slug}', 'PageController@show')->where('slug', '(?!admin).*')->name('page.show');
+
+
 //Route::get('/home', 'HomeController@index')->name('home');
 /* END OLD */

@@ -18,7 +18,7 @@ class Page extends Model
     }
 
     protected $casts = [
-        'data' => 'array'
+        'values' => 'array'
     ];
     public function getBreadcrumbs()
     {
@@ -26,5 +26,9 @@ class Page extends Model
             ['href'=>'/','name'=>'Denon'],
             ['href'=> '','name'=>$this->name],
         ];
+    }
+    public function getUrl()
+    {
+        return route('resolver',['slug'=>$this->slug]);
     }
 }

@@ -20,7 +20,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\Order::class => 'App\Http\Admin\Order',
         \App\Models\Callback::class => 'App\Http\Admin\Callback',
         \App\Models\Category::class => 'App\Http\Admin\Category',
-        \App\Models\Page::class => 'App\Http\Admin\Pages',
+        \App\Models\Page::class => 'App\Http\Admin\Page',
         \App\Models\Product::class => 'App\Http\Admin\Product',
         \App\Models\Config::class => 'App\Http\Admin\Config',
         \App\Models\News::class => 'App\Http\Admin\News',

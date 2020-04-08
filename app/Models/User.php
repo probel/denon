@@ -27,9 +27,15 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     function isAdmin() {
-        return $this->id === 1;
+        return $this->role === 3 ? true : false;
     }
     function isManager() {
-        return $this->id === 2;
+        return ($this->role === 1 || $this->role === 3) ? true : false;
+    }
+    function isContentManager() {
+        return ($this->role === 2 || $this->role === 3) ? true : false;
+    }
+    function isClient() {
+        return ($this->role === 0) ? true : false;
     }
 }
