@@ -25,6 +25,9 @@ class Page extends Model
         'ordermenu' => false,
     ];
     
+    protected $fillable = [
+        'ordermenu',
+    ];  
 
     public function getUrl()
     {
