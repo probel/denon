@@ -36,7 +36,7 @@ class PageController extends Controller
 
 
         $topMenuTitleList = Page::getTitleList(); 
-        dump($titleList);
+        dump($topMenuTitleList);
         
         $meta = $page->getMeta();
         $product = \App\Models\Product::first();
