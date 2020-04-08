@@ -13,18 +13,18 @@
                     </span>
                 </button>
                 <div class="d-xl-flex d-none align-items-center">
-
                     <ul class="header-top__menu list-unstyled d-flex mb-0">
                         @foreach ($topMenuTitleList as $k => $v)
                             <li class="header-top__menu__item">
-                                <a class="header-top__menu__link text-uppercase" href="{{ $v['slug'] }}">
+                                <a class="header-top__menu__link text-uppercase" href="{{ $v->getUrl() }}">
                                     @if ( $v['slug'] == 'contacts' )
-                                        <i class="fas fa-map-marker-alt mr-1"> 
+                                        <i class="fas fa-map-marker-alt mr-1"></i> 
                                     @endif     
                                     {{ $v["title"] }}</a>
                             </li>
                         @endforeach
                     </ul>
+                    
                     <div class="header-top__contacts">
                         <p>8 (499) 254-62-97 (магазин)</p>
                         <p>8 (916) 707-5-777 (сервис)</p>

@@ -31,14 +31,8 @@ class Page extends Model
 
     public function getUrl()
     {
-        return route('page', [$this->slug]);
+         return route('page', [$this->slug]);
     }
-
-    public function getUrlSlug($slug)
-    {
-         return route('page', [$slug]);
-    }
-    
     /**
     * Здесь забираем верхнее меню для главной страницы
     * 
@@ -52,7 +46,7 @@ class Page extends Model
                       'news',
                       'installation');
             
-        return Page::where('status', 1)->whereIn('slug', $arTopMenu)->orderby('ordermenu','desc')->get();
+        return Page::where('status', 1)->whereIn('slug', $arTopMenu)->orderby('ordermenu','asc')->get();
     }    
     
 }

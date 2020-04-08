@@ -27,12 +27,14 @@ class SubCategoryPageTest extends TestCase
         $response->assertViewHas('breadcrumbs');
         $response->assertViewHas('category'); 
         $response->assertViewHas('products'); // Товары с пагинацией
-        $response->assertViewHas('filters'); 
+        $response->assertViewHas('filters');
+        
         $filters = $response['filters'];
         $this->assertIsArray($filters);
         $this->assertArrayHasKey('stoсk', $filters); //Фильтр по наличию
         $this->assertArrayHasKey('sale', $filters); //Фильтр по акции
-        $response->assertViewHas('sort'); 
+        $response->assertViewHas('sort');
+        
         $sort = $response['sort']; // Сортировка
         $this->assertIsArray($sort);
         $this->assertArrayHasKey('field', $sort);
