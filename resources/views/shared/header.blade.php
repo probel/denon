@@ -17,10 +17,11 @@
                     <ul class="header-top__menu list-unstyled d-flex mb-0">
                         @foreach ($topMenuTitleList as $k => $v)
                             <li class="header-top__menu__item">
-                                @if ( $v['slug'] == 'contacts' )
-                                    <i class="fas fa-map-marker-alt mr-1"></i>  
-                                @endif     
-                                 <a class="header-top__menu__link text-uppercase" href="{{ $v['slug'] }}">{{ $v["title"] }}</a>
+                                <a class="header-top__menu__link text-uppercase" href="{{ $v['slug'] }}">
+                                    @if ( $v['slug'] == 'contacts' )
+                                        <i class="fas fa-map-marker-alt mr-1"> 
+                                    @endif     
+                                    {{ $v["title"] }}</a>
                             </li>
                         @endforeach
                     </ul>
