@@ -21,6 +21,11 @@ class Page extends Model
         'data' => 'array'
     ];
 
+    protected $attributes = [
+        'ordermenu' => false,
+    ];
+    
+
     public function getUrl()
     {
         return route('page', [$this->slug]);
@@ -32,6 +37,7 @@ class Page extends Model
     */
     public static function getTitleList()
     {
+        //\Schema::getColumnListing((new User)->getTable());
         $arTopMenu = array ('warranty',
                       'delivery',
                       'contacts',
