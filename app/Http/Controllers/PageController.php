@@ -35,20 +35,14 @@ class PageController extends Controller
         if (!$page) abort(404);
 
 
-        $TitleList = Page::getTitleList(); 
-        dump($TitleList);
+        $topMenuTitleList = Page::getTitleList(); 
+        dump($titleList);
         
         $meta = $page->getMeta();
         $product = \App\Models\Product::first();
         $category = \App\Models\Category::where('parent_id','<',1)->first();
-        //dd('/'.$category->slug);
-
-
         
-
-
-        
-        return view('pages.'.$page->type,compact('meta'));
+        return view('pages.'.$page->type,compact('meta', 'topMenuTitleList'));
 
     }
     public function sitemap()
