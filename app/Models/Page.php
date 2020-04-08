@@ -25,4 +25,14 @@ class Page extends Model
     {
         return route('page', [$this->slug]);
     }
+
+    /**
+    * Здесь забираем верхнее меню для главной страницы
+    * 
+    */
+    public function getTitleList()
+    {
+        return array("11111111111", "222222222222", "333333333333333");
+    }    
+    
 }

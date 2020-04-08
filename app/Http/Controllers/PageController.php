@@ -34,7 +34,9 @@ class PageController extends Controller
         $page = Page::find(1);
         if (!$page) abort(404);
 
-        dump($page);
+
+        $TitleList = Page::getTitleList(); 
+        dump($TitleList);
         
         $meta = $page->getMeta();
         $product = \App\Models\Product::first();
