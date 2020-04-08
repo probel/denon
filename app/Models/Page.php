@@ -38,7 +38,7 @@ class Page extends Model
                       'news',
                       'installation');
             
-        return Page::where('status', 1)->whereIn('slug', $arTopMenu)->orderBy('order_by', 'desc');->get();
+        return Page::where('status', 1)->whereIn('slug', $arTopMenu)->orderBy('order_by', 'desc')->get();
     }    
     
 }
