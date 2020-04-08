@@ -10,6 +10,7 @@ class  CartPageTest extends TestCase
 {
     /**
      * @group pages
+     * @group cart
      * A basic feature test example.
      * @return void
      */
@@ -31,9 +32,10 @@ class  CartPageTest extends TestCase
         $this->assertIsArray($data);
 
         $this->assertArrayHasKey('delivery_icon', $data); 
-        $this->assertIsString($data['delivery_icon']); //Доставка и оплата ..
         $this->assertArrayHasKey('delivery_title', $data); 
-        $this->assertIsString($data['delivery_title']); //HTML Юридическим лицом ... оптового склада
+        $this->assertIsString($data['delivery_title']); //Доставка и оплата ..
+        $this->assertArrayHasKey('delivery_subtitle', $data);
+        $this->assertIsString($data['delivery_subtitle']); //Юридическим лицом магазина "Денор.рф" является...
         $this->assertArrayHasKey('delivery_text', $data); 
         $this->assertIsString($data['delivery_text']); //HTML Магазин... на сайте.
 

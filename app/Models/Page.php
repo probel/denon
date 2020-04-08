@@ -18,8 +18,9 @@ class Page extends Model
     }
 
     protected $casts = [
-        'data' => 'array'
+        'values' => 'array'
     ];
+
 
     protected $attributes = [
         'ordermenu' => false,
@@ -49,4 +50,16 @@ class Page extends Model
         return Page::where('status', 1)->whereIn('slug', $arTopMenu)->orderby('ordermenu','asc')->get();
     }    
     
+    public function getBreadcrumbs()
+    {
+        $breadcrumbs = [
+            ['href'=>'/','name'=>'Denon'],
+            ['href'=> '','name'=>$this->name],
+        ];
+    }
+    public function getUrl()
+    {
+        return route('resolver',['slug'=>$this->slug]);
+    }
+
 }

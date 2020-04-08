@@ -16,12 +16,9 @@ use AdminFormElement;
 use App\Jobs\UpdatePrices;
 use \App\Models\{
     Category,
-    Set,
     Page,
     Product,
     News,
-    Promo,
-    Blog,
 };
 
 class AdminController extends Controller
@@ -29,7 +26,9 @@ class AdminController extends Controller
     public function index()
     {
         if (\Auth::user()->isManager()) {
-            return redirect('admin/questions');
+            return redirect('admin/callbacks');
+        } else {
+            return redirect('admin/orders');
         }
         $content = view('admin.dashboard', [
             'counts' => [

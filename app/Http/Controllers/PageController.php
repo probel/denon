@@ -107,4 +107,9 @@ class PageController extends Controller
 
         return Sitemap::render();
     }
+    public function test()
+    {
+        $cart = \Cart::get();
+        return('$cart');
+    }
 }

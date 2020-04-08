@@ -7,7 +7,7 @@ use AdminForm;
 use AdminFormElement;
 use AdminColumn;
 use Illuminate\Support\Str;
-
+use \App\Models\{Company, Review, User};
 class AdminService
 {
     public static function setSlug(&$model)
@@ -15,7 +15,7 @@ class AdminService
         $class = get_class($model);
         $i = 0;
         while(true) {
-            $slug = $model->slug ? $model->slug : Str::slug($model->name, '-');
+            $slug = $model->slug ? $model->slug : Str::slug(($model->name ? $model->name : $model->title), '-');
             if ($i) {
                 $slug .= '_'.$i;
             }
@@ -29,28 +29,31 @@ class AdminService
             $model->slug = $slug;
             $model->save();
         }
+
     }
     public static function setMetaTitle(&$model)
     {
         if (!$model->meta_title) {
-            $model->meta_title = $model->name;
+            $model->meta_title = $model->name ?? $model->title;
             $model->save();
         }
     }
-    public static function setValues(&$model)
+
+    public static function setPageValues(&$model)
     {
-        $variations = request()->fields;
-
-        $model->variations = $variations;
-
-        $details = request()->details ?? [];
-        $model->details = $details;
-
-        $model->save();
+        $allow = [
+            'save_and_continue',
+            'save_and_create',
+            'save_and_close'
+        ];
+        if (in_array(request()->next_action, $allow)) {
+            $values = request()->values ?? [];
+            $model->values = $values;
+            $model->save();
+        }
     }
     public static function getOrderColumnContent($model,$basePath)
     {
-        //dd(get_class($model));
         $class = get_class($model);
         $content = '<span class="hidden">'.$model->order.'</span>';
         if ($model->order > $class::min('order')) {
@@ -78,54 +81,114 @@ class AdminService
         }
         return $content;
     }
-    public static function seoTab()
+    public static function seoTab($slug = true)
     {
-        $tab = AdminDisplay::tab(new \SleepingOwl\Admin\Form\FormElements([
-                AdminFormElement::text('slug', 'Алиас')->setHelpText('Адрес страницы. Оставьте пустым, чтобы сгенерировать автоматически'),
-                AdminFormElement::text('meta_title', 'Заголовок META'),
-                AdminFormElement::textarea('meta_description', 'Описание META')->setRows(2),
-                AdminFormElement::text('meta_keywords', 'Ключи META'),
-            ]))->setLabel('SEO');
+        $elements = [];
+        if ($slug) {
+            $elements[] = AdminFormElement::text('slug', 'Алиас')->setHelpText('Адрес страницы. Оставьте пустым, чтобы сгенерировать автоматически');
+        }
+        $elements[] = AdminFormElement::text('meta_title', 'Заголовок META');
+        $elements[] = AdminFormElement::textarea('meta_description', 'Описание META')->setRows(2);
+        $elements[] = AdminFormElement::text('meta_keywords', 'Ключи META');
+        $tab = AdminDisplay::tab(new \SleepingOwl\Admin\Form\FormElements($elements))->setLabel('SEO');
         return $tab;
     }
-    public static function sizeFields()
+    public static function imageGroup($value, $field = 'image',$path = 'images/uploads',$gr = true) {
+        if ($gr) {
+            $group = [
+                AdminFormElement::columns()
+                    ->addColumn([
+                        AdminFormElement::image($field.'[path]', 'Картинка')
+                            ->setValueSkipped(true)
+                            ->setUploadPath(function(\Illuminate\Http\UploadedFile $file) use($path) {
+                                return $path;
+                            })
+                            ->setDefaultValue($value['path'] ?? ''),
+                        AdminFormElement::text($field.'[alt]', 'Alt Картинки')
+                            ->setValueSkipped(true)
+                            ->setDefaultValue($value['alt'] ?? ''),
+                        AdminFormElement::text($field.'[title]', 'Заголовок Картинки')
+                            ->setValueSkipped(true)
+                            ->setDefaultValue($value['title'] ?? ''),
+                    ],2),
+            ];
+        } else {
+            $group = [
+                AdminFormElement::image($field.'[path]', 'Картинка')
+                    ->setValueSkipped(true)
+                    ->setUploadPath(function(\Illuminate\Http\UploadedFile $file) use($path) {
+                        return $path;
+                    })
+                    ->setDefaultValue($value['path'] ?? ''),
+                AdminFormElement::text($field.'[alt]', 'Alt Картинки')
+                    ->setValueSkipped(true)
+                    ->setDefaultValue($value['alt'] ?? ''),
+                AdminFormElement::text($field.'[title]', 'Заголовок Картинки')
+                    ->setValueSkipped(true)
+                    ->setDefaultValue($value['title'] ?? ''),
+            ];
+        }
+
+        return $group;
+    }
+    public static function getFrontFields($page)
     {
-        $fields = AdminFormElement::columns()
-            ->addColumn([AdminFormElement::number('width', 'Ширина (мм)')])
-            ->addColumn([AdminFormElement::number('height', 'Высота (мм)')])
-            ->addColumn([AdminFormElement::number('depth', 'Глубина (мм)')]);
+
+        $values = $page->values ?? [];
+        $fields = [
+            AdminFormElement::view('admin.panelOpen',['key'=>'slider','title'=> 'Слайдер']),
+            AdminFormElement::text('values[title]', 'Заголовок')
+                        ->setDefaultValue($values['title'] ?? '')
+                        ->setValueSkipped(true),
+            AdminFormElement::text('values[description]', 'Описание')
+                        ->setDefaultValue($values['description'] ?? '')
+                        ->setValueSkipped(true),
+            AdminFormElement::images('values[images]', 'Картинки')
+                        ->setDefaultValue($values['images'] ?? '')
+                        ->setValueSkipped(true),
+            AdminFormElement::view('admin.panelClose'),
+            AdminFormElement::view('admin.panelOpen',['key'=>'about','title'=> 'О нас']),
+            AdminFormElement::text('values[about_title]', 'Заголовок')
+                        ->setDefaultValue($values['about_title'] ?? '')
+                        ->setValueSkipped(true),
+            AdminFormElement::ckeditor('values[about_description]', 'Описание')
+                        ->setDefaultValue($values['about_description'] ?? '')
+                        ->setValueSkipped(true),
+            AdminFormElement::view('admin.panelClose'),
+            AdminFormElement::view('admin.panelOpen',['key'=>'stats','title'=> 'Статистика']),
+            AdminFormElement::text('values[stats_authors]', 'Авторов на сайте')
+                        ->setDefaultValue($values['stats_authors'] ?? '')
+                        ->setValueSkipped(true)
+                        ->setHelpText('Оставьте пустым, что бы отображать реальное значение'),
+            AdminFormElement::text('values[stats_reviews]', 'Всего отзывов')
+                        ->setDefaultValue($values['stats_reviews'] ?? '')
+                        ->setValueSkipped(true)
+                        ->setHelpText('Оставьте пустым, что бы отображать реальное значение'),
+            AdminFormElement::text('values[stats_comments]', 'Всего комментариев')
+                        ->setDefaultValue($values['stats_comments'] ?? '')
+                        ->setValueSkipped(true)
+                        ->setHelpText('Оставьте пустым, что бы отображать реальное значение'),
+            AdminFormElement::text('values[stats_represent]', 'Официальных представителей')
+                        ->setDefaultValue($values['stats_represent'] ?? '')
+                        ->setValueSkipped(true)
+                        ->setHelpText('Оставьте пустым, что бы отображать реальное значение'),
+            AdminFormElement::text('values[stats_represent_comments]', 'Всего комментариев oфициальных представителей')
+                        ->setDefaultValue($values['stats_represent_comments'] ?? '')
+                        ->setValueSkipped(true)
+                        ->setHelpText('Оставьте пустым, что бы отображать реальное значение'),
+            AdminFormElement::text('values[stats_map]', 'Отмечено мест на карте')
+                        ->setDefaultValue($values['stats_map'] ?? '')
+                        ->setValueSkipped(true)
+                        ->setHelpText('Оставьте пустым, что бы отображать реальное значение'),
+            AdminFormElement::view('admin.panelClose'),
+            AdminFormElement::view('admin.panelOpen',['key'=>'faq','title'=> 'Как писать']),
+            AdminFormElement::ckeditor('values[faq]', 'Текст')
+                        ->setDefaultValue($values['faq'] ?? '')
+                        ->setValueSkipped(true),
+            AdminFormElement::view('admin.panelClose'),
+        ];
+
         return $fields;
     }
-    public static function descriptionTab($model)
-    {
 
-        $tab = AdminDisplay::tab(new \SleepingOwl\Admin\Form\FormElements([
-            AdminFormElement::columns()
-                ->addColumn([AdminFormElement::number('width', 'Ширина (мм)')])
-                ->addColumn([AdminFormElement::number('height', 'Высота (мм)')])
-                ->addColumn([AdminFormElement::number('depth', 'Глубина (мм)')]),
-            AdminFormElement::html('<div class="col-md-6 col-md-offset-3">'),
-            AdminFormElement::ckeditor('description','Описание'),
-            AdminFormElement::html('</div><div class="clearfix"></div>'),
-
-            AdminFormElement::html('<div class="col-md-3">'),
-            AdminFormElement::textarea('possibilities','Наши возможности')
-                            ->setHelpText('
-                                Каждый пункт с новой строки.<br>
-                                Оставьте пустым, что бы использовать <a href="/admin/configs">текст по умолчанию</a>'),
-            AdminFormElement::html('</div>'),
-            AdminFormElement::html('<div class="col-md-6 text-center">'),
-            AdminFormElement::image('big_image','Большая картинка')
-                            ->setHelpText('Отображается между возможностями и параметрами'),
-            AdminFormElement::html('</div>'),
-            AdminFormElement::html('<div class="col-md-3">'),
-            AdminFormElement::textarea('feature','Параметрами')
-                            ->setHelpText('Каждый пункт с новой строки.'),
-            AdminFormElement::html('</div><div class="clearfix"></div>'),
-            AdminFormElement::view('admin.imagegrid',['items'=> $model ? $model->details : []]),
-            AdminFormElement::image('big_image2','Большая картинка 2')
-                            ->setHelpText('Отображается после деталей'),
-        ]))->setLabel('Описания и параметры');
-        return $tab;
-    }
 }
