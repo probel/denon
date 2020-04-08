@@ -34,21 +34,23 @@ class PageController extends Controller
         $page = Page::find(1);
         if (!$page) abort(404);
 
+        dump($page);
+        
         $meta = $page->getMeta();
         $product = \App\Models\Product::first();
         $category = \App\Models\Category::where('parent_id','<',1)->first();
         //dd('/'.$category->slug);
+
+
+        
+
+
+        
         return view('pages.'.$page->type,compact('meta'));
 
     }
-
-    
-
-
     public function sitemap()
     {
-
-        
             $paths = [
                 route('front'),
                 //route('catalog.show')
