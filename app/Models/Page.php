@@ -32,7 +32,13 @@ class Page extends Model
     */
     public static function getTitleList()
     {
-        return Page::where('status', 1)->get();
+        $arTopMenu = ('warranty',
+                      'delivery',
+                      'contacts',
+                      'news',
+                      'installation');
+            
+        return Page::where('status', 1)->whereIn('slug', $arTopMenu)->get();
         //return array("11111111111", "222222222222", "333333333333333");
     }    
     
