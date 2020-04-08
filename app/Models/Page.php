@@ -32,7 +32,7 @@ class Page extends Model
     */
     public static function getTitleList()
     {
-        $arTopMenu = ('warranty',
+        $arTopMenu = array ('warranty',
                       'delivery',
                       'contacts',
                       'news',
