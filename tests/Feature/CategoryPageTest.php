@@ -17,6 +17,10 @@ class CategoryPageTest extends TestCase
     {
         $category = \App\Models\Category::where('parent_id','<',1)->first();
         $this->assertIsObject($category);
+
+        //echo "[[[[[".$category->slug."]]]]";die();
+
+        
         $response = $this->get('/'.$category->slug);
 
         /* response */

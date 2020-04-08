@@ -20,4 +20,9 @@ class Page extends Model
     protected $casts = [
         'data' => 'array'
     ];
+
+    public function getUrl()
+    {
+        return route('page', [$this->slug]);
+    }
 }

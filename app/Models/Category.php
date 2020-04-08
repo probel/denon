@@ -44,4 +44,8 @@ class Category extends Model
     {
         return route('catalog.category',[$this->getPath()]).'/';
     }
+    public function getMeta()
+    {
+        return array ("111", "222");
+    }
 }

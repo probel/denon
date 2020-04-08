@@ -37,7 +37,7 @@ class PageController extends Controller
         $meta = $page->getMeta();
         $product = \App\Models\Product::first();
         $category = \App\Models\Category::where('parent_id','<',1)->first();
-        dd('/'.$category->slug);
+        //dd('/'.$category->slug);
         return view('pages.'.$page->type,compact('meta'));
 
     }
