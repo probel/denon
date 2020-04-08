@@ -30,9 +30,10 @@ class Page extends Model
     * Здесь забираем верхнее меню для главной страницы
     * 
     */
-    public function getTitleList()
+    public static function getTitleList()
     {
-        return array("11111111111", "222222222222", "333333333333333");
+        return Page::where('status', 1)->get();
+        //return array("11111111111", "222222222222", "333333333333333");
     }    
     
 }
