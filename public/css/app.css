@@ -10041,6 +10041,7 @@ b, strong {
 
 .btn-triangle {
   padding-right: 6px !important;
+  height: 30px;
   position: relative;
   transition: all 0.3s;
 }
@@ -11652,11 +11653,54 @@ textarea.form-control {
 
 .product-card {
   background: #fff;
-  padding: 16px 26px;
+  padding: 16px 26px 40px;
   margin-bottom: 22px;
+}
+.product-card__sliders {
+  padding: 0 60px;
 }
 .product-card .photo-big {
   height: 487px;
+}
+.product-card .photo-small {
+  padding: 0 15px;
+}
+.product-card .photo-small__item {
+  width: 100px !important;
+  height: 96px;
+  border: 1px solid #e5e5e5;
+}
+.product-card .photo-small__item img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.product-card .photo-small .slick-arrow {
+  width: 0;
+  height: 0;
+  background: transparent;
+  border-style: solid;
+  margin-top: 0;
+  top: 38px;
+}
+.product-card .photo-small .slick-arrow.slick-prev {
+  border-width: 11px 12px 11px 0;
+  border-color: transparent #000 transparent transparent;
+  left: 0;
+}
+.product-card .photo-small .slick-arrow.slick-next {
+  border-width: 11px 0 11px 12px;
+  border-color: transparent transparent transparent #000;
+  right: 0;
+}
+.product-card .photo-small .slick-arrow:hover.slick-prev {
+  border-color: transparent #87232f transparent transparent;
+}
+.product-card .photo-small .slick-arrow:hover.slick-next {
+  border-color: transparent transparent transparent #87232f;
+}
+.product-card__info {
+  padding-right: 86px;
+  padding-left: 50px;
 }
 .product-card__title {
   margin-top: 46px;
@@ -11691,6 +11735,7 @@ textarea.form-control {
 }
 .product-card__description {
   height: 295px;
+  margin-bottom: 56px;
   color: #000;
 }
 .product-card__description__caption {
@@ -11703,26 +11748,45 @@ textarea.form-control {
 .product-card__description__footnote {
   font-size: 12px;
 }
+.product-card__description:before {
+  display: block;
+  content: "";
+  width: 1px;
+  height: 100%;
+  background: #000;
+  position: absolute;
+  top: 0;
+  left: -65px;
+}
 .product-card__form .price-sum {
-  font-weight: 300;
-  font-size: 42px;
+  font-size: 24px;
   line-height: 1;
   color: #000;
-  margin-left: 19px;
 }
 .product-card__form .old-price {
-  font-weight: 300;
-  text-decoration: line-through;
-  color: #B9B9B9;
-  font-size: 26px;
-  margin-left: 30px;
+  color: #b3b2b2;
+  font-size: 14px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-left: auto;
+  position: relative;
 }
-.product-card__form__buttons {
-  margin-top: 23px;
-  margin-bottom: 76px;
+.product-card__form .old-price:before {
+  display: block;
+  content: "";
+  width: 100%;
+  height: 1px;
+  background: #000;
+  position: absolute;
+  top: 7px;
+  right: 0;
 }
-.product-card__form__buttons .btn {
-  width: calc((100% - 30px)/2);
+.product-card__form .plusminus {
+  margin-right: 32px;
+}
+.product-card__form .btn {
+  margin-right: 14px;
 }
 .product-card__block__icon {
   width: 61px;
@@ -11834,20 +11898,21 @@ textarea.form-control {
   }
 }
 
-.plusminus {
-  border-radius: 60px;
+.plusminus__caption {
+  font-size: 12px;
+  color: #000;
+  margin-right: 20px;
 }
 .plusminus input {
   color: #000000;
   background: transparent;
   border-radius: 0;
-  border: 1px solid #87232f;
-  width: 38px;
-  height: 40px;
-  line-height: 40px;
-  text-align: center;
-  font-size: 14px;
-  font-weight: bold;
+  border: 1px solid #d2d2d2;
+  width: 28px;
+  height: 24px;
+  line-height: 24px;
+  text-align: right;
+  font-size: 18px;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -11856,28 +11921,20 @@ textarea.form-control {
 .plusminus span {
   cursor: pointer;
   display: block;
-  width: 36px;
-  height: 40px;
-  line-height: 40px;
+  width: 20px;
+  height: 24px;
+  line-height: 24px;
   flex-shrink: 0;
-  color: #fff;
+  color: #000;
   text-align: center;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 18px;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  background: linear-gradient(262.62deg, #FD6311 6.27%, #F95005 95.03%);
-}
-.plusminus span.minus {
-  border-radius: 60px 0px 0px 60px;
-}
-.plusminus span.plus {
-  border-radius: 0px 60px 60px 0px;
 }
 .plusminus span:hover {
-  opacity: 0.9;
+  color: #506b80;
 }
 
 .product-description {
