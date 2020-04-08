@@ -19,6 +19,12 @@ Route::get('/', 'PageController@showFront')->name('front');
 Route::any('/category', function () {
     return view('pages.category');
 });
+Route::any('/catalog-d', function () {
+    return view('pages.catalog-d');
+});
+Route::any('/product', function () {
+    return view('pages.product');
+});
 /* END LAYOUT */
 
 /* OLD, FOR EXAMPLES */

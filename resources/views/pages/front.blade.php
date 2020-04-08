@@ -44,8 +44,8 @@
     <a id="catalog"></a>
     <div class="catalog__filter">
         <div class="container">
-            <div class="catalog__filter__slider catalog-filter-slick slick-initialized slick-slider"><button
-                    type="button" class="slick-prev slick-arrow" style=""></button>
+            <div class="catalog__filter__slider catalog-filter-slick slick-initialized slick-slider">
+                <button type="button" class="slick-prev slick-arrow" style=""></button>
                 <div class="slick-list draggable">
                     <div class="slick-track"
                         style="opacity: 1; width: 3968px; transform: translate3d(-1152px, 0px, 0px);">
@@ -361,16 +361,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
                 <button type="button" class="slick-next slick-arrow" style=""></button>
             </div>
         </div>
@@ -668,7 +658,7 @@
     </div>
 </section>
 <!-- end catalog -->
-<!-- box-08 begin news -->
+<!-- begin news -->
 <section class="news">
     <div class="news__title__wrapper icon-center position-relative">
         <h2 class="news__title text-uppercase text-center">ОБЗОРЫ НОВИНОК DENON</h2>
@@ -806,5 +796,5 @@
 
 
 </section>
-<!-- box-08 end news -->
+<!-- end news -->
 @endsection

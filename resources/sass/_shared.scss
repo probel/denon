@@ -69,6 +69,7 @@ b, strong {
 }
 .btn-triangle {
     padding-right: 6px !important;
+    height: 30px;
     position: relative;
     transition: all 0.3s;
     &:after,
@@ -724,17 +725,36 @@ textarea.form-control {
             border-width: 0 0 64px 41px;
             border-color: transparent transparent $broun transparent;
         }
+        &.blue {
+            background: linear-gradient(to right, #fff 0%, #fff 50%, $blue 50%, $blue 100%);
+            &:before {
+                border-color: transparent transparent $blue transparent;
+            }
+        }
         .page-title__small {
             width: 50%;
             padding-left: 50px;
             color: #fff;
             font-size: 24px;
         }
+        .category-page &,
+        .product-page & {
+            background: transparent;
+            &__in {
+                background: linear-gradient(to right, #fff 0%, #fff 50%, $broun 50%, $broun 100%);
+                padding: 0 16px;
+                &:before {
+                    @include triangle;
+                    right: 50%;
+                    border-width: 0 0 64px 41px;
+                    border-color: transparent transparent $broun transparent;
+                }
+            }
+        }
     }
     &__wrapper {
         width: 50%;
     }
-
 }
 .pagination {
     justify-content: center;

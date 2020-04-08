@@ -3,58 +3,144 @@
                                         product-card-page
 ==================================================================================================================*/
 .product-page {
-    background: $bg-light;
-    &:before {
-        @include decor-3;
-        top: -34px;
-        left: 5px;
-    }
-    &:after {
-        @include decor-2;
-        bottom: -62px;
-        left: -300px;
-    }
-    .container {
-        position: relative;
-        z-index: 2;
-    }
-    @include media-breakpoint-down(sm) {
-        &:before,
-        &:after {
-            display: none;
-        }
-    }
+   padding: 1px 0;
 }
 .product-card {
-    margin-top: 33px;
-    .main-title {
-        font-size: 32px;
-        font-weight: 600;
-        line-height: 1.2;
-        margin-bottom: 46px;
-        margin-top: 28px;
+    background: #fff;
+    padding: 16px 26px 40px;
+    margin-bottom: 22px;
+    &__sliders {
+        padding: 0 60px;
+    }
+    .photo-big {
+        height: 487px;
+    }
+    .photo-small {
+        padding: 0 15px;
+        &__item {
+            width: 100px !important;
+            height: 96px;
+            border: 1px solid rgb(229, 229, 229);
+            img {
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+        .slick-arrow {
+            width: 0;
+            height: 0;
+            background: transparent;
+            border-style: solid;
+            margin-top: 0;
+            top: 38px;
+            &.slick-prev {
+                border-width: 11px 12px 11px 0;
+                border-color: transparent #000 transparent transparent;
+                left: 0;
+            }
+            &.slick-next {
+                border-width: 11px 0 11px 12px;
+                border-color: transparent transparent transparent #000;
+                right: 0;
+            }
+            &:hover {
+                &.slick-prev {
+                    border-color: transparent $red transparent transparent;
+                }
+                &.slick-next {
+                    border-color: transparent transparent transparent $red;
+                }
+            }
+        }
+    }
+    &__info {
+        padding-right: 86px;
+        padding-left: 50px;
+    }
+    &__title {
+        margin-top: 46px;
+        font-size: 24px;
+        font-weight: bold;
+        color: $dark;
+    }
+    &__subtitle {
+        font-size: 18px;
+        color: $dark;
+        margin-bottom: 34px;
+    }
+    .vendor-code {
+        font-size: 12px;
+        color: $grey;
+        margin-top: 50px;
+    }
+    .color-check {
+        margin-bottom: 36px;
+        &__caption {
+            color: $dark;
+            margin-right: 14px;
+        }
+        &__icon {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 1px solid;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+    }
+    &__description {
+        height: 295px;
+        margin-bottom: 56px;
+        color: $dark;
+        &__caption {
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+        &__text {
+            font-size: 18px;
+        }
+        &__footnote {
+            font-size: 12px;
+        }
+        &:before {
+            display: block;
+            content: '';
+            width: 1px;
+            height: 100%;
+            background: $dark;
+            position: absolute;
+            top: 0;
+            left: -65px;
+        }
     }
     &__form {
         .price-sum {
-            font-weight: 300;
-            font-size: 42px;
+            font-size: 24px;
             line-height: 1;
             color: $dark;
-            margin-left: 19px;
         }
         .old-price {
-            font-weight: 300;
-            text-decoration: line-through;
-            color: #B9B9B9;
-            font-size: 26px;
-            margin-left: 30px;
-        }
-        &__buttons {
-            margin-top: 23px;
-            margin-bottom: 76px;
-            .btn {
-                width: calc((100% - 30px)/2);
+            color: #b3b2b2;
+            font-size: 14px;
+            width: fit-content;
+            margin-left: auto;
+            position: relative;
+            &:before {
+                display: block;
+                content: '';
+                width: 100%;
+                height: 1px;
+                background: $dark;
+                position: absolute;
+                top: 7px;
+                right: 0;
             }
+        }
+        .plusminus {
+            margin-right: 32px;
+        }
+        .btn {
+            margin-right: 14px;
         }
     }
     &__block {
@@ -168,75 +254,40 @@
     }
 }
 .plusminus {
-    border-radius: 60px;
+    &__caption {
+        font-size: 12px;
+        color: $dark;
+        margin-right: 20px;
+    }
     input {
         color: #000000;
         background: transparent;
         border-radius: 0;
-        border: 1px solid $red;
-        width: 38px;
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
-        font-size: 14px;
-        font-weight: bold;
+        border: 1px solid rgb(210, 210, 210);
+        width: 28px;
+        height: 24px;
+        line-height: 24px;
+        text-align: right;
+        font-size: 18px;
         user-select: none;
     }
     span {
         cursor: pointer;
         display: block;
-        width: 36px;
-        height: 40px;
-        line-height: 40px;
+        width: 20px;
+        height: 24px;
+        line-height: 24px;
         flex-shrink: 0;
-        color: $white;
+        color: $dark;
         text-align: center;
-        font-size: 14px;
-        font-weight: bold;
+        font-size: 18px;
         user-select: none;
-        background: $gradient;
-        &.minus {
-            border-radius: 60px 0px 0px 60px;
-        }
-        &.plus {
-            border-radius: 0px 60px 60px 0px;
-        }
         &:hover {
-            opacity: 0.9;
+            color: $blue;
         }
     }
 }
-.photo-big {
-    background: #fff;
-    border-radius: 10px;
-    .slick-track,
-    .slick-list {
-        height: 100%;
-    }
-    .slick-arrow {
-        width: 56px !important;
-        height: 56px !important;
-        top: auto;
-        margin-top: 0;
-        bottom: 16px;
-        z-index: 5;
-        &.slick-prev {
-            left: 50%;
-            margin-left: -65px;
-        }
-        &.slick-next {
-            right: 50% !important;
-            margin-right: -61px !important;
-            margin-left: 0 !important;
-        }
-    }
-    @include media-breakpoint-down(md) {
-        &__wrapper {
-            height: auto !important;
-            margin-bottom: 72px;
-        }
-    }
-}
+
 .product-description {
     margin-top: 107px;
     .tab-pane {
