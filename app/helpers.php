@@ -4,32 +4,6 @@ function nf($number) {
     return number_format($number,0,'.',' ');
 }
 
-function cartCount()
-{
-    $cart = cartGet();
-    $count = 0;
-    foreach ($cart as $key => $item) {
-        $count += $item;
-    }
-    return $count;
-}
-function cartSum()
-{
-    $cart = cartGet();
-    $sum = 0;
-    $pids = array_keys($cart);
-    $products = \App\Models\Product::whereIn('id',$pids)->get();
-    foreach ($products as $key => $item) {
-        $sum += $item->getPrice() * $cart[$item->id];
-    }
-    return $sum;
-}
-
-function cartGet()
-{
-    $cart = request()->session()->get('cart', []);
-    return $cart;
-}
 
 function fitImage($image, $width = null, $height = null,$jpg = false,$qt = 90)
 {

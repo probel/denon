@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Без сигнала'),
+    'name' => env('APP_NAME', 'Denon'),
 
     /*
     |--------------------------------------------------------------------------
@@ -230,7 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Catalog' => \App\Services\CatalogService::class,
-        'Main' => \App\Services\MainService::class,
+        'Cart' => \App\Services\CartService::class,
     ],
 
 ];
