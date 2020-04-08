@@ -57,9 +57,4 @@ class Page extends Model
             ['href'=> '','name'=>$this->name],
         ];
     }
-    public function getUrl()
-    {
-        return route('resolver',['slug'=>$this->slug]);
-    }
-
 }
