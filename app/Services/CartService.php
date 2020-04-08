@@ -23,7 +23,9 @@ class CartService
                     $total = $price * $qty;
                     $variation = $product->variations[$item['vid']] ?? null;
                     $cartItem = [
-                        'key'       => $key,
+                        'key'       => $item['key'] ?? $key,
+                        'pid'       => $item['pid'],
+                        'vid'       => $item['vid'],
                         'product'   => $product,
                         'variation' => $variation,
                         'qty'       => $qty,
@@ -33,7 +35,7 @@ class CartService
                     $cart->total += $total;
                     $cart->positions ++;
                     $cart->count += $qty;
-                    $cart->items->push(collect($cartItem));
+                    $cart->items->push((object) $cartItem);
                 }
             }
         }
@@ -53,8 +55,9 @@ class CartService
                     $vid = null;
                 }
             }
-            $key = md5($product.$vid);
+            $key = md5($pid.$vid);
             $cart[$key] = [
+                'key' => $key,
                 'qty' => $qty,
                 'pid' => $pid,
                 'vid' => $vid,

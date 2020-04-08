@@ -20,4 +20,11 @@ class Page extends Model
     protected $casts = [
         'data' => 'array'
     ];
+    public function getBreadcrumbs()
+    {
+        $breadcrumbs = [
+            ['href'=>'/','name'=>'Denon'],
+            ['href'=> '','name'=>$this->name],
+        ];
+    }
 }

@@ -10,6 +10,7 @@ class  CartPageTest extends TestCase
 {
     /**
      * @group pages
+     * @group cart
      * A basic feature test example.
      * @return void
      */
