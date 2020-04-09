@@ -32,7 +32,7 @@ class Page extends Model
 
     public function getUrl()
     {
-         return route('page', [$this->slug]);
+         return route('resolver', [$this->slug]);
     }
     /**
     * Здесь забираем верхнее меню для главной страницы

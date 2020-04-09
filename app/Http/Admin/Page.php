@@ -116,9 +116,13 @@ class Page extends Section implements Initializable
             \array_unshift($elements,$simpleTitle);
             if ($page) {
                 switch ($page->type) {
-                    case 'index':
-                        $elements = AdminService::getFrontFields($page);
-                        \array_unshift($elements,$adminTitle);
+                    case 'front':
+                        $elements = [
+                            AdminFormElement::view('admin.panelOpen',['key'=>'slider','title'=>__('Слайдер')]),
+                            AdminFormElement::view('admin.slider',['items' => $page->values['slider'] ?? [],'prefix'=>'values[slider]']),
+                            AdminFormElement::view('admin.panelClose'),
+                        ];
+                        //\array_unshift($elements,$adminTitle);
                         break;
                     case 'cart':
                         $elements = [

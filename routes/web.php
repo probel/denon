@@ -12,7 +12,7 @@ Route::any('/home', function () {
 /* END FOR ADMIN */
 
 /* WORK ROUTES */
-Route::get('/', 'PageController@showFront')->name('page');
+//Route::get('/', 'PageController@showFront')->name('page');
 /* END WORK ROUTES */
 
 /* LAYOUT */
