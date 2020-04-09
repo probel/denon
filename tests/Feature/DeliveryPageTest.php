@@ -35,6 +35,8 @@ class  DeliveryPageTest extends TestCase
         $this->assertIsString($data['pay_icon']);
         $this->assertArrayHasKey('pay_title', $data);
         $this->assertIsString($data['pay_title']); //Доставка и оплата
+        $this->assertArrayHasKey('pay_subtitle', $data);
+        $this->assertIsString($data['pay_subtitle']); 
         $this->assertArrayHasKey('pay_text', $data);
         $this->assertIsString($data['pay_text']); //HTML Юридическим лицам ... оптового склада.
         $this->assertArrayHasKey('delivery_title', $data); 

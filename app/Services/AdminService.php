@@ -131,7 +131,28 @@ class AdminService
 
         return $group;
     }
-    public static function getSloganFields($isBg = true)
+    public static function getTitleFields($page,$prefix = '') {
+        $fields = [
+            AdminFormElement::view('admin.panelOpen',['key'=>'title','title'=>__('Заголовок'),'type'=>'info']),
+            AdminFormElement::columns()
+                ->addColumn([
+                    AdminFormElement::image('values['.$prefix.'_icon]', 'Иконка')
+                        ->setValueSkipped(true)
+                        ->setDefaultValue($page->values[$prefix.'_icon'] ?? ''),
+                ],3)
+                ->addColumn([
+                    AdminFormElement::text('values['.$prefix.'_title]', 'Заголовок')
+                        ->setValueSkipped(true)
+                        ->setDefaultValue($page->values[$prefix.'_title'] ?? ''),
+                    AdminFormElement::text('values['.$prefix.'_subtitle]', 'Подзаголовок')
+                        ->setValueSkipped(true)
+                        ->setDefaultValue($page->values[$prefix.'_subtitle'] ?? ''),
+                ]),
+            AdminFormElement::view('admin.panelClose'),
+        ];
+        return $fields;
+    }
+    public static function getSloganFields($page,$isBg = true)
     {
         
         if ($isBg) {
@@ -141,10 +162,11 @@ class AdminService
                     ->addColumn([
                         AdminFormElement::image('values[bg_image]', 'Фоновая картинка')
                             ->setValueSkipped(true)
-                            ->setDefaultValue($page->values['bg_image'] ?? ''),
+                            ->setDefaultValue($page->values['bg_image'] ?? 'images/project/page-title.jpg'),
                     ],3)
                     ->addColumn([
-                        AdminFormElement::text('values[slogan]', 'Заголовок')
+                        AdminFormElement::text('title', 'Заголовок')->required(true),
+                        AdminFormElement::text('values[slogan]', 'Слоган')
                             ->setValueSkipped(true)
                             ->setDefaultValue($page->values['slogan'] ?? 'ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ВОСПРОИЗВЕДЕНИИ МУЗЫКИ'),
                         AdminFormElement::textarea('values[description]', 'Описание')
