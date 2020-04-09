@@ -168,7 +168,7 @@
 </script>
 <style>
     .header-btns {
-        width: 58px;
+        width: 65px;
         margin-right: 15px;
     }
 </style>

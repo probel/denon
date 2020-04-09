@@ -1096,7 +1096,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.header-btns {\n    width: 58px;\n    margin-right: 15px;\n}\n", ""]);
+exports.push([module.i, "\n.header-btns {\n    width: 65px;\n    margin-right: 15px;\n}\n", ""]);
 
 // exports
 
