@@ -199,9 +199,9 @@ textarea.form-control {
     }
 }
 .nav-tabs__custom {
-    background: #FFFFFF;
-    border-radius: 60px;
-    border: 1px solid $red;
+    background: transparent;
+    border-radius: 0;
+    border: none;
     z-index: 2;
     position: relative;
     .nav-item {
@@ -211,23 +211,27 @@ textarea.form-control {
     }
     .nav-link {
         width: 100%;
-        background: #fff;
-        border-radius: 60px;
+        border-radius: 0;
         border: none;
-        font-weight: bold;
-        font-size: 12px;
+        font-size: 18px;
         text-align: center;
-        letter-spacing: 0.1em;
         text-transform: uppercase;
         color: $dark;
         padding: 0;
         max-height: 100%;
+        position: relative;
         &.active {
-            background: $gradient;
+            background: $broun;
             color: #fff !important;
+            &:after {
+                @include triangle;
+                border-width: 60px 25px 0 0;
+                border-color: $broun transparent transparent transparent;
+                right: -25px;
+            }
         }
         &:hover {
-            color: $red;
+            color: $broun;
         }
     }
 }
@@ -738,7 +742,8 @@ textarea.form-control {
             font-size: 24px;
         }
         .category-page &,
-        .product-page & {
+        .product-page &,
+        .cart-page &, {
             background: transparent;
             &__in {
                 background: linear-gradient(to right, #fff 0%, #fff 50%, $broun 50%, $broun 100%);

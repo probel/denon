@@ -2,22 +2,11 @@
                                         cart-page
 ==================================================================================================================*/
 .cart-page {
-    .grey-bg{
-        padding-bottom: 70px;
-        background: $bg-light;
-        &:before {
-            @include decor-2;
-            top: -86px;
-            left: -300px;
-        }
-        .container {
-            position: relative;
-            z-index: 2;
-        }
-    }
-    .main-title {
-        font-weight: 600;
-        margin-bottom: 69px;
+    padding: 1px 0;
+    &__content {
+        background: #FFFFFF;
+        margin-bottom: 44px;
+        min-height: calc(100vh - 340px);
     }
     .buy-item {
         padding: 15px 40px 15px 76px;

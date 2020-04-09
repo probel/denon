@@ -21,6 +21,9 @@ Route::any('/catalog-d', function () {
 Route::any('/product', function () {
     return view('pages.product');
 });
+Route::any('/cart-1', function () {
+    return view('pages.cart');
+});
 /* END LAYOUT */
 
 /* WORK ROUTES */
