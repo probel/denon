@@ -122,6 +122,7 @@ class Page extends Section implements Initializable
                             AdminFormElement::view('admin.slider',['items' => $page->values['slider'] ?? [],'prefix'=>'values[slider]']),
                             AdminFormElement::view('admin.panelClose'),
                         ];
+                        $elements = array_merge($elements,AdminService::getSloganFields(false));
                         //\array_unshift($elements,$adminTitle);
                         break;
                     case 'cart':

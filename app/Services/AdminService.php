@@ -131,6 +131,45 @@ class AdminService
 
         return $group;
     }
+    public static function getSloganFields($isBg = true)
+    {
+        
+        if ($isBg) {
+            $fields = [
+                AdminFormElement::view('admin.panelOpen',['key'=>'slogan','title'=>__('Первый экран')]),
+                AdminFormElement::columns()
+                    ->addColumn([
+                        AdminFormElement::image('values[bg_image]', 'Фоновая картинка')
+                            ->setValueSkipped(true)
+                            ->setDefaultValue($page->values['bg_image'] ?? ''),
+                    ],3)
+                    ->addColumn([
+                        AdminFormElement::text('values[slogan]', 'Заголовок')
+                            ->setValueSkipped(true)
+                            ->setDefaultValue($page->values['slogan'] ?? 'ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ВОСПРОИЗВЕДЕНИИ МУЗЫКИ'),
+                        AdminFormElement::textarea('values[description]', 'Описание')
+                            ->setValueSkipped(true)
+                            ->setRows(3)
+                            ->setDefaultValue($page->values['description'] ?? 'Уникальные технологии Denon для воспроизведения CD/SACD дисков, строгий отбор комплектующих и мастерство схемотехники помогают воспроизводить звук, максимально приближенный к оригиналу.')
+                    ]),
+                AdminFormElement::view('admin.panelClose'),
+            ];
+        } else {
+            $fields = [
+                AdminFormElement::view('admin.panelOpen',['key'=>'slogan','title'=>__('Слоган')]),                  
+                AdminFormElement::text('values[slogan]', 'Заголовок')
+                    ->setValueSkipped(true)
+                    ->setDefaultValue($page->values['slogan'] ?? 'ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ВОСПРОИЗВЕДЕНИИ МУЗЫКИ'),
+                AdminFormElement::textarea('values[description]', 'Описание')
+                    ->setValueSkipped(true)
+                    ->setRows(3)
+                    ->setDefaultValue($page->values['description'] ?? 'Уникальные технологии Denon для воспроизведения CD/SACD дисков, строгий отбор комплектующих и мастерство схемотехники помогают воспроизводить звук, максимально приближенный к оригиналу.'),
+                    
+                AdminFormElement::view('admin.panelClose'),
+            ];
+        }
+        return $fields;
+    }
     public static function getFrontFields($page)
     {
 
