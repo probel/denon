@@ -31,7 +31,6 @@ class CatalogController extends Controller
     }
     public function resolver($slugLine = null)
     {
-
         $slugs = explode('/',$slugLine);
         $last = array_pop($slugs);
         $last = $slugLine;
@@ -58,24 +57,24 @@ class CatalogController extends Controller
                     }
                 }
             }
-            $sets = Set::where('status',1)->where('slug',$last)->get();
+            //$sets = Set::where('status',1)->where('slug',$last)->get();
 
-            if ($sets->count()) {
-                $setSlug = $slugLine;
-                foreach ($sets as $key => $set) {
-                    if ($set->getPath() == $setSlug) {
-                        return $this->set($set);
-                    }
-                }
-            }
-            $brand = Brand::where('slug',$last)->where('status',1)->first();
-            if ($brand) {
-                return $this->brand($brand);
-            }
-            $page = Page::where('status',1)->where('slug',$last)->where('country_id',country()->id)->first();
-            if ($page && $last != 'catalog') {
-                return $this->showPage($page);
-            }
+            //if ($sets->count()) {
+            //    $setSlug = $slugLine;
+            //    foreach ($sets as $key => $set) {
+            //        if ($set->getPath() == $setSlug) {
+            //            return $this->set($set);
+            //        }
+            //    }
+            //}
+            //$brand = Brand::where('slug',$last)->where('status',1)->first();
+            //if ($brand) {
+            //    return $this->brand($brand);
+            //}
+            //$page = Page::where('status',1)->where('slug',$last)->where('country_id',country()->id)->first();
+            //if ($page && $last != 'catalog') {
+            //    return $this->showPage($page);
+            // }
         }
         abort(404);
     }
@@ -126,7 +125,8 @@ class CatalogController extends Controller
             ['href'=> '','name'=>$category->name],
         ];
 
-        return view('pages.catalog.index',compact('meta','category','breadcrumbs'));
+        $news = "test";
+        return view('pages.catalog.index',compact('meta','category','breadcrumbs','news'));
     }
     public function set($set)
     {

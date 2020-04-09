@@ -40,10 +40,82 @@ class PageController extends Controller
         $product = \App\Models\Product::first();
         $category = \App\Models\Category::where('parent_id','<',1)->first();
 
-         
-        return view('pages.'.$page->type, compact('meta', 'topMenuTitleList'));
+
+        $categories = \App\Models\Category::get();
+        $news = \App\Models\News::get();
+
+        $values =  array ( 'sliders' =>  array (0 => array('title'=>'12',
+                                                                 'subtitle'=>'13',
+                                                                 'description'=>'14',
+                                                                 'title'=>'15',
+                                                                 'url' => '16',
+                                                                              'help' => '17')),
+                                        'slogan' => 'ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ...',
+                                        'description' => 'УНИКАЛЬНЫЕ ТЕХНОЛОГИИ DENON ДЛЯ ...');
+        return view('pages.'.$page->type, compact('meta', 'topMenuTitleList', 'categories', 'news', 'values'));
 
     }
+
+    public function contacts()
+    {
+        $meta = "sfsdfsdf";
+        $page = "23453452";
+        $breadcrumbs ="sfdgdsfgsdfgsd";
+        $bg_image = "bg_image";
+
+        $values = array(
+            'slogan' => "ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ...",
+            'description' => "УНИКАЛЬНЫЕ ТЕХНОЛОГИИ DENON ДЛЯ .",
+            'contacts_icon' => "Путь к иконке",
+            'contacts_title' => "Путь к иконке",
+            'contacts_subtitle' => "Путь к иконке",
+            'contacts_text' => "Путь к иконке",
+            'show_title' => "Путь к иконке",
+            'show_text' => "Шоу рум denon",
+            'legal_text'=> "HTML Информация о магазине ... Буйневич");
+        return view('pages.contacts', compact('meta', 'page', 'breadcrumbs', 'bg_image', 'values'));
+    }
+
+    public function  warranty()
+    {
+        $meta = "sfsdfsdf";
+        $page = "23453452";
+        $breadcrumbs ="sfdgdsfgsdfgsd";
+        $bg_image = "bg_image";
+
+        $values = array(
+            'slogan' => "ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ...",
+            'description' => "УНИКАЛЬНЫЕ ТЕХНОЛОГИИ DENON ДЛЯ .",
+            'warranty_icon' => "Путь к иконке",
+            'warranty_title' => "Путь к иконке",
+            'warranty_subtitle' => "Путь к иконке",
+            'warranty_text' => "Путь к иконке",
+            'service_title' => "Путь к иконке",
+            'service_subtitle' => "Путь к иконке",
+            'service_addresses' =>array (0 => array ("text" => "Москва", "title" => "ООО Северный")),
+            'title' => array("Шоу рум denon"),
+            'text'=> array("HTML Информация о магазине ... Буйневич"));
+        return view('pages.warranty', compact('meta', 'page', 'breadcrumbs', 'bg_image', 'values'));
+    }
+    
+    public function delivery()
+    {
+        $meta = "sfsdfsdf";
+        $page = "23453452";
+        $breadcrumbs ="sfdgdsfgsdfgsd";
+        $bg_image = "bg_image";
+             $values = array (
+            'slogan'          => "ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ...",
+            'description'     => "УНИКАЛЬНЫЕ ТЕХНОЛОГИИ DENON ДЛЯ .",
+            'pay_icon'        => "Путь к иконке",
+            'pay_title'       => "Путь к иконке",
+            'pay_text'        => "Путь к иконке",
+            'delivery_title'  => "Путь к иконке",
+            'delivery_text'   => "Путь к иконке");
+        return view('pages.delivery', compact('meta', 'page', 'breadcrumbs', 'bg_image' , 'values'));
+    }
+    
+    
     public function sitemap()
     {
             $paths = [

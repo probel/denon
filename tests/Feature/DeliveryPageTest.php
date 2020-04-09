@@ -25,7 +25,15 @@ class  DeliveryPageTest extends TestCase
         $response->assertViewHas('breadcrumbs');
         $response->assertViewHas('bg_image'); // Фоновая картинка под заголовком
         /* data */
+
+        
+
+        
+        
         $data = $response['values'];
+
+         
+        
         $this->assertIsArray($data);
         
         $this->assertArrayHasKey('slogan', $data); //ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ...

@@ -14,7 +14,7 @@
                 </button>
                 <div class="d-xl-flex d-none align-items-center">
                     <ul class="header-top__menu list-unstyled d-flex mb-0">
-                        @foreach ($topMenuTitleList as $k => $v)
+                       {{--    @foreach ($topMenuTitleList as $k => $v)
                             <li class="header-top__menu__item">
                                 <a class="header-top__menu__link text-uppercase" href="{{ $v->getUrl() }}">
                                     @if ( $v['slug'] == 'contacts' )
@@ -22,7 +22,8 @@
                                     @endif     
                                     {{ $v["title"] }}</a>
                             </li>
-                        @endforeach
+                       @endforeach
+                       --}}
                     </ul>
                     
                     <div class="header-top__contacts">

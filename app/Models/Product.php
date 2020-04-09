@@ -35,15 +35,20 @@ class Product extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return  $this->belongsTo(Category::class, 'category_id','id');
     }
 
     public function getUrl()
     {
-        $url = route('catalog.index',[$this->slug]).'/';
-
+        $url = route('catalog.category',[$this->slug]).'/';
         return $url;
     }
+
+    public function getMeta()
+    {
+        return array (1,2);
+    }
+    
 
     public function getImage($num = 0)
     {

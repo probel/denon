@@ -21,20 +21,17 @@ class ArticleController extends Controller
                     ->whereDate('created_at','<=',\Carbon\Carbon::Now())
                     ->orderBy('order','desc')->paginate(9);
         /* META */
-        $metaEntity = Meta::find(9);
-        $meta = [
-            'title' => $metaEntity->title,
-            'description' => $metaEntity->description,
-            'keywords' => $metaEntity->keywords,
-        ];
         $breadcrumbs = [
             ['href' => route('front'), 'name' => 'Главная'],
             ['href' => '', 'name' => 'Новости']
         ];
+        $meta = array ('meta', 'meta');
         $title = 'Новости';
         $view = 'articles news';
         $date = true;
-        return view('pages.article.index',compact('articles','view','date','title','meta','class','breadcrumbs'));
+        $page = "sdsdfsd";
+        $news = \App\Models\News::get();
+        return view('pages.article.index',compact('articles','page', 'view','date','title','meta','class','breadcrumbs','news'));
     }
     public function promoIndex()
     {

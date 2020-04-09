@@ -2,7 +2,7 @@
     @if ($article->image)
     <div class="blog-image">
         <a class="blog-image-link" href="{{ $article->getUrl() }}/">
-            <img class="d-block w-100" src="{{ asset($article->image) }}" alt="{{ rv($article->title) }}">
+            <img class="d-block w-100" src="{{ asset($article->image) }}" alt="rv_article_title">
         </a>
     </div>
     @endif
@@ -13,11 +13,11 @@
             </div>
         @endif
         <h3 class="blog-title">
-            <a href="{{ $article->getUrl() }}/">{{ rv($article->title) }}</a>
+            <a href="{{ $article->getUrl() }}/">rv_article_title </a>
         </h3>
         @if ($article->description)
         <div class="blog-short">
-            {!! rv($article->description) !!}
+            rv_article_description
         </div>
         @endif
 

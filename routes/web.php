@@ -15,6 +15,18 @@ Route::any('/home', function () {
 //Route::get('/', 'PageController@showFront')->name('page');
 /* END WORK ROUTES */
 
+Route::get('/contacts', 'PageController@contacts')->name('contacts.show');
+Route::get('/delivery', 'PageController@delivery')->name('delivery.show');
+Route::get('/warranty', 'PageController@warranty')->name('warranty.show');
+
+
+
+Route::get('/search',   'SearchController@search')->name('search.show');
+Route::group(['prefix' => '/news'], function () {
+  Route::get('/', 'ArticleController@newsIndex')->name('news.index');
+  Route::get('/{slug}', 'ArticleController@newsShow')->name('news.show');
+});
+
 /* LAYOUT */
 Route::any('/category', function () {
     return view('pages.category');
@@ -63,10 +75,10 @@ Route::group(['prefix' => '/blog'], function () {
   Route::get('/', 'ArticleController@blogIndex')->name('blog.index');
   Route::get('/{slug}', 'ArticleController@blogShow')->name('blog.show');
 });
-Route::group(['prefix' => '/news'], function () {
-  Route::get('/', 'ArticleController@newsIndex')->name('news.index');
-  Route::get('/{slug}', 'ArticleController@newsShow')->name('news.show');
-});
+//Route::group(['prefix' => '/news'], function () {
+//  Route::get('/', 'ArticleController@newsIndex')->name('news.index');
+//  Route::get('/{slug}', 'ArticleController@newsShow')->name('news.show');
+//});
 Route::group(['prefix' => '/promo'], function () {
   Route::get('/', 'ArticleController@promoIndex')->name('promo.index');
   Route::get('/{slug}', 'ArticleController@promoShow')->name('promo.show');
@@ -82,7 +94,7 @@ Route::group(['prefix' => '/callback'], function () {
     Route::post('/price', 'CallbackController@price')->name('callback.price');
 });
 
-Route::get('/contacts', 'PageController@contacts')->name('contacts.show');
+//Route::get('/contacts', 'PageController@contacts')->name('contacts.show');
 Route::get('/market.xml', 'CatalogController@market')->name('catalog.market');
 
 

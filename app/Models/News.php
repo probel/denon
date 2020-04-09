@@ -21,4 +21,8 @@ class News extends Model
     {
         return route('news.show',['slug'=>$this->slug]);
     }
+    public function getMeta()
+    {
+        return array ("111", "222");
+    }
 }

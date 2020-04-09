@@ -46,6 +46,7 @@ class WarrantyPageTest extends TestCase
 
         $this->assertArrayHasKey('service_addresses', $data); 
         $this->assertIsArray($data['service_addresses']); //Адреса сервисных центров
+        
         $this->assertArrayHasKey('title', $data['service_addresses'][0]); // Москва
         $this->assertArrayHasKey('text', $data['service_addresses'][0]); // ООО Северный 
         

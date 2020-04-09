@@ -1,10 +1,4 @@
 @php
-    $meta = \App\Models\Meta::find(14);
-    $meta = [
-            'title' =>  rv($meta->title),
-            'description' => rv($meta->description),
-            'keywords' => rv($meta->keywords),
-        ];
 @endphp
 @extends('layouts.app')
 @section('content')
