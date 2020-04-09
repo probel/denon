@@ -12,6 +12,7 @@ use AdminFormElement;
 use AdminColumn;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use App\Services\AdminService;
 
 /**
  * Class Category
@@ -28,31 +29,17 @@ class Category extends Section implements Initializable
         $this->icon = 'fa fa-tags';
 
         $this->created(function ($config, \Illuminate\Database\Eloquent\Model $model) {
-            $this->setSlug($model);
+            AdminService::setSlug($model);
+            AdminService::setMetaTitle($model);
+            AdminService::setPageValues($model);
         });
         $this->updated(function ($config, \Illuminate\Database\Eloquent\Model $model) {
-            $this->setSlug($model);
+            AdminService::setSlug($model);
+            AdminService::setMetaTitle($model);
+            AdminService::setPageValues($model);
         });
     }
-    private function setSlug(&$model)
-    {
-        $i = 0;
-        while(true) {
-            $slug = $model->slug ? $model->slug : Str::slug($model->name, '-');
-            if ($i) {
-                $slug .= '_'.$i;
-            }
-            $is = \App\Models\Category::where('slug', $slug)->where('id', '!=', $model->id)->first();
-            $i++;
-            if (!$is) {
-                break;
-            }
-        }
-        if (!$model->slug || $i) {
-            $model->slug = $slug;
-            $model->save();
-        }
-    }
+
     /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
      *
@@ -79,25 +66,7 @@ class Category extends Section implements Initializable
      */
     public function onDisplay()
     {
-        return AdminDisplay::datatables()
-                ->setApply(function ($query) {
-
-                })
-                ->setOrder([[5, 'asc']])
-                ->setColumns([
-
-                    \AdminColumnEditable::text('name')->setLabel('Название'),
-                    \AdminColumnEditable::checkbox('status','Доступен','Не доступен')->setLabel('Статус'),
-                    \AdminColumnEditable::checkbox('show_catalog','Отображать','Скрыть')->setLabel('В каталоге'),
-                    AdminColumn::datetime('created_at')->setLabel('Дата Создания')->setFormat('d.m.Y H:i'),
-                    AdminColumn::datetime('updated_at')->setLabel('Дата Изменения')->setFormat('d.m.Y H:i'),
-                    AdminColumn::custom('Положение', function(\Illuminate\Database\Eloquent\Model $model) {
-                        return \App\Services\AdminService::getOrderColumnContent($model,'/admin/categories/');
-                    })->setWidth('150px')->setOrderable(function($query, $direction) {
-                        $query->orderBy('order', $direction);
-                    })->setSearchable(false),
-                ])
-                ->paginate(30);
+        return AdminDisplay::tree()->setValue('title');
     }
 
     /**
@@ -108,9 +77,29 @@ class Category extends Section implements Initializable
     public function onEdit($id)
     {
         $model = $id ? \App\Models\Category::find($id) : null;
-        $columns = [
-            AdminFormElement::text('name', 'Название')->required(),
-        ];
+        //dd($model->values);
+        $tabs = AdminDisplay::tabbed();
+        $tabs->setTabs(function () use($model) {
+
+            $tabs = [];
+            $fields = AdminService::getSloganFields($model);
+            $fields[] = AdminFormElement::view('admin.panelOpen',['key'=>'teaser','title'=>__('Тизер (для подкатегорий)')]);
+            $fields[] = AdminFormElement::text('teaser_title', 'Подзаголовок');
+            $fields[] = AdminFormElement::ckeditor('teaser_description', 'Описание');
+            $fields[] = AdminFormElement::view('admin.panelClose');
+            $tabs[] = AdminDisplay::tab(AdminForm::elements($fields))->setLabel('Содержимое');
+
+            $tabs[] = AdminService::seoTab();
+
+            return $tabs;
+        });
+        $form = AdminForm::panel()->addHeader($tabs);
+        return $form;
+
+        $model = $id ? \App\Models\Category::find($id) : null;
+        $columns = [AdminFormElement::text('name', 'Название')->required(),];
+        
+        $columns = array_merge($columns, AdminService::getSloganFields($page));
         $columns[] = AdminFormElement::columns()
                 ->addColumn([AdminFormElement::checkbox('status', 'Доступен')])
                 ->addColumn([AdminFormElement::checkbox('front', 'Отображать на главной')])
