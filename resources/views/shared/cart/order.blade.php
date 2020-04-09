@@ -1,25 +1,37 @@
-<div class="cart-form">
-    <div class="container">
-        <div class="cart-form__title text-center">Оформление заказа</div>
-        <form   action="{{ route('order.set') }}/"
-                method="post"
-                class="cart-form__form js-form__cart-submit">
-            <div class="">
-                <div class="form-group position-relative">
-                    <label class="form-label" for="cart-recal-form-name">Ваше имя <span class="color-red">*</span></label>
-                    <div class="form-control__wrapper">
-                        <input class="form-control" id="cart-recal-form-name" type="text" name="name" placeholder="Введите имя" required="required">
-                    </div>
-                    <span class="icon position-absolute">
-                        @svg('images/svg/user.svg')
-                    </span>
-                </div>
-            </div>
-            @csrf
-            <div class="d-flex buttons__wrapper flex-wrap justify-content-center">
-                <a class="btn btn-light m-md-3 mt-3 order-2 order-md-1" href="/">Вернуться на сайт</a>
-                <button type="submit" class="btn m-md-3 order-1 order-md-2">Оформить заказ</button>
-            </div>
-        </form>
+
+<form  action="{{ route('order.set') }}/"
+        method="post"
+        class="cart-form js-form__cart-submit">
+    <div class="form-group">
+        <label class="form-label text-uppercase" for="cart-recal-form-name">имя</label>
+        <input class="form-control" id="cart-recal-form-name" type="text" name="name" placeholder="Введите имя" required="required">
     </div>
-</div>
+    <div class="cart-form__row d-flex justify-content-between flex-wrap">
+        <div class="form-group">
+            <label class="form-label text-uppercase" for="cart-recal-form-tel">НОМЕР ТЕЛЕФОНА</label>
+            <input class="form-control" id="cart-recal-form-tel" type="text" name="tel" placeholder="+7" required="required">
+        </div>
+        <div class="form-group">
+            <label class="form-label text-uppercase" for="cart-recal-form-email">ЭЛЕКТРОННАЯ ПОЧТА</label>
+            <input class="form-control" id="cart-recal-form-email" type="email" name="email" placeholder="name@domain.ru" required="required">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="form-label text-uppercase" for="cart-recal-form-address">АДРЕС ДОСТАВКИ</label>
+        <input class="form-control" id="cart-recal-form-address" type="text" name="address" placeholder="г. Москва, ул. Пятницкая, д.4, стр.1, этаж 8, кв. 34" required="required">
+    </div>
+    <div class="form-group">
+        <label class="form-label text-uppercase" for="cart-recal-form-comment">КОММЕНТАРИЙ К ЗАКАЗУ</label>
+        <textarea class="form-control textarea" id="cart-recal-form-comment" type="text" name="comment"></textarea>
+    </div>
+    <label class="checkbox square">
+        <input type="checkbox" name="category-page-filter-1" value="1" checked="checked">
+        <span class="checkbox__text">Согласен с <a href="#">Условиями обработки  персональных данных</a></span>
+    </label>
+    @csrf
+    <div class="d-flex buttons__wrapper flex-wrap justify-content-end">
+        <a class="btn m-md-3 mt-3 order-2 order-md-1" href="/">Вернуться на сайт</a>
+        <button type="submit" class="btn btn-triangle btn-broun m-md-3 order-1 order-md-2">Оформить заказ</button>
+    </div>
+</form>
+<div class="cart-form__footnote">После оформления заявки, наш менеджер свяжется с Вами для подтверждения заказа.</div>

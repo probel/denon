@@ -136,29 +136,55 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div class="tab-pane active" id="product-desc-01">
-                        <p>Новый AV-ресивер Denon AVR-S650H предлагает самые современные технологии изображения и звука. Впервые в 5 канальном
-                            AV-ресивере предлагаются технологии старших линеек - встроенная технология HEOS предоставляет быстрый доступ к тысячам
-                            музыкальных радиостанций в сети Интернет и музыкальным сервисам Spotify, Deezer и Tidal, а программа автоматической
-                            настройки акустики Audyssey, с помощью входящего в комплект микрофона, поможет быстро и правильно настроить звук всей
-                            системы.
-                        </p>
-                        <p>Смотрите свои любимые фильмы и телевизионные шоу с потрясающим качеством изображения благодаря поддержке технологий
-                            Dolby Vision and HDR. Совместимость с Apple AirPlay 2, Amazon Alexa и Google Assistant также делает пользование этим
-                            ресивером простым и удобным.</p>
-                        <img src="/images/project/product-desc-1.jpg" alt="">
-                        <ul>
-                            <li>Высококачественный 5-канальный усилитель: мощный и динамичный звук с мощностью 135 Вт на канал</li>
-                            <li>Поддержка новейших видеоформатов: великолепное качество изображения в формате 4K Ultra HD / 60 Гц благодаря технологиям HDR10, Dolby Vision и HLG</li>
-                            <li>Широкие возможности подключения: 5 входов HDMI  и 1 выход с поддержкой HDCP 2.3 на всех портах</li>
-                            <li>Программа ассистент по настройке и графический интерфейс пользователя: быстрая и правильная настройка всех функций</li>
-                            <li>Встроенная сетевая технология HEOS: быстрый и простой доступ к музыкальным онлайн-сервисам Spotify, Tidal, TuneIn, Deezer и другим в сети Интернет через бесплатное приложение HEOS для смартфонов или через AirPlay2.</li>
-                            <li>Подключение к Smart TV: удобное управление AV-ресивером через пульт телевизора через HDMI-CEC</li>
-                            <li>Поддержка eARC (Enhanced Audio Return Channel): Позволяет передавать многоканальный звук в формате Dolby True HD и DTS HA Master Audio напрямую с телевизора на AV-ресивер через подключенный кабель HDMI</li>
-                            <li>Порт USB на фронтальной панели: воспроизведение аудио в форматах MP3, WAV, FLAC, ALAC и DSD</li>
-                            <li>Четыре кнопки быстрого выбора источника: сохраните ваши предпочтительные настройки звука для каждого источника</li>
-                            <li>Программа настройки звука Audyssey MultEQ: Возможность точно настроить звук с учетом акустических особенностей вашей комнаты</li>
-                        </ul>
-                        <img src="/images/project/product-desc-2.jpg" alt="">
+                        <div class="product-description__desc">
+                            <p>Новый AV-ресивер Denon AVR-S650H предлагает самые современные технологии изображения и звука. Впервые в 5 канальном
+                                AV-ресивере предлагаются технологии старших линеек - встроенная технология HEOS предоставляет быстрый доступ к тысячам
+                                музыкальных радиостанций в сети Интернет и музыкальным сервисам Spotify, Deezer и Tidal, а программа автоматической
+                                настройки акустики Audyssey, с помощью входящего в комплект микрофона, поможет быстро и правильно настроить звук всей
+                                системы.
+                            </p>
+                            <p>Смотрите свои любимые фильмы и телевизионные шоу с потрясающим качеством изображения благодаря поддержке технологий
+                                Dolby Vision and HDR. Совместимость с Apple AirPlay 2, Amazon Alexa и Google Assistant также делает пользование этим
+                                ресивером простым и удобным.</p>
+                            <img src="/images/project/product-desc-1.jpg" alt="">
+                            <ul>
+                                <li>Высококачественный 5-канальный усилитель: мощный и динамичный звук с мощностью 135 Вт на канал</li>
+                                <li>Поддержка новейших видеоформатов: великолепное качество изображения в формате 4K Ultra HD / 60 Гц благодаря технологиям HDR10, Dolby Vision и HLG</li>
+                                <li>Широкие возможности подключения: 5 входов HDMI  и 1 выход с поддержкой HDCP 2.3 на всех портах</li>
+                                <li>Программа ассистент по настройке и графический интерфейс пользователя: быстрая и правильная настройка всех функций</li>
+                                <li>Встроенная сетевая технология HEOS: быстрый и простой доступ к музыкальным онлайн-сервисам Spotify, Tidal, TuneIn, Deezer и другим в сети Интернет через бесплатное приложение HEOS для смартфонов или через AirPlay2.</li>
+                                <li>Подключение к Smart TV: удобное управление AV-ресивером через пульт телевизора через HDMI-CEC</li>
+                                <li>Поддержка eARC (Enhanced Audio Return Channel): Позволяет передавать многоканальный звук в формате Dolby True HD и DTS HA Master Audio напрямую с телевизора на AV-ресивер через подключенный кабель HDMI</li>
+                                <li>Порт USB на фронтальной панели: воспроизведение аудио в форматах MP3, WAV, FLAC, ALAC и DSD</li>
+                                <li>Четыре кнопки быстрого выбора источника: сохраните ваши предпочтительные настройки звука для каждого источника</li>
+                                <li>Программа настройки звука Audyssey MultEQ: Возможность точно настроить звук с учетом акустических особенностей вашей комнаты</li>
+                            </ul>
+                        </div>
+                        <div class="product-description__icons d-flex flex-wrap align-items-center justify-content-between">
+                            <img src="/images/project/prod-icon-1.jpg" alt="">
+                            <img src="/images/project/prod-icon-2.jpg" alt="">
+                            <img src="/images/project/prod-icon-3.jpg" alt="">
+                            <img src="/images/project/prod-icon-4.jpg" alt="">
+                            <img src="/images/project/prod-icon-5.jpg" alt="">
+                            <img src="/images/project/prod-icon-6.jpg" alt="">
+                            <img src="/images/project/prod-icon-7.jpg" alt="">
+                            <img src="/images/project/prod-icon-8.jpg" alt="">
+                            <img src="/images/project/prod-icon-9.jpg" alt="">
+                            <img src="/images/project/prod-icon-10.jpg" alt="">
+                            <img src="/images/project/prod-icon-11.jpg" alt="">
+                            <img src="/images/project/prod-icon-12.jpg" alt="">
+                            <img src="/images/project/prod-icon-13.jpg" alt="">
+                            <img src="/images/project/prod-icon-14.jpg" alt="">
+                            <img src="/images/project/prod-icon-15.jpg" alt="">
+                            <img src="/images/project/prod-icon-16.jpg" alt="">
+                            <img src="/images/project/prod-icon-17.jpg" alt="">
+                            <img src="/images/project/prod-icon-18.jpg" alt="">
+                            <img src="/images/project/prod-icon-19.jpg" alt="">
+                            <img src="/images/project/prod-icon-20.jpg" alt="">
+                            <img src="/images/project/prod-icon-21.jpg" alt="">
+                            <img src="/images/project/prod-icon-22.jpg" alt="">
+                            <img src="/images/project/prod-icon-23.jpg" alt="">
+                        </div>
                     </div>
                     <div class="tab-pane" id="product-desc-02">
                         <div class="accordion features" id="features-accordion">
@@ -310,7 +336,21 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="product-desc-04">
-                         Текст и картинки
+                        <div class="downloads text-uppercase">
+                            <div class="row downloads__row item align-items-lg-center">
+                                <div class="col-sm-10">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
+                                <div class="col-sm-2"><a class="btn" href="#">Просмотр</a></div>
+                            </div>
+                            <div class="row downloads__row item align-items-lg-center">
+                                <div class="col-sm-10">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
+                                <div class="col-sm-2"><a class="btn" href="#">Просмотр</a></div>
+                            </div>
+                            <div class="row downloads__row item align-items-lg-center">
+                                <div class="col-sm-10">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
+                                <div class="col-sm-2"><a class="btn" href="#">Просмотр</a></div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
                 <!-- bottom line -->

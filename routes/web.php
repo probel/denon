@@ -25,8 +25,11 @@ Route::any('/catalog-d', function () {
 Route::any('/product', function () {
     return view('pages.product');
 });
-Route::any('/cart-1', function () {
-    return view('pages.cart');
+Route::any('/contact', function () {
+    return view('pages.contact');
+});
+Route::any('/delivery', function () {
+    return view('pages.delivery');
 });
 /* END LAYOUT */
 
