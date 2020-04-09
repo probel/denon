@@ -23,11 +23,11 @@ class Page extends Model
 
 
     protected $attributes = [
-        'ordermenu' => false,
+        'order' => false,
     ];
     
     protected $fillable = [
-        'ordermenu',
+        'order',
     ];  
 
     public function getUrl()
@@ -47,7 +47,7 @@ class Page extends Model
                       'news',
                       'installation');
             
-        return Page::where('status', 1)->whereIn('slug', $arTopMenu)->orderby('ordermenu','asc')->get();
+        return Page::where('status', 1)->whereIn('slug', $arTopMenu)->orderby('order','asc')->get();
     }    
     
     public function getBreadcrumbs()
