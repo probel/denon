@@ -131,6 +131,67 @@ class AdminService
 
         return $group;
     }
+    public static function getTitleFields($page,$prefix = '') {
+        $fields = [
+            AdminFormElement::view('admin.panelOpen',['key'=>'title','title'=>__('Заголовок'),'type'=>'info']),
+            AdminFormElement::columns()
+                ->addColumn([
+                    AdminFormElement::image('values['.$prefix.'_icon]', 'Иконка')
+                        ->setValueSkipped(true)
+                        ->setDefaultValue($page->values[$prefix.'_icon'] ?? ''),
+                ],3)
+                ->addColumn([
+                    AdminFormElement::text('values['.$prefix.'_title]', 'Заголовок')
+                        ->setValueSkipped(true)
+                        ->setDefaultValue($page->values[$prefix.'_title'] ?? ''),
+                    AdminFormElement::text('values['.$prefix.'_subtitle]', 'Подзаголовок')
+                        ->setValueSkipped(true)
+                        ->setDefaultValue($page->values[$prefix.'_subtitle'] ?? ''),
+                ]),
+            AdminFormElement::view('admin.panelClose'),
+        ];
+        return $fields;
+    }
+    public static function getSloganFields($page,$isBg = true)
+    {
+        //dd($page->values,array_key_exists('bg_image',$page->values));
+        if ($isBg) {
+            $fields = [
+                AdminFormElement::view('admin.panelOpen',['key'=>'slogan','title'=>__('Первый экран')]),
+                AdminFormElement::columns()
+                    ->addColumn([
+                        AdminFormElement::image('values[bg_image]', 'Фоновая картинка')
+                            ->setValueSkipped(true)
+                            ->setDefaultValue(($page && $page->values && array_key_exists('bg_image',$page->values)) ? $page->values['bg_image'] : 'images/project/page-title.jpg'),
+                    ],3)
+                    ->addColumn([
+                        AdminFormElement::text('title', 'Заголовок')->required(true),
+                        AdminFormElement::text('values[slogan]', 'Слоган')
+                            ->setValueSkipped(true)
+                            ->setDefaultValue(($page && $page->values && array_key_exists('slogan',$page->values)) ? $page->values['slogan'] : 'ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ВОСПРОИЗВЕДЕНИИ МУЗЫКИ'),
+                        AdminFormElement::textarea('values[description]', 'Описание')
+                            ->setValueSkipped(true)
+                            ->setRows(3)
+                            ->setDefaultValue(($page && $page->values && array_key_exists('description',$page->values)) ? $page->values['description'] : 'Уникальные технологии Denon для воспроизведения CD/SACD дисков, строгий отбор комплектующих и мастерство схемотехники помогают воспроизводить звук, максимально приближенный к оригиналу.')
+                    ]),
+                AdminFormElement::view('admin.panelClose'),
+            ];
+        } else {
+            $fields = [
+                AdminFormElement::view('admin.panelOpen',['key'=>'slogan','title'=>__('Слоган')]),                  
+                AdminFormElement::text('values[slogan]', 'Заголовок')
+                    ->setValueSkipped(true)
+                    ->setDefaultValue($page->values['slogan'] ?? 'ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ВОСПРОИЗВЕДЕНИИ МУЗЫКИ'),
+                AdminFormElement::textarea('values[description]', 'Описание')
+                    ->setValueSkipped(true)
+                    ->setRows(3)
+                    ->setDefaultValue($page->values['description'] ?? 'Уникальные технологии Denon для воспроизведения CD/SACD дисков, строгий отбор комплектующих и мастерство схемотехники помогают воспроизводить звук, максимально приближенный к оригиналу.'),
+                    
+                AdminFormElement::view('admin.panelClose'),
+            ];
+        }
+        return $fields;
+    }
     public static function getFrontFields($page)
     {
 

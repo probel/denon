@@ -8,7 +8,10 @@ use SleepingOwl\Admin\Traits\OrderableModel;
 class Category extends Model
 {
     use OrderableModel;
-
+    
+    protected $casts = [
+        'values' => 'array'
+    ];
     /**
      * @param $query
      * @param int $position
@@ -43,5 +46,9 @@ class Category extends Model
     public function getUrl()
     {
         return route('catalog.category',[$this->getPath()]).'/';
+    }
+    public function getMeta()
+    {
+        return array ("111", "222");
     }
 }

@@ -29,7 +29,7 @@
 </head>
 <body class="body loading @if (!\Request::is('/'))no-front @else front @endif @isset($view){{ $view }} @endisset">
     <div class="root">
-
+        {{-- меню заголовок --}}
         @include('shared.header')
         @yield('content')
 

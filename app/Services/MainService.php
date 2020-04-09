@@ -48,9 +48,11 @@ class MainService
         if (\is_null($categories)) {
             $categories = Category::with('products.prices')
                             ->whereStatus(1)
-                            ->where('country_id',country()->id)
                             ->orderBy('order')
                             ->get();
+                        //->where('country_id',country()->id)
+            //->orderBy('order')
+            //->get();
 
         }
         return $categories;

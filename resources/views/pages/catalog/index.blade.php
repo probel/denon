@@ -3,7 +3,7 @@
 <section class="catalog catalog-page position-relative pt-0">
     <div class="container">
         @include('shared.breadcrumb')
-        <h1 class="main-title text-center">{!! rv($pageTitle) !!}</h1>
+        <h1 class="main-title text-center">{{-- rv($pageTitle) --}}</h1>
         <ul class="nav nav-tabs nav-tabs__custom nav-justified catalog__tabs mx-auto">
             <li class="nav-item">
                 <a class="nav-link {{ request()->accessories ? '' : 'active' }}" data-toggle="tab" href="#" data-target="#catalog-page-01">GSM сигнализации</a>

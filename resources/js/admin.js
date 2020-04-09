@@ -23,7 +23,12 @@ Vue.directive('selecttwo', {
         })
     },
 });
-Vue.component('multi-fields', require('./components/MultiFieldsComponent.vue').default);
+Vue.component('upload-image', require('./components/admin/UploadImageComponent.vue').default);
+Vue.component('multi-fields', require('./components/admin/MultiFieldsComponent.vue').default);
+Vue.component('admin-slider', require('./components/admin/SliderComponent.vue').default);
+Vue.component('admin-address', require('./components/admin/AddressComponent.vue').default);
+
+
 function switchOnHandler(textareaId, config) {
     // textareaId - идентификатор поля ввода к которому необходимо подключить редактор
     // config - дополнительные настройки

@@ -116,59 +116,94 @@ class Page extends Section implements Initializable
             \array_unshift($elements,$simpleTitle);
             if ($page) {
                 switch ($page->type) {
-                    case 'index':
-                        $elements = AdminService::getFrontFields($page);
-                        \array_unshift($elements,$adminTitle);
+                    case 'front':
+                        $elements = [
+                            AdminFormElement::view('admin.panelOpen',['key'=>'slider','title'=>__('Слайдер')]),
+                            AdminFormElement::view('admin.slider',['items' => $page->values['slider'] ?? [],'prefix'=>'values[slider]']),
+                            AdminFormElement::view('admin.panelClose'),
+                        ];
+                        $elements = array_merge($elements,AdminService::getSloganFields($page,false));
+                        //\array_unshift($elements,$adminTitle);
                         break;
                     case 'cart':
                         $elements = [
                             AdminFormElement::text('title', 'Заголовок')->required(true),
                             AdminFormElement::view('admin.panelOpen',['key'=>'text','title'=>__('Текст под формой')]),
-                            AdminFormElement::columns()
-                                ->addColumn([
-                                    AdminFormElement::image('values[delivery_icon]', 'Иконка текста')
-                                        ->setValueSkipped(true)
-                                        ->setDefaultValue($page->values['delivery_icon'] ?? ''),
-                                ],2)
-                                ->addColumn([
-                                    AdminFormElement::text('values[delivery_title]', 'Заголовок')
-                                        ->setValueSkipped(true)
-                                        ->setDefaultValue($page->values['delivery_title'] ?? ''),
-                                    AdminFormElement::text('values[delivery_subtitle]', 'Подзаголовок')
-                                        ->setValueSkipped(true)
-                                        ->setDefaultValue($page->values['delivery_subtitle'] ?? ''),
-                                    AdminFormElement::ckeditor('values[delivery_text]', 'Текст')
-                                        ->setValueSkipped(true)
-                                        ->setDefaultValue($page->values['delivery_text'] ?? ''),
-                                ]),
-                            AdminFormElement::view('admin.panelClose'),
-                            
                         ];
+                        $elements = array_merge($elements,AdminService::getTitleFields($page,'delivery'));
+                        $elements[] = AdminFormElement::ckeditor('values[delivery_text]', 'Текст')
+                                        ->setValueSkipped(true)
+                                        ->setDefaultValue($page->values['delivery_text'] ?? '');
+                        $elements[] = AdminFormElement::view('admin.panelClose');
                         break;
-                    case 'clubs':
-                    case 'authors':
+                    case 'warranty':
+                        $elements = AdminService::getSloganFields($page);
+                        $elements[] = AdminFormElement::view('admin.panelOpen',['key'=>'warranty','title'=>__('Гарантия')]);
+                        $elements = array_merge($elements,AdminService::getTitleFields($page,'warranty'));
+                        $elements[] = AdminFormElement::ckeditor('values[warranty_text]', 'Текст')
+                                    ->setValueSkipped(true)
+                                    ->setDefaultValue($page->values['warranty_text'] ?? '');
+                        $elements[] = AdminFormElement::view('admin.panelClose');
+                        $elements[] = AdminFormElement::view('admin.panelOpen',['key'=>'service','title'=>__('Сервис')]);
+                        $elements = array_merge($elements,AdminService::getTitleFields($page,'service'));
+                        $elements[] = AdminFormElement::view('admin.panelOpen',['key'=>'service_addresses','title'=>__('Адреса'),'type'=>'info']);
+                        $elements[] = AdminFormElement::view('admin.address',['items' => $page->values['service_addresses'] ?? [],'prefix'=>'values[service_addresses]']);
+                        $elements[] = AdminFormElement::view('admin.panelClose');
+                        $elements[] = AdminFormElement::view('admin.panelClose');
+                        break;
+                    case 'delivery':
+                        $elements = AdminService::getSloganFields($page);
+                        $elements[] = AdminFormElement::view('admin.panelOpen',['key'=>'pay','title'=>__('Доставка и оплата')]);
+                        $elements = array_merge($elements,AdminService::getTitleFields($page,'pay'));
+                        $elements[] = AdminFormElement::ckeditor('values[pay_text]', 'Текст')
+                                    ->setValueSkipped(true)
+                                    ->setDefaultValue($page->values['pay_text'] ?? '');
+                        $elements[] = AdminFormElement::view('admin.panelClose');
+                        $elements[] = AdminFormElement::view('admin.panelOpen',['key'=>'delivery','title'=>__('Доставка по москве')]);
+                        $elements[] = AdminFormElement::text('values[delivery_title]', 'Заголовок')
+                                    ->setValueSkipped(true)
+                                    ->setDefaultValue($page->values['delivery_title'] ?? '');
+                        $elements[] = AdminFormElement::ckeditor('values[delivery_text]', 'Текст')
+                                    ->setValueSkipped(true)
+                                    ->setDefaultValue($page->values['delivery_text'] ?? '');
+                        $elements[] = AdminFormElement::view('admin.panelClose');
+                        break;
+                    case 'contacts':
+                        $elements = AdminService::getSloganFields($page);
+                        $elements[] = AdminFormElement::view('admin.panelOpen',['key'=>'contacts','title'=>__('Контакты')]);
+                        $elements = array_merge($elements,AdminService::getTitleFields($page,'contacts'));
+                        $elements[] = AdminFormElement::ckeditor('values[contacts_text]', 'Текст')
+                                    ->setValueSkipped(true)
+                                    ->setDefaultValue($page->values['contacts_text'] ?? '');
+                        $elements[] = AdminFormElement::view('admin.panelClose');
+                        $elements[] = AdminFormElement::view('admin.panelOpen',['key'=>'show','title'=>__('Шоу рум')]);
+                        $elements = array_merge($elements,AdminService::getTitleFields($page,'show'));
+                        $elements[] = AdminFormElement::ckeditor('values[show_text]', 'Текст')
+                                    ->setValueSkipped(true)
+                                    ->setDefaultValue($page->values['show_text'] ?? '');
+                        $elements[] = AdminFormElement::view('admin.panelClose');
+                        $elements[] = AdminFormElement::view('admin.panelOpen',['key'=>'show','title'=>__('Юридическая информация')]);
+                        $elements[] = AdminFormElement::ckeditor('values[legal_text]', 'Текст')
+                                    ->setValueSkipped(true)
+                                    ->setDefaultValue($page->values['legal_text'] ?? '');
+                        $elements[] = AdminFormElement::view('admin.panelClose');
+                        break;
+                    case 'search':
+                        $elements = AdminService::getSloganFields($page);
+                        $elements[] = AdminFormElement::number('values[paginate]', 'Элементов на страницу')
+                                        ->setValueSkipped(true)
+                                        ->setDefaultValue($page->values['paginate'] ?? 6);
+                        
+                        break;
+                    case 'news':
+                    case 'installations':
                         $elements = [
-                            AdminFormElement::text('name', 'Название')->required(),
+                            AdminFormElement::text('title', 'Заголовок')->required(),
                             AdminFormElement::number('values[paginate]', 'Элементов на страницу')
                                 ->setValueSkipped(true)
-                                ->setDefaultValue($page->values['paginate'] ?? 30),
+                                ->setDefaultValue($page->values['paginate'] ?? 6),
                         ];
-                        break;
-                    
-                    case 'feedback':
-                    case 'search':
-                        $elements = [
-                            AdminFormElement::text('name', 'Название')->required(),
-                        ];
-                        break;
-                    case 'faq':
-                        $elements = [
-                            AdminFormElement::text('name', 'Название')->required(),
-                            AdminFormElement::view('admin.panelOpen',['key'=>'faq','title'=>__('Вопросы')]),
-                            AdminFormElement::view('admin.faq',['items' => $page->values['items'] ?? [],'prefix'=>'values[items]']),
-                            AdminFormElement::view('admin.panelClose'),
-                        ];
-                        break;
+                        break;                    
                     default:
                         $elements = [
                             AdminFormElement::ckeditor('values[body]', 'Содержимое')

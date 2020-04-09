@@ -11,6 +11,10 @@ Route::any('/home', function () {
 })->name('home');
 /* END FOR ADMIN */
 
+/* WORK ROUTES */
+//Route::get('/', 'PageController@showFront')->name('page');
+/* END WORK ROUTES */
+
 /* LAYOUT */
 Route::any('/category', function () {
     return view('pages.category');
