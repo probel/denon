@@ -40,7 +40,7 @@ class Product extends Model
 
     public function getUrl()
     {
-        $url = route('catalog.category',[$this->slug]).'/';
+        $url = route('resolver',[$this->slug]);
         return $url;
     }
 

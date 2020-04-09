@@ -39,6 +39,9 @@ class WarrantyPageTest extends TestCase
         $this->assertIsString($data['warranty_subtitle']); //Срок и условия гарантии для..
         $this->assertArrayHasKey('warranty_text', $data);
         $this->assertIsString($data['warranty_text']); //HTML Однолетний период ... Гарантийный срок - 12 месяцев
+        
+        $this->assertArrayHasKey('service_icon', $data); //Путь к иконке
+        $this->assertIsString($data['service_icon']);
         $this->assertArrayHasKey('service_title', $data); 
         $this->assertIsString($data['service_title']); //Сервис
         $this->assertArrayHasKey('service_subtitle', $data); 

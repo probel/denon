@@ -3,7 +3,7 @@
         <div class="row">
             <template v-for="(field,key) in fields">
                 <div :key="key" class="col-12">
-                    <div class="card card-info">
+                    <div class="card card-success">
                         <div class="card-header">
                             <div class="float-left header-btns">
                                 <button v-if="key > 0" @click="swapItems(key,key-1)"  type="button" class="btn btn-tool"><i class="fa fa-chevron-up"></i></button>
@@ -21,17 +21,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-3" :key="fields[key].type">
-                                    <label class="control-label">Картинка</label>
-                                    <upload-image
-                                            url="/admin/save/fieldimage"
-                                            :name="prefix+'['+key+'][image]'"
-                                            :value="field.image ? field.image : ''"
-                                            v-on:change-image="fields[key].image = $event"
-                                        >
-                                    </upload-image>
-                                </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group form-element-image">
                                         <label :for="'title_'+key" class="control-label">Заголовок</label>
                                         <input type="text"
@@ -43,56 +33,15 @@
                                         >
                                     </div>
                                     <div class="form-group form-element-image">
-                                        <label :for="'subtitle_'+key" class="control-label">Подзаголовок</label>
-                                        <input type="text"
-                                            class="form-control"
-                                            :value="fields[key].subtitle"
-                                            :name="prefix+'['+key+'][subtitle]'"
-                                            :id="'subtitle_'+key"
-                                            v-on:input="fields[key].subtitle = $event.target.value"
-                                        >
+                                        <label :for="'text_'+key" class="control-label">Текст</label>
+                                        <textarea type="text"
+                                            class="js-ckeditor"
+                                            :value="fields[key].text"
+                                            :name="prefix+'['+key+'][text]'"
+                                            :id="'text_'+key"
+                                            v-on:input="fields[key].text = $event.target.value">
+                                        </textarea>
                                     </div>
-                                    <div class="form-group form-element-image">
-                                        <label :for="'description_'+key" class="control-label">Описание</label>
-                                        <input type="text"
-                                            class="form-control"
-                                            :value="fields[key].description"
-                                            :name="prefix+'['+key+'][description]'"
-                                            :id="'description_'+key"
-                                            v-on:input="fields[key].description = $event.target.value"
-                                        >
-                                    </div>
-                                    <div class="form-group form-element-image">
-                                        <label :for="'path_'+key" class="control-label">Ссылка</label>
-                                        <input type="text"
-                                            class="form-control"
-                                            :value="fields[key].path"
-                                            :name="prefix+'['+key+'][path]'"
-                                            :id="'path_'+key"
-                                            v-on:input="fields[key].path = $event.target.value"
-                                        >
-                                    </div>
-                                    <div class="form-group form-element-image">
-                                        <label :for="'help_'+key" class="control-label">Подпись</label>
-                                        <input type="text"
-                                            class="form-control"
-                                            :value="fields[key].help"
-                                            :name="prefix+'['+key+'][help]'"
-                                            :id="'help_'+key"
-                                            v-on:input="fields[key].help = $event.target.value"
-                                        >
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="control-label">Награды</label>
-                                    <upload-image
-                                            url="/admin/save/fieldimage"
-                                            :name="prefix+'['+key+'][award]'"
-                                            :value="field.award ? field.award : ''"
-                                            v-on:change-image="fields[key].award = $event"
-                                        >
-                                    </upload-image>
-                                    <small class="text-muted">Отображается в нижнем правом углу</small>
                                 </div>
                             </div>
                         </div>
@@ -138,6 +87,7 @@
             }
         },
         updated() {
+            Admin.setEditor();
         },
         watch: {
             fields: function () {
@@ -170,5 +120,8 @@
     .header-btns {
         width: 65px;
         margin-right: 15px;
+    }
+    .js-ckeditor {
+        display: none !important;
     }
 </style>

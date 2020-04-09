@@ -1,334 +1,62 @@
 /*==================================================================================================================
+                                        contacts-page
+==================================================================================================================*/
+.contact-page {
+    padding-bottom: 1px;
+    .breadcrumb__line__in {
+        padding-left: 90px;
+    }
+    &__content {
+        background: #FFFFFF;
+        margin-bottom: 30px;
+        padding: 70px 90px;
+        &__text {
+            font-size: 18px;
+            margin-bottom: 65px;
+            p {
+                margin-bottom: 0;
+            }
+        }
+        &__separator {
+            width: 100%;
+            height: 1px;
+            background: rgb(210, 210, 210);
+            margin: 40px 0;
+        }
+        ul {
+            font-size: 18px;
+            text-transform: uppercase;
+            padding-left: 0;
+            list-style: none;
+            > li {
+                padding-left: 18px;
+                position: relative;
+                margin-bottom: 0;
+                &:before {
+                    display: block;
+                    content: "";
+                    width: 9px;
+                    height: 9px;
+                    background: $broun;
+                    border-radius: 50%;
+                    position: absolute;
+                    top: 5px;
+                    left: 0;
+                }
+            }
+        }
+    }
+}
+
+/*==================================================================================================================
                                         delivery-page
 ==================================================================================================================*/
 .delivery-page {
-    &__light-bg {
-        background: $bg-light;
-        min-height: 766px;
-        padding-bottom: 100px;
+    .contact-page__content ul {
+        text-transform: unset;
     }
-    .main-title {
-        margin-bottom: 53px;
-        font-weight: 600;
-    }
-    &__tabs {
-        max-width: 876px;
-        margin-bottom: 80px;
-        .nav-item {
-            flex: 1 1 33%;
-        }
-    }
-    .tab-content {
-        max-width: 88%;
-    }
-    .advantage__item {
-        a {
-            color: $dark;
-        }
-        .image__wraper {
-            margin-bottom: 30px;
-        }
-        .text-lg {
-            margin-bottom: 21px;
-        }
-        .px-7 {
-            padding: 0 7px;
-        }
-    }
-    .decor-line {
-        width: 82px;
-        &.left {
-            left: 239px;
-        }
-        &.center {
-            left: 50%;
-            margin-left: -42px;
-        }
-        &.right {
-            right: 239px;
-        }
-    }
-    .info {
-        background: url(../images/project/delivery-form-bg.jpg), #fff;
-        background-position: top left;
-        background-repeat: no-repeat;
-        &:after {
-            @include decor-3;
-            top: -93px;
-            right: -10px;
-        }
-        .row {
-            margin-left: -15px;
-        }
-        .main-title {
-            margin-bottom: 40px;
-            font-weight: 300;
-        }
-        .more-info__text {
-            margin-bottom: 24px;
-        }
-    }
-    @media (max-width: 1270px) {
-        .tab-content {
-            max-width: 100%;
-        }
-    }
-    @include media-breakpoint-only(lg) {
-        &__light-bg {
-            min-height: unset;
-        }
-        &__tabs {
-            max-width: 100%;
-        }
-        .advantage__item {
-            .text-lg {
-                font-size: 16px;
-                margin-bottom: 0;
-            }
-            .text-sm {
-                font-size: 14px;
-            }
-            .px-7 {
-                padding: 0;
-            }
-        }
-        .decor-line {
-            width: 70px;
-            &.left {
-                left: 205px;
-            }
-            &.center {
-                left: 50%;
-                margin-left: -35px;
-            }
-            &.right {
-                right: 205px;
-            }
-        }
-    }
-    @include media-breakpoint-down(md) {
-        &__tabs {
-            .nav-tabs__custom {
-                border: none;
-                .nav-item {
-                    flex-basis: 100%;
-                }
-                .nav-link {
-                    border-radius: 10px;
-                }
-            }
-        }
-        .info {
-            &:before,
-            &:after {
-                display: none;
-            }
-            .more-info__text {
-                justify-content: center;
-            }
-        }
-    }
-    @include media-breakpoint-down(xs) {
-        &__light-bg {
-            padding-top: 40px;
-            padding-bottom: 0;
-        }
-        .main-title {
-            margin-bottom: 40px;
-        }
-        &__tabs {
-            margin-bottom: 40px;
-        }
-    }
-}
-#delivery-page__tabs-02,
-#delivery-page__tabs-03 {
-    .advantage__item {
-        .text-lg {
-            min-height: 48px;
-            @include media-breakpoint-down(xs) {
-                min-height: unset;
-            }
-        }
-    }
-}
-/*==================================================================================================================
-                                        contacts-page
-==================================================================================================================*/
-.contacts-page {
-    .grey-bg {
-        background: $bg-light;
-        &:before {
-            @include decor-2;
-            top: -86px;
-            left: -300px;
-        }
-        .container {
-            position: relative;
-            z-index: 2;
-        }
-    }
-    .main-title {
-        margin-bottom: 65px;
-        font-weight: 600;
-    }
-    &__row {
-        max-width: 96%;
-    }
-    .advantage__item {
-        flex: 1;
-        padding: 0 15px;
-        a {
-            color: $grey;
-        }
-        .image__wraper {
-            margin-bottom: 30px;
-        }
-        .text-lg {
-            margin-bottom: 20px;
-        }
-        &.time {
-            .image__wraper {
-                padding-right: 6px;
-            }
-        }
-    }
-    &__info {
-        background: url(../images/project/orange-bg.jpg) top left no-repeat;
-        padding: 48px 0 82px;
-        font-size: 20px;
-        color: #fff;
-        position: relative;
-        z-index: 3;
-        .icon {
-            width: 61px;
-            height: 61px;
-            background: #fff;
-            box-shadow: 10px 5px 30px rgba(0, 0, 0, 0.05);
-            border-radius: 50%;
-            margin-bottom: 24px;
-        }
-        &__in {
-            max-width: 680px;
-            a {
-                white-space: nowrap;
-            }
-        }
-    }
-    &__form {
-        padding-top: 56px;
-        padding-bottom: 64px;
-        .title {
-            @include h3;
-            color: $dark;
-            margin-bottom: 12px;
-        }
-        .subtitle {
-            font-size: 12px;
-            margin-bottom: 32px;
-        }
-        .top-row {
-            margin-bottom: 26px;
-            .form-group {
-                width: calc((100% - 20px) / 2);
-            }
-        }
-        .middle-row {
-            margin-bottom: 28px;
-        }
-        .textarea {
-            margin-bottom: 24px;
-            .form-control {
-                min-height: 96px;
-                border-radius: 10px;
-            }
-        }
-        .file {
-            margin-bottom: 42px;
-            >label {
-                margin-bottom: 13px;
-            }
-        }
-        .btn-sm {
-            width: 180px;
-            color: $red;
-            margin-right: 25px;
-            align-self: flex-start;
-            text-shadow: none;
-            border-radius: 10px;
-            svg {
-                margin-right: 12px;
-                path {
-                    fill: $red;
-                }
-            }
-            &:hover {
-                background: $gradient;
-                color: #fff !important;
-                svg path {
-                    fill: #fff;
-                }
-            }
-        }
-        .btn-submit {
-            width: 288px;
-        }
-    }
-    @include media-breakpoint-only(lg) {
-        .advantage__item {
-            .text-lg {
-                font-size: 16px;
-                margin-bottom: 0;
-            }
-            .text-sm {
-                font-size: 14px;
-            }
-        }
-    }
-    @include media-breakpoint-down(md) {
-        &__row {
-            .advantage__item {
-                flex-basis: 33.3%;
-            }
-        }
-    }
-    @include media-breakpoint-down(sm) {
-        .grey-bg:before {
-              display: none;
-        }
-        &__row {
-            .advantage__item {
-                flex-basis: 50%;
-            }
-        }
-        &__form {
-            .top-row {
-                .form-group {
-                    width: 100%;
-                    margin-right: 0;
-                }
-            }
-        }
-    }
-    @include media-breakpoint-down(xs) {
-        .main-title {
-            padding-top: 44px;
-            margin-bottom: 44px;
-        }
-        &__row {
-            .advantage__item {
-                flex-basis: 100%;
-            }
-        }
-        &__form {
-            padding-top: 40px;
-            padding-bottom: 50px;
-            .btn-sm {
-                margin-right: 16px;
-            }
-            .upload-files-label {
-                font-size: 11px;
-            }
-        }
+    &__text {
+        font-size: 18px;
+        color: $dark;
     }
 }

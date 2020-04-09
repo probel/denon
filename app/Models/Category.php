@@ -8,7 +8,10 @@ use SleepingOwl\Admin\Traits\OrderableModel;
 class Category extends Model
 {
     use OrderableModel;
-
+    
+    protected $casts = [
+        'values' => 'array'
+    ];
     /**
      * @param $query
      * @param int $position

@@ -41,6 +41,8 @@ class  ContactsPageTest extends TestCase
         $this->assertIsString($data['contacts_text']); //HTML 
         $this->assertArrayHasKey('show_title', $data); 
         $this->assertIsString($data['show_title']); // Шоу рум denon ..
+        $this->assertArrayHasKey('show_subtitle', $data); 
+        $this->assertIsString($data['show_subtitle']); //
         $this->assertArrayHasKey('show_text', $data); 
         $this->assertIsString($data['show_text']); //HTML Оборудование ... ЕЖЕДНЕВНО.
         $this->assertArrayHasKey('legal_text', $data); 

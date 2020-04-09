@@ -115,61 +115,28 @@ b, strong {
     }
 }
 .form-control {
-    border-radius: 60px;
+    font-size: 18px;
+    border-radius: 0;
     outline: 0 !important;
-    background: rgba(255, 255, 255, 0.5);
-    box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.05) !important;
-    border: 1px solid rgba($color: $red, $alpha: .8) !important;
-    padding: 10px 16px 9px 53px;
+    background: transparent;
+    box-shadow: none !important;
+    border: 1px solid rgb(125, 125, 125) !important;
+    padding-top: 4px;
+    padding-bottom: 4px;
     height: auto;
     max-width: 100%;
     position: relative;
-    &.no-icon {
-        padding-left: 22px;
-    }
     &::placeholder {
-        color: rgba($color: $dark, $alpha: .5);
-    }
-    .transparent & {
-        background: transparent;
-        border-color: rgba($color: #fff, $alpha: .85);
-        color: #fff;
-        &::placeholder {
-            color: rgba($color: #fff, $alpha: .5);
-        }
+        color: #afafaf;
     }
 }
-textarea.form-control {
-    padding-left: 22px !important;
-}
-
 .form-label {
     color: $dark;
-    font-size: 12px;
-    padding-left: 22px;
-    margin-bottom: 5px;
-    .transparent & {
-        color: #fff;
-    }
+    font-size: 18px;
+    margin-bottom: 2px;
 }
 .form-group {
-    margin-bottom: 18px;
-    margin-right: 20px;
-    &:last-child {
-        margin-right: 0;
-    }
-    .icon {
-        left: 22px;
-        top: 35px;
-        svg path {
-            fill: $dark;
-        }
-        .transparent & {
-            svg path {
-                fill: #fff;
-            }
-        }
-    }
+    margin-bottom: 30px;
     label.error {
         margin-top: 3px;
         position: absolute;
@@ -199,9 +166,9 @@ textarea.form-control {
     }
 }
 .nav-tabs__custom {
-    background: #FFFFFF;
-    border-radius: 60px;
-    border: 1px solid $red;
+    background: transparent;
+    border-radius: 0;
+    border: none;
     z-index: 2;
     position: relative;
     .nav-item {
@@ -211,23 +178,27 @@ textarea.form-control {
     }
     .nav-link {
         width: 100%;
-        background: #fff;
-        border-radius: 60px;
+        border-radius: 0;
         border: none;
-        font-weight: bold;
-        font-size: 12px;
+        font-size: 18px;
         text-align: center;
-        letter-spacing: 0.1em;
         text-transform: uppercase;
         color: $dark;
         padding: 0;
         max-height: 100%;
+        position: relative;
         &.active {
-            background: $gradient;
+            background: $broun;
             color: #fff !important;
+            &:after {
+                @include triangle;
+                border-width: 60px 25px 0 0;
+                border-color: $broun transparent transparent transparent;
+                right: -25px;
+            }
         }
         &:hover {
-            color: $red;
+            color: $broun;
         }
     }
 }
@@ -394,7 +365,25 @@ textarea.form-control {
             top: 5px;
             left: 3px;
         }
+        .square & {
+            &:before {
+                border-radius: 0;
+                border-color: rgb(125, 125, 125);
+            }
+            &:after {
+                content: '\2713';
+                color: $broun;
+                background: transparent;
+                top: 2px;
+                left: 2px;
+                height: 14px;
+                width: 14px;
+                font-size: 12px;
+                font-weight: bold;
+            }
+        }
     }
+
 }
 .icon-center {
     display: flex;
@@ -738,7 +727,9 @@ textarea.form-control {
             font-size: 24px;
         }
         .category-page &,
-        .product-page & {
+        .product-page &,
+        .cart-page &,
+        .contact-page & {
             background: transparent;
             &__in {
                 background: linear-gradient(to right, #fff 0%, #fff 50%, $broun 50%, $broun 100%);
@@ -789,6 +780,25 @@ textarea.form-control {
                 color: $blue;
             }
         }
+    }
+}
+.section-title {
+    margin-bottom: 24px;
+    &__icon {
+        margin-right: 30px;
+        height: 86px;
+    }
+    &__content {
+        height: 86px;
+    }
+    &__title {
+        font-size: 18px;
+        font-weight: bold;
+        color: $dark;
+    }
+    &__subtitle {
+        font-size: 18px;
+        color: $dark;
     }
 }
 /*==================================================================================================================
