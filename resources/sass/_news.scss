@@ -1,0 +1,76 @@
+/*==================================================================================================================
+                                        news-page
+==================================================================================================================*/
+.news-page {
+    padding: 1px 0;
+}
+
+/*==================================================================================================================
+                                        single news
+==================================================================================================================*/
+.article-page {
+    padding: 1px 0;
+    .breadcrumb__line__in {
+        padding-left: 106px;
+    }
+    &__content {
+        background: #FFFFFF;
+        margin-bottom: 74px;
+        padding: 55px 105px;
+        &__title {
+            font-size: 36px;
+            font-weight: bold;
+            &__wrapper {
+                margin-bottom: 36px;
+            }
+        }
+        &__date {
+            font-size: 15px;
+            color: $broun;
+        }
+        &__text {
+            h2, h3 {
+                font-size: 24px;
+                font-weight: bold;
+                text-transform: uppercase;
+                margin:44px 0 22px;
+            }
+            ul {
+                padding-left: 0;
+                list-style: none;
+                > li {
+                    padding-left: 29px;
+                    position: relative;
+                    margin-bottom: 18px;
+                    &:before {
+                        display: block;
+                        content: "";
+                        width: 9px;
+                        height: 9px;
+                        background: $blue;
+                        border-radius: 50%;
+                        position: absolute;
+                        top: 9px;
+                        left: 0;
+                    }
+                }
+            }
+            img {
+                display: block;
+                max-width: 100%;
+                height: auto;
+                margin: 40px auto;
+            }
+        }
+        &__big-link {
+            font-size: 22px;
+            color: #3e3e3e;
+            text-decoration: underline;
+            display: block;
+            margin-top: 40px;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+}

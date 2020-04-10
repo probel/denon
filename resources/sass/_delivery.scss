@@ -60,3 +60,42 @@
         color: $dark;
     }
 }
+/*==================================================================================================================
+                                        guarantee-page
+==================================================================================================================*/
+.guarantee-page {
+    .section-title__content {
+        height: 64px;
+        margin: auto 0;
+    }
+    &__text {
+        font-size: 14px;
+        color: $dark;
+        margin-bottom: 30px;
+        h3 {
+            font-size: 18px;
+            text-transform: uppercase;
+            margin: 26px 0;
+        }
+        ul {
+            font-size: 14px;
+            text-transform: unset;
+            > li {
+                padding-left: 24px;
+                &:before {
+                    background: $blue;
+                    top: 4px;
+                    left: 6px;
+                }
+            }
+        }
+    }
+    &__service {
+        font-size: 14px;
+        color: $dark;
+        margin-bottom: 36px;
+        p {
+            margin-bottom: 0;
+        }
+    }
+}

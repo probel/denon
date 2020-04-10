@@ -43,6 +43,15 @@ Route::any('/contact', function () {
 Route::any('/delivery', function () {
     return view('pages.delivery');
 });
+Route::any('/guarantee', function () {
+    return view('pages.guarantee');
+});
+Route::any('/news', function () {
+    return view('pages.news');
+});
+Route::any('/article', function () {
+    return view('pages.article');
+});
 /* END LAYOUT */
 
 /* WORK ROUTES */
