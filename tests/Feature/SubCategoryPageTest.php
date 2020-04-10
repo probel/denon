@@ -1,5 +1,4 @@
 <?php
-
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -16,7 +15,8 @@ class SubCategoryPageTest extends TestCase
     public function testExample()
     {
         $category = \App\Models\Category::where('parent_id','>',0)->first();
-        $this->assertTrue($category);
+
+        $this->assertTrue((boolean)$category);
         $response = $this->get('/'.$category->parent->slug.'/'.$category->slug);
 
         /* response */

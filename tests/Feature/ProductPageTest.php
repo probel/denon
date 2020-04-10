@@ -23,9 +23,8 @@ class ProductPageTest extends TestCase
         $this->assertIsObject($product);
         $this->assertIsObject($product->category);
         $this->assertIsObject($product->category->parent);
+        
         $response = $this->get('/'.$product->category->parent->slug.'/'.$product->category->slug.'/'.$product->slug);
-
-
 
         /* response */
         $response->assertStatus(200);

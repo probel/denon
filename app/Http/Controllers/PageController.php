@@ -59,7 +59,7 @@ class PageController extends Controller
     public function contacts()
     {
         $meta = "sfsdfsdf";
-        $page = "23453452";
+        $page = Page::find(1);
         $breadcrumbs ="sfdgdsfgsdfgsd";
         $bg_image = "bg_image";
 
@@ -70,6 +70,7 @@ class PageController extends Controller
             'contacts_title' => "Путь к иконке",
             'contacts_subtitle' => "Путь к иконке",
             'contacts_text' => "Путь к иконке",
+            'show_subtitle' => "subtitle",
             'show_title' => "Путь к иконке",
             'show_text' => "Шоу рум denon",
             'legal_text'=> "HTML Информация о магазине ... Буйневич");
@@ -78,8 +79,9 @@ class PageController extends Controller
 
     public function  warranty()
     {
+        
         $meta = "sfsdfsdf";
-        $page = "23453452";
+        $page = Page::find(1);
         $breadcrumbs ="sfdgdsfgsdfgsd";
         $bg_image = "bg_image";
 
@@ -90,6 +92,7 @@ class PageController extends Controller
             'warranty_title' => "Путь к иконке",
             'warranty_subtitle' => "Путь к иконке",
             'warranty_text' => "Путь к иконке",
+            'service_icon'  => "Путь к иконке",
             'service_title' => "Путь к иконке",
             'service_subtitle' => "Путь к иконке",
             'service_addresses' =>array (0 => array ("text" => "Москва", "title" => "ООО Северный")),
@@ -101,12 +104,13 @@ class PageController extends Controller
     public function delivery()
     {
         $meta = "sfsdfsdf";
-        $page = "23453452";
+        $page = Page::find(1);        
         $breadcrumbs ="sfdgdsfgsdfgsd";
         $bg_image = "bg_image";
              $values = array (
             'slogan'          => "ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ...",
             'description'     => "УНИКАЛЬНЫЕ ТЕХНОЛОГИИ DENON ДЛЯ .",
+            'pay_subtitle'    => "sdfsdf",
             'pay_icon'        => "Путь к иконке",
             'pay_title'       => "Путь к иконке",
             'pay_text'        => "Путь к иконке",
@@ -114,8 +118,7 @@ class PageController extends Controller
             'delivery_text'   => "Путь к иконке");
         return view('pages.delivery', compact('meta', 'page', 'breadcrumbs', 'bg_image' , 'values'));
     }
-    
-    
+        
     public function sitemap()
     {
             $paths = [

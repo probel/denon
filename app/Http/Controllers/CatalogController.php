@@ -82,19 +82,20 @@ class CatalogController extends Controller
     {
 
         /* META */
-        $metaEntity = Meta::find(2);
-        $minPrice = \App\Models\ProductPrice::where('qty',1)->min('price');
-        $meta = [
-            'title' => str_replace('%min_price%',$minPrice,$metaEntity->title),
-            'description' => str_replace('%min_price%',$minPrice,$metaEntity->description),
-            'keywords' => str_replace('%min_price%',$minPrice,$metaEntity->keywords),
-        ];
+        //$metaEntity = Meta::find(2);
+        //$minPrice = \App\Models\ProductPrice::where('qty',1)->min('price');
+        $meta = [];
+            //  'title' => str_replace('%min_price%',$minPrice,$metaEntity->title),
+            // 'description' => str_replace('%min_price%',$minPrice,$metaEntity->description),
+            // 'keywords' => str_replace('%min_price%',$minPrice,$metaEntity->keywords),
+            //];
         $breadcrumbs = [
             ['href'=>'/','name'=>'Главная'],
             ['href'=> route('catalog.show'),'name'=>'Каталог']
         ];
-        $products = \App\Models\Product::where('status',1)->where('accessory',0);
-        $accessories = \App\Models\Product::where('status',1)->where('accessory',1);
+        $products = \App\Models\Product::where('status',1);
+        $product  = \App\Models\Product::where('status',1);
+        $accessories = \App\Models\Product::where('status',1);
         $current = null;
         $showAllLink = false;
         $showAllAccessoriesLink = false;
@@ -102,14 +103,14 @@ class CatalogController extends Controller
             $products = $products->get();
             $accessories = $accessories->get();
         } else {
-            $showAllLink = $products->count() > cv('paginate');
-            $showAllAccessoriesLink = $accessories->count() > cv('paginate');
-            $products = $products->paginate(cv('paginate'));
-            $accessories = $accessories->paginate(cv('paginate'));
+            //$showAllLink = $products->count() -> cv('paginate');
+            //$showAllAccessoriesLink = $accessories->count() > cv('paginate');
+            //$products = $products->paginate(cv('paginate'));
+            //$accessories = $accessories->paginate(cv('paginate'));
         }
         $view = 'catalog-view';
         $pageTitle = 'Каталог';
-        return view('pages.catalog.index',compact('meta','current','products','accessories','view','breadcrumbs','pageTitle','showAllLink','showAllAccessoriesLink'));
+        return view('pages.catalog.index',compact('meta','current','products','product','accessories','view','breadcrumbs','pageTitle','showAllLink','showAllAccessoriesLink'));
     }
 
     public function category($category)
@@ -239,15 +240,10 @@ class CatalogController extends Controller
                 'description' => str_replace('%product%',$product->name,$product->meta_description),
                 'keywords' => str_replace('%product%',$product->name,$product->meta_tags),
             ];
-            $metaEntity = Meta::find(7);
-            $metaTitle =  $product->meta_title ? $product->meta_title : $metaEntity->title;
+            //$metaEntity = Meta::find(7);
+            $metaTitle =  $product->meta_title;
 
-            
-            $meta = [
-                'title' =>  $metaTitle,
-                'description' => $metaDescription,
-                'keywords' => $metaKeywords,
-            ];
+            $meta =[];
             $breadcrumbs = [
                 ['href'=>'/','name'=>'Главная'],
                 ['href'=>route('catalog.show'),'name'=>'Каталог'],

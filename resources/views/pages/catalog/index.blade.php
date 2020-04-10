@@ -79,11 +79,5 @@
         </div>
     </div>
 </section>
-@php
-    if ($category->id ?? null) {
-        $sets = $category->sets;
-    } else {
-        $sets = \App\Models\Set::orderBy('order')->where('status',1)->get();
-    }
-@endphp
+
 @endsection

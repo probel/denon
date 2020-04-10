@@ -16,6 +16,7 @@ class  DeliveryPageTest extends TestCase
     public function testExample()
     {
         $response = $this->get('/delivery');
+        echo "-->";
 
         /* response */
         $response->assertStatus(200);
@@ -25,14 +26,8 @@ class  DeliveryPageTest extends TestCase
         $response->assertViewHas('breadcrumbs');
         $response->assertViewHas('bg_image'); // Фоновая картинка под заголовком
         /* data */
-
-        
-
-        
         
         $data = $response['values'];
-
-         
         
         $this->assertIsArray($data);
         

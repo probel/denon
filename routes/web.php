@@ -19,8 +19,9 @@ Route::get('/contacts', 'PageController@contacts')->name('contacts.show');
 Route::get('/delivery', 'PageController@delivery')->name('delivery.show');
 Route::get('/warranty', 'PageController@warranty')->name('warranty.show');
 
+Route::get('/{category}/{subcategory}/{product}', 'CatalogController@show')->name('catalog.show');
 
-
+    
 Route::get('/search',   'SearchController@search')->name('search.show');
 Route::group(['prefix' => '/news'], function () {
   Route::get('/', 'ArticleController@newsIndex')->name('news.index');
@@ -40,9 +41,9 @@ Route::any('/product', function () {
 Route::any('/contact', function () {
     return view('pages.contact');
 });
-Route::any('/delivery', function () {
-    return view('pages.delivery');
-});
+//Route::any('/delivery', function () {
+//    return view('pages.delivery');
+//});
 /* END LAYOUT */
 
 /* WORK ROUTES */
