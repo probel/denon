@@ -729,7 +729,8 @@ b, strong {
         .category-page &,
         .product-page &,
         .cart-page &,
-        .contact-page & {
+        .contact-page &,
+        .article-page & {
             background: transparent;
             &__in {
                 background: linear-gradient(to right, #fff 0%, #fff 50%, $broun 50%, $broun 100%);
