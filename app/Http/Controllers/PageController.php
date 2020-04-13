@@ -104,10 +104,16 @@ class PageController extends Controller
     public function delivery()
     {
         $meta = "sfsdfsdf";
-        $page = Page::find(1);        
+        $page = Page::where('slug','delivery')->get();
         $breadcrumbs ="sfdgdsfgsdfgsd";
         $bg_image = "bg_image";
-             $values = array (
+
+        //$values = $page->toArray();
+        //$values = $values['values']; 
+
+        $values = ($page->toArray())[0]['values']; 
+        /*
+            $values = array (
             'slogan'          => "ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ...",
             'description'     => "УНИКАЛЬНЫЕ ТЕХНОЛОГИИ DENON ДЛЯ .",
             'pay_subtitle'    => "sdfsdf",
@@ -116,6 +122,7 @@ class PageController extends Controller
             'pay_text'        => "Путь к иконке",
             'delivery_title'  => "Путь к иконке",
             'delivery_text'   => "Путь к иконке");
+        */     
         return view('pages.delivery', compact('meta', 'page', 'breadcrumbs', 'bg_image' , 'values'));
     }
         

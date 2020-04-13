@@ -42,9 +42,9 @@ Route::any('/contact', function () {
     return view('pages.contact');
 });
 
-Route::any('/delivery', function () {
-    return view('pages.delivery');
-});
+//Route::any('/delivery', function () {
+//    return view('pages.delivery');
+//});
 Route::any('/guarantee', function () {
     return view('pages.guarantee');
 });

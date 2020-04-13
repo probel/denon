@@ -1,22 +1,21 @@
 @extends('layouts.app')
 @section('content')
-<div class="delivery-page contact-page bg-light">
-    <!-- begin page-title -->
-    <section class="page-title d-flex align-items-center">
-        <div class="container">
-            <div class="col-xl-10 mx-auto px-0">
-                <h1 class="page-title__title text-uppercase mb-0"><strong>ДОСТАВКА И ОПЛАТА</strong></h1>
+    <div class="delivery-page contact-page bg-light">
+        <!-- begin page-title -->
+        <section class="page-title d-flex align-items-center">
+            <div class="container">
+                <div class="col-xl-10 mx-auto px-0">
+                    
+                    <h1 class="page-title__title text-uppercase mb-0"><strong>{{ $values['pay_title'] ?? '' }}</strong></h1>
+                </div>
             </div>
-        </div>
-    </section>
-    <!-- end page-title -->
-    <!-- begin slogan -->
-    <section class="slogan">
-        <div class="container">
-            <h2 class="slogan__title text-uppercase text-center">ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ВОСПРОИЗВЕДЕНИИ МУЗЫКИ</h2>
-            <div class="slogan__text text-uppercase text-center mx-auto"> Уникальные технологии Denon для воспроизведения
-                CD/SACD дисков, строгий отбор комплектующих и мастерство схемотехники помогают воспроизводить звук,
-                максимально приближенный к оригиналу.</div>
+        </section>
+        <!-- end page-title -->
+        <!-- begin slogan -->
+        <section class="slogan">
+            <div class="container">
+                <h2 class="slogan__title text-uppercase text-center">{{ $values["slogan"]?? '' }}</h2>
+                <div class="slogan__text text-uppercase text-center mx-auto">{{ $values["description"]?? '' }}</div>
         </div>
     </section>
     <!-- end slogan -->
@@ -27,11 +26,11 @@
                     <nav aria-label="breadcrumb" class="breadcrumb__wrapper">
                         <ol class="breadcrumb text-uppercase p-0 m-0">
                             <li class="breadcrumb-item"><a href="/">DENON</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">ДОСТАВКА И ОПЛАТА</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ $values['pay_title'] ?? '' }}</li>
                         </ol>
                     </nav>
                     <div class="page-title__small text-uppercase">
-                        <strong>ДОСТАВКА И ОПЛАТА</strong>
+                        <strong>{{ $values['paysubtitle'] ?? '' }}</strong>
                     </div>
                 </div>
             </div>
@@ -47,31 +46,20 @@
                         <img src="/images/icons/delivery.png" alt="">
                     </div>
                     <div class="section-title__content d-flex flex-column justify-content-between">
-                        <h2 class="section-title__title text-uppercase">ДОСТАВКА И ОПЛАТА</h2>
+                        <h2 class="section-title__title text-uppercase">{{ $values['paysubtitle'] ?? '' }}</h2>
                         <div class="section-title__subtitle text-justify">
-                            Юридическим лицом магазина «Денон.рф» является ООО «ПРАЙ», через которое осуществляются платежи и страхование
-                            приобретённого оборудования (если в этой услуге заинтересован клиент).
+                            {!! $values['pay_text'] ?? '' !!}
                         </div>
                     </div>
                 </div>
                 {{-- здесь классы скопированы из корзины, не изменять --}}
                 <div class="cart-page__content__text text-justify">
-                    <ul>
-                        <li>При наличных расчётах, оплата происходит при получении товара вместе с гарантийным талоном.</li>
-                        <li>При безналичной форме оплаты, товар вместе с гарантийным талоном и накладной доставляется заказчику
-                            после поступления денег на расчётный счёт ООО "ПРАЙ"</li>
-                    </ul>
-                    <p>Мы работаем ежедневно с 10 до 22 часов. В субботу, воскресенье и праздничные дни производится доставка только тех заказов,
-                        которые были оформлены в будние дни во время работы оптового склада.</p>
+                    {!! $values['shop_cart_text'] ?? '' !!}
                 </div>
                 <div class="contact-page__content__separator"></div>
-                <h2 class="section-title__title text-uppercase color-broun mb-4">Шоу-рум Denon на Пресне</h2>
+                <h2 class="section-title__title text-uppercase color-broun mb-4">{{ $values['deliverytitle'] ?? '' }}</h2>
                 <div class="delivery-page__text text-justify">
-                    <p>Магазин «Денон.рф» может взять на себя заботу о бесплатной доставке приобретённой аппаратуры стоимостью свыше 30.000 рублей
-                        в города и населённые пункты, расположенные в непосредственной близости от МКАД: Балашиха, Барвиха, Видное, Дзержинский,
-                        Долгопрудный, Котельники, Красногорск, Люберцы, Мытищи, Одинцово, Реутов, Солнцево, Химки.</p>
-                    <p>Ваш заказ будет оперативно доставлен в любой населённый пункт России по минимальным тарифам. Возможна доставка по СНГ.
-                        За более подробной информацией пожалуйста обращайтесь по нашим контактным телефонам, указанным на сайте.</p>
+                    {!! $values['deliverytext'] ?? '' !!}
                 </div>
             </div>
         </div>
