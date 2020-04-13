@@ -30,8 +30,6 @@ class PageController extends Controller
     }
     public function showFront()
     {
-        echo "111";
-        
         $page = Page::find(1);
         if (!$page) abort(404);
 
