@@ -30,7 +30,8 @@ class PageController extends Controller
     }
     public function showFront()
     {
-
+        echo "111";
+        
         $page = Page::find(1);
         if (!$page) abort(404);
 
@@ -44,6 +45,8 @@ class PageController extends Controller
         $categories = \App\Models\Category::get();
         $news = \App\Models\News::get();
 
+        echo $page->type; 
+        
         $values =  array ( 'sliders' =>  array (0 => array('title'=>'12',
                                                                  'subtitle'=>'13',
                                                                  'description'=>'14',
@@ -52,6 +55,7 @@ class PageController extends Controller
                                                                               'help' => '17')),
                                         'slogan' => 'ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ...',
                                         'description' => 'УНИКАЛЬНЫЕ ТЕХНОЛОГИИ DENON ДЛЯ ...');
+        
         return view('pages.'.$page->type, compact('meta', 'topMenuTitleList', 'categories', 'news', 'values'));
 
     }
@@ -79,7 +83,6 @@ class PageController extends Controller
 
     public function  warranty()
     {
-        
         $meta = "sfsdfsdf";
         $page = Page::find(1);
         $breadcrumbs ="sfdgdsfgsdfgsd";
@@ -107,10 +110,8 @@ class PageController extends Controller
         $page = Page::where('slug','delivery')->get();
         $breadcrumbs ="sfdgdsfgsdfgsd";
         $bg_image = "bg_image";
-
         //$values = $page->toArray();
         //$values = $values['values']; 
-
         $values = ($page->toArray())[0]['values']; 
         /*
             $values = array (
