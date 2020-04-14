@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\{
     Page,
-    Meta
+    Meta,
+    Category
 };
 use Illuminate\Http\Request;
 use Sitemap;
@@ -39,6 +40,11 @@ class PageController extends Controller
         $product = \App\Models\Product::first();
         $category = \App\Models\Category::where('parent_id','<',1)->first();
         $categories = \App\Models\Category::get();
+
+
+        //print_r($categories->toArray());
+            
+        
         $news = \App\Models\News::get();
 
 
@@ -52,7 +58,7 @@ class PageController extends Controller
         //                                'slogan' => 'ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ...',
         //                                'description' => 'УНИКАЛЬНЫЕ ТЕХНОЛОГИИ DENON ДЛЯ ...');
         
-        return view('pages.'.$page->type, compact('meta', 'topMenuTitleList', 'categories', 'news', 'values'));
+        return view('pages.'.$page->type, compact('meta', 'topMenuTitleList', 'categories', 'news', 'values' , 'category'));
 
     }
 
