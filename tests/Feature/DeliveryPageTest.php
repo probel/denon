@@ -16,8 +16,7 @@ class  DeliveryPageTest extends TestCase
     public function testExample()
     {
         $response = $this->get('/delivery');
-        echo "-->";
-
+        
         /* response */
         $response->assertStatus(200);
         $response->assertHeader('etag');

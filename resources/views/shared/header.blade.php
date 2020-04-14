@@ -1,4 +1,3 @@
-
 <div class="navbar navbar-expand-xl p-0 d-block">
     <!-- header top begin -->
     <div class="header-top ">
