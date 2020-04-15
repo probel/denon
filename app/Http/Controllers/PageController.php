@@ -35,30 +35,17 @@ class PageController extends Controller
         if (!$page) abort(404);
 
         $topMenuTitleList = Page::getTitleList(); 
-        
-        $meta = $page->getMeta();
-        $product = \App\Models\Product::first();
-        $category = \App\Models\Category::where('parent_id','<',1)->first();
+        $meta       = $page->getMeta();
+        $product    = \App\Models\Product::first();
+        $category   = \App\Models\Category::where('parent_id','<',1)->first();
         $categories = \App\Models\Category::get();
+        $news       = \App\Models\News::get();
+        $catalog    = \App\Models\Product::get();
 
 
-        //print_r($categories->toArray());
-            
         
-        $news = \App\Models\News::get();
-
-
         $values = ($page->toArray())['values'];
-        //$values =  array ( 'sliders' =>  array (0 => array('title'=>'12',
-        //                                                         'subtitle'=>'13',
-        //                                                         'description'=>'14',
-        //                                                         'title'=>'15',
-        //                                                         'url' => '16',
-        //                                                                      'help' => '17')),
-        //                                'slogan' => 'ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ...',
-        //                                'description' => 'УНИКАЛЬНЫЕ ТЕХНОЛОГИИ DENON ДЛЯ ...');
-        
-        return view('pages.'.$page->type, compact('meta', 'topMenuTitleList', 'categories', 'news', 'values' , 'category'));
+        return view('pages.'.$page->type, compact('meta', 'topMenuTitleList', 'catalog', 'categories', 'news', 'values' , 'categories'));
 
     }
 
