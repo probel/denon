@@ -31,13 +31,14 @@
                     <div class="sticker position-absolute text-uppercase">new</div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-xl-6">
                         <div class="product-card__sliders">
                             <div class="photo-big">
                                 <a href="#" class="photo-big__item d-flex h-100" data-lightbox="product-00001">
                                     <img class="m-auto img-fluid" src="/images/project/product-1.jpg">
                                 </a>
                             </div>
+                            <div class="vendor-code d-xl-none text-right">AZ21173</div>
                             <div class="photo-small photo-small-slick">
                                 <div class="photo-small__item d-flex mx-auto">
                                     <img class="align-self-center m-auto" src="/images/project/prod-sm-1.jpg" alt="">
@@ -60,14 +61,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-xl-6">
                         <div class="product-card__info">
                             <div class="d-flex justify-content-between">
                                 <div>
                                     <h1 class="product-card__title">AVR-S650H</h1>
                                     <h2 class="product-card__subtitle">5.2 канальный 4K AV-ресивер с HEOS</h2>
                                 </div>
-                                <div class="vendor-code">AZ21173</div>
+                                <div class="vendor-code d-none d-xl-block">AZ21173</div>
                             </div>
                             <div class="color-check d-flex">
                                 <div class="color-check__caption">Цвет:</div>
@@ -92,12 +93,12 @@
                             <form action="/" method="post" class="product-card__form js-form__to-cart">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="id" value="product-id">
-                                <div class="d-flex justify-content-between align-items-end">
+                                <div class="d-flex justify-content-between align-items-end flex-wrap">
                                     <div class="price__wrapper">
                                         <div class="old-price">39 990 РУБ</div>
                                         <div class="price-sum"><strong class="js-product-sum">29 990 </strong>РУБ</div>
                                     </div>
-                                    <div class="d-flex align-items-end">
+                                    <div class="d-flex align-items-end count__wrapper">
                                         <div class="plusminus d-flex align-items-center js-plusminus">
                                             <div class="plusminus__caption text-uppercase">Количество:</div>
                                             <span class="minus js-minus">-</span>

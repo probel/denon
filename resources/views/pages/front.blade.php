@@ -16,4 +16,4 @@
     {{-- новинки здесь и на главной стрнице--}}
     @include('blocks.catalognews', array('productNews'=> $productNews) )
  <!-- end news -->
-@endsection
+ @endsection

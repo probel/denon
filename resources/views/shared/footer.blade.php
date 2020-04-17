@@ -58,8 +58,8 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-xl-4 col-sm-12 d-flex justify-content-between">
-                    <div>
+                <div class="col-xl-4 col-sm-12 d-flex justify-content-between px-0 px-xl-3 flex-wrap">
+                    <div class="col-custom">
                         <h3 class="footer__menu__title">Минисистемы</h3>
                         <ul class="footer__menu list-unstyled">
                              <li class="footer__menu__item">
@@ -71,7 +71,7 @@
                         </ul>
                     </div>
                     {{-- здесь только второй и третий столбец пунктов меню с классом text-right --}}
-                    <div class="text-xl-right text-left">
+                    <div class="col-custom text-xl-right text-left">
                         <h3 class="footer__menu__title">Акции</h3>
                         <ul class="footer__menu list-unstyled">
                              <li class="footer__menu__item">
@@ -82,7 +82,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="text-xl-right text-left">
+                    <div class="col-custom text-xl-right text-left">
                         <h3 class="footer__menu__title">Контакты</h3>
                         <ul class="footer__menu list-unstyled">
                              <li class="footer__menu__item">
@@ -97,6 +97,9 @@
                              <li class="footer__menu__item">
                                 <a class="footer__menu__link" href="#">Инструкции</a>
                             </li>
+                            <li class="footer__menu__item d-xl-none mt-3">
+                                <a class="footer__menu__link" href="#">Карта сайта</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -104,7 +107,7 @@
             <div class="row">
                 <div class="col-xl-10 offset-xl-1 d-flex justify-content-between">
                     <div class="copyright">© DENON.RU, 2020. All rights reserved</div>
-                    <a class="footer__menu__link" href="#">Карта сайта</a>
+                    <a class="footer__menu__link d-none d-xl-flex" href="#">Карта сайта</a>
                 </div>
             </div>
         </div>
