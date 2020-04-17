@@ -1,10 +1,11 @@
+
 <section class="news">
     <div class="news__title__wrapper icon-center position-relative">
         <h2 class="news__title text-uppercase text-center">ОБЗОРЫ НОВИНОК DENON</h2>
     </div>
     <div class="row position-relative">
         <div class="col-6">
-            <div class="news__item__image" style="background-image: url(../images/project/new-1.jpg)"></div>
+            <div class="news__item__image" style="background-image: url(../{{ $productNews[0]->images[0] ?? '' }})"></div>
         </div>
         <div class="col-6 position-static">
             <div class="container position-absolute container-absolute h-100">
@@ -12,43 +13,17 @@
                     <div class="col-md-6 offset-6 pr-0 h-100 d-flex">
                         <div class="news__item py-3 my-auto">
                             <div class="news__item__height overflow-hidden">
-                                <div class="news__item__date text-right">12.02.2020</div>
+                                <div class="news__item__date text-right">
+                                    {{  date('d.m.Y', strtotime($productNews[0]['created_at'])) }}</div>
                                 <h3 class="news__item__title text-uppercase">
-                                    <a href="#">ВИНИЛОВЫЕ ПРОИГРЫВАТЕЛИ</a>
+                                    <a href="{{ $productNews[0]->getUrl() }}">{{ $productNews[0]['name'] ?? '' }}</a>
                                 </h3>
                                 <div class="news__item__text text-justify">
-                                    <p>Виниловые пластинки сегодня - это философия, предмет коллекционирования и выбор
-                                        энтузиастов хорошего звука.
-                                        Проигрыватель виниловых дисков стал знаковым элементом современного интерьера.
-                                        Появившись в квартире, он
-                                        формирует вокруг себя своеобразную атмосферу. А коллекция дисков становится
-                                        культурным центром всего дома,
-                                        добавляя магии в ритуал прослушивания музыки.
-                                    </p>
-                                    <p>Виниловые пластинки сегодня - это философия, предмет коллекционирования и выбор
-                                        энтузиастов хорошего звука.
-                                        Проигрыватель виниловых дисков стал знаковым элементом современного интерьера.
-                                    </p>
-                                    <p>Виниловые пластинки сегодня - это философия, предмет коллекционирования и выбор
-                                        энтузиастов хорошего звука.
-                                        Проигрыватель виниловых дисков стал знаковым элементом современного интерьера.
-                                        Появившись в квартире, он
-                                        формирует вокруг себя своеобразную атмосферу. А коллекция дисков становится
-                                        культурным центром всего дома,
-                                        добавляя магии в ритуал прослушивания музыки.
-                                    </p>
-                                    <p>Виниловые пластинки сегодня - это философия, предмет коллекционирования и выбор
-                                        энтузиастов хорошего звука.
-                                        Проигрыватель виниловых дисков стал знаковым элементом современного интерьера.
-                                        Появившись в квартире, он
-                                        формирует вокруг себя своеобразную атмосферу. А коллекция дисков становится
-                                        культурным центром всего дома,
-                                        добавляя магии в ритуал прослушивания музыки.
-                                    </p>
+                                    {!! $productNews[0]['description'] ?? '' !!}
                                 </div>
                             </div>
                             <div class="text-right">
-                                <a class="news__item__more text-uppercase " href="#">ЧИТАТЬ ДАЛЬШЕ</a>
+                                <a class="news__item__more text-uppercase " href="{{ $productNews[0]->getUrl() }}">ЧИТАТЬ ДАЛЬШЕ</a>
                             </div>
                         </div>
                     </div>
@@ -61,31 +36,21 @@
         <div class="col-6 ml-15">
             <div class="d-flex row-second__wrapper">
                 <div class="row-second__image flex-shrink-0">
-                    <div class="news__item__image" style="background-image: url(../images/project/new-2.jpg)"></div>
+                    <div class="news__item__image" style="background-image: url(../{{ $productNews[1]->images[0] ?? '' }})"></div>
                 </div>
                 <div class="first news__item row-second__news__item py-3 my-auto">
                     <div class="news__item__height overflow-hidden">
-                        <div class="news__item__date text-right">12.02.2020</div>
+                        <div class="news__item__date text-right">
+                            {{  date('d.m.Y', strtotime($productNews[1]['created_at'])) }}</div>
                         <h3 class="news__item__title text-uppercase">
-                            <a href="#">ВИНИЛОВЫЕ ПРОИГРЫВАТЕЛИ</a>
+                            <a href="{{ $productNews[1]->getUrl() }}">{{ $productNews[1]['name'] ?? '' }}</a>
                         </h3>
                         <div class="news__item__text text-justify">
-                            <p>Виниловые пластинки сегодня - это философия, предмет коллекционирования и выбор
-                                энтузиастов хорошего звука.
-                                Проигрыватель виниловых дисков стал знаковым элементом современного интерьера.
-                                Появившись в квартире, он
-                                формирует вокруг себя своеобразную атмосферу. А коллекция дисков становится культурным
-                                центром всего дома,
-                                добавляя магии в ритуал прослушивания музыки.
-                            </p>
-                            <p>Виниловые пластинки сегодня - это философия, предмет коллекционирования и выбор
-                                энтузиастов хорошего звука.
-                                Проигрыватель виниловых дисков стал знаковым элементом современного интерьера.
-                            </p>
+                            {!! $productNews[1]['description'] ?? '' !!}
                         </div>
                     </div>
                     <div class="text-right">
-                        <a class="news__item__more text-uppercase " href="#">ЧИТАТЬ ДАЛЬШЕ</a>
+                        <a class="news__item__more text-uppercase " href="{{ $productNews[1]->getUrl() }}">ЧИТАТЬ ДАЛЬШЕ</a>
                     </div>
                 </div>
             </div>
@@ -97,32 +62,21 @@
                         <div class="d-flex row-second__wrapper">
                             <div class="row-second__image__second flex-shrink-0">
                                 <div class="news__item__image"
-                                     style="background-image: url(../images/project/new-3.jpg)"></div>
+                                     style="background-image: url(../{{ $productNews[2]->images[0] ?? '' }})"></div>
                             </div>
                             <div class="news__item row-second__news__item py-3 my-auto">
                                 <div class="news__item__height overflow-hidden">
-                                    <div class="news__item__date text-right">12.02.2020</div>
+                                    <div class="news__item__date text-right">
+                                        {{  date('d.m.Y', strtotime($productNews[2]['created_at'])) }}</div>
                                     <h3 class="news__item__title text-uppercase">
-                                        <a href="#">ВИНИЛОВЫЕ ПРОИГРЫВАТЕЛИ</a>
+                                        <a href="{{ $productNews[2]->getUrl() }}">{{ $productNews[2]['name'] ?? '' }}</a>
                                     </h3>
                                     <div class="news__item__text text-justify">
-                                        <p>Виниловые пластинки сегодня - это философия, предмет коллекционирования и
-                                            выбор энтузиастов хорошего звука.
-                                            Проигрыватель виниловых дисков стал знаковым элементом современного
-                                            интерьера. Появившись в квартире, он
-                                            формирует вокруг себя своеобразную атмосферу. А коллекция дисков становится
-                                            культурным центром всего дома,
-                                            добавляя магии в ритуал прослушивания музыки.
-                                        </p>
-                                        <p>Виниловые пластинки сегодня - это философия, предмет коллекционирования и
-                                            выбор энтузиастов хорошего звука.
-                                            Проигрыватель виниловых дисков стал знаковым элементом современного
-                                            интерьера.
-                                        </p>
+                                        {!! $productNews[2]['description'] ?? '' !!} 
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <a class="news__item__more text-uppercase " href="#">ЧИТАТЬ ДАЛЬШЕ</a>
+                                    <a class="news__item__more text-uppercase " href="{{ $productNews[2]->getUrl() }}">ЧИТАТЬ ДАЛЬШЕ</a>
                                 </div>
                             </div>
                         </div>
@@ -133,3 +87,9 @@
     </div>
     <a class="news__show-all w-100 text-center d-block text-uppercase" href="#">УЗНАТЬ БОЛЬШЕ</a>
 </section>
+
+    
+
+    
+
+ 

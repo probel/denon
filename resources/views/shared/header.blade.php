@@ -17,13 +17,13 @@
                             <a class="header-top__menu__link text-uppercase" href="#">ИНСТАЛЛЯЦИЯ</a>
                         </li>
                         <li class="header-top__menu__item">
-                            <a class="header-top__menu__link text-uppercase" href="#">НОВОСТИ</a>
+                            <a class="header-top__menu__link text-uppercase" href="/news">НОВОСТИ</a>
                         </li>
                         <li class="header-top__menu__item">
-                            <a class="header-top__menu__link text-uppercase" href="#">ГАРАНТИЯ И СЕРВИС</a>
+                            <a class="header-top__menu__link text-uppercase" href="/warranty">ГАРАНТИЯ И СЕРВИС</a>
                         </li>
                         <li class="header-top__menu__item">
-                            <a class="header-top__menu__link text-uppercase" href="#">ДОСТАВКА И ОПЛАТА</a>
+                            <a class="header-top__menu__link text-uppercase" href="/delivery">ДОСТАВКА И ОПЛАТА</a>
                         </li>
                         <li class="header-top__menu__item">
                             <a class="header-top__menu__link text-uppercase" href="#">

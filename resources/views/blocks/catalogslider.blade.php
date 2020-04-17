@@ -1,6 +1,6 @@
 <section class="first-screen position-relative">
     <div class="first-screen__slider first-screen-slick">
-    @foreach($values["slider"] as $key => $item)
+        @foreach($valueSliderItems["slider"] as $key => $item)
             <div class="first-screen__slider__item" style="background-image: url('../{{ $item['image'] ?? '' }}' );">
                 <div class="container d-flex position-relative">
                     <div class="offset-lg-1 my-auto">

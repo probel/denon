@@ -41,7 +41,7 @@
                             </div>
                             <div>
                                 <div class="price__wrapper text-right">
-                                    <div class="expected text-uppercase">поставка ожидается<br>{{  date('d.m.Y', strtotime($item['delivery_expected']))  ?? ''  }}</div>
+                                    <div class="expected text-uppercase">поставка ожидается<br>{{ date('d.m.Y', strtotime($item['delivery_expected']))  ?? ''  }}</div>
                                 </div>
                                 <div class="catalog__item__bottom d-flex justify-content-between">
                                     <form action="/quick/" method="post" class="form">

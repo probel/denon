@@ -16,11 +16,11 @@
             <div class="tab-pane {{ request()->accessories ? '' : 'active' }}" id="catalog-page-01">
                 <div class="d-none d-sm-block filter js-filter">
                     <ul class="filter__list list-unstyled d-flex mb-0">
-                        @foreach (Main::categoriesMain() as $ct)
-                        <li data-id="{{ $ct->id }}" class="filter__list__item js-filter__item">
-                            <a class="filter__list__item__link icon-center {{ $ct->id == ($category->id ?? null) ? '-is-active' : '' }}" href="{{ $ct->getUrl() }}">{{ $ct->name }}</a>
+                        {{-- @foreach (Main::categoriesMain() as $ct) --}}
+                        <li data-id="{{--  $ct->id --}}" class="filter__list__item js-filter__item">
+                            <a class="filter__list__item__link icon-center {{-- $ct->id == ($category->id ?? null) ? '-is-active' : '' --}}" href="{{-- $ct->getUrl() --}}">{{-- $ct->name --}}</a>
                         </li>
-                        @endforeach
+                        {{-- @endforeach --}}
                         <li class="filter__list__more">
                             <a class="filter__list__more__link icon-center js-filter-more" href="#">
                                 <i class="fa fa-plus"></i>
@@ -30,11 +30,11 @@
                 </div>
                 <div class="filter d-block d-sm-none position-relative">
                     <ul data-scroll="0" class="filter__list filter__list-mobile d-flex list-unstyled mb-0 js-filter-mobile">
-                    @foreach (Main::categories()->where('show_catalog',1) as $ct)
-                        <li data-id="{{ $ct->id }}" class="filter__list__item js-mobile-filter__item">
-                            <a class="filter__list__item__link {{ $ct->id == ($category->id ?? null) ? '-is-active' : '' }}" href="{{ $ct->getUrl() }}">{{ $ct->name }}</a>
+                        {{-- @foreach (Main::categories()->where('show_catalog',1) as $ct) --}}
+                        <li data-id="{{-- $ct->id --}}" class="filter__list__item js-mobile-filter__item">
+                            <a class="filter__list__item__link {{--  $ct->id == ($category->id ?? null) ? '-is-active' : '' --}}" href="{{-- $ct->getUrl() --}}">{{--  $ct->name --}}</a>
                         </li>
-                    @endforeach
+                        {{-- @endforeach --}}
                     </ul>
                     <div class="js-filter-mobile-prev filter-mobile-arrow prev position-absolute">
                         <svg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,11 +57,11 @@
             <div class="tab-pane {{ request()->accessories ? 'active' : '' }}" id="catalog-page-02">
                 <div class="d-none d-sm-block filter js-filter">
                     <ul class="filter__list list-unstyled d-flex mb-0">
-                        @foreach (Main::categoriesAccessory() as $ct)
-                        <li data-id="{{ $ct->id }}" class="filter__list__item js-filter__item">
-                            <a class="filter__list__item__link icon-center {{ $ct->id == ($category->id ?? null) ? '-is-active' : '' }}" href="{{ $ct->getUrl() }}?accessories=1">{{ $ct->name }}</a>
+                        {{-- @foreach (Main::categoriesAccessory() as $ct) --}}
+                        <li data-id="{{--  $ct->id --}}" class="filter__list__item js-filter__item">
+                            <a class="filter__list__item__link icon-center {{--  $ct->id == ($category->id ?? null) ? '-is-active' : '' --}}" href="{{-- $ct->getUrl() --}}?accessories=1">{{--  $ct->name --}}</a>
                         </li>
-                        @endforeach
+                        {{-- @endforeach --}}
                         <li class="filter__list__more">
                             <a class="filter__list__more__link icon-center js-filter-more" href="#">
                                 <i class="fa fa-plus"></i>
@@ -71,11 +71,11 @@
                 </div>
                 <div class="filter d-block d-sm-none position-relative">
                     <ul data-scroll="0" class="filter__list filter__list-mobile d-flex list-unstyled mb-0 js-filter-mobile">
-                    @foreach (Main::categoriesAccessory()->where('show_catalog',1) as $ct)
-                        <li data-id="{{ $ct->id }}" class="filter__list__item js-mobile-filter__item">
-                            <a class="filter__list__item__link {{ $ct->id == ($category->id ?? null) ? '-is-active' : '' }}" href="{{ $ct->getUrl() }}">{{ $ct->name }}</a>
+                        {{-- @foreach (Main::categoriesAccessory()->where('show_catalog',1) as $ct) --}}
+                        <li data-id="{{-- $ct->id --}}" class="filter__list__item js-mobile-filter__item">
+                            <a class="filter__list__item__link {{-- $ct->id == ($category->id ?? null) ? '-is-active' : '' --}}" href="{{--  $ct->getUrl() --}}">{{-- $ct->name --}}</a>
                         </li>
-                    @endforeach
+                        {{-- @endforeach --}}
                     </ul>
                     <div class="js-filter-mobile-prev filter-mobile-arrow prev position-absolute">
                         <svg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -98,23 +98,14 @@
         </div>
     </div>
 </section>
-@php
-    if ($category->id ?? null) {
-        $sets = $category->sets;
-    } else {
-        $sets = \App\Models\Set::orderBy('order')->where('status',1)->get();
-    }
-@endphp
-@if ($sets->count())
 <div class="catalog-selection position-relative">
     <div class="container">
         <h2 class="main-title text-center">Подборки</h2>
         <div class="catalog-selection__list d-flex justify-content-center flex-wrap">
-            @foreach ($sets as $set)
-            <a class="catalog-selection__link"  href="{{ $set->getUrl() }}">{{ $set->name }}</a>
-            @endforeach
-        </div>
+            {{--  @foreach ($sets as $set) --}}
+            <a class="catalog-selection__link"  href="{{--  $set->getUrl() --}}">{{-- $set->name --}}</a>
+            {{--  @endforeach --}}
+        </div> 
     </div>
 </div>
-@endif
 @endsection

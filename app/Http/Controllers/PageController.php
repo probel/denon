@@ -22,10 +22,11 @@ class PageController extends Controller
      */
     public function show($slug)
     {
-
-        $page = Page::where('slug',$slug)->first();
+        echo "test1234123"; 
+        //$page = Page::where('slug',$slug)->first();
         if (!$page) abort(404);
 
+        
         return view('pages.'.$page->type);
 
     }
@@ -33,6 +34,7 @@ class PageController extends Controller
     {
         $page = Page::find(1);
         if (!$page) abort(404);
+        $valueSliderItems = ($page->toArray())['values'];
 
         $topMenuTitleList = Page::getTitleList(); 
         $meta       = $page->getMeta();
@@ -41,11 +43,11 @@ class PageController extends Controller
         $categories = \App\Models\Category::get();
         $news       = \App\Models\News::get();
         $catalog    = \App\Models\Product::get();
-
-
         
-        $values = ($page->toArray())['values'];
-        return view('pages.'.$page->type, compact('meta', 'topMenuTitleList', 'catalog', 'categories', 'news', 'values' , 'categories'));
+        //новинки в продуктах
+        $productNews  = \App\Models\Product::where('status',1)->where('new',1)->get();
+             
+        return view('pages.'.$page->type, compact('meta', 'topMenuTitleList', 'catalog', 'categories', 'news', 'productNews','valueSliderItems'));
 
     }
 
@@ -67,30 +69,15 @@ class PageController extends Controller
             'show_title' => "Путь к иконке",
             'show_text' => "Шоу рум denon",
             'legal_text'=> "HTML Информация о магазине ... Буйневич");
-        return view('pages.contacts', compact('meta', 'page', 'breadcrumbs', 'bg_image', 'values'));
+        return view('pages.contact', compact('meta', 'page', 'breadcrumbs', 'bg_image', 'values'));
     }
 
     public function  warranty()
     {
         $meta = "sfsdfsdf";
-        $page = Page::find(1);
-        $breadcrumbs ="sfdgdsfgsdfgsd";
-        $bg_image = "bg_image";
-
-        $values = array(
-            'slogan' => "ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ...",
-            'description' => "УНИКАЛЬНЫЕ ТЕХНОЛОГИИ DENON ДЛЯ .",
-            'warranty_icon' => "Путь к иконке",
-            'warranty_title' => "Путь к иконке",
-            'warranty_subtitle' => "Путь к иконке",
-            'warranty_text' => "Путь к иконке",
-            'service_icon'  => "Путь к иконке",
-            'service_title' => "Путь к иконке",
-            'service_subtitle' => "Путь к иконке",
-            'service_addresses' =>array (0 => array ("text" => "Москва", "title" => "ООО Северный")),
-            'title' => array("Шоу рум denon"),
-            'text'=> array("HTML Информация о магазине ... Буйневич"));
-        return view('pages.warranty', compact('meta', 'page', 'breadcrumbs', 'bg_image', 'values'));
+        $page = Page::where('slug','warranty')->get();
+        $values = ($page->toArray())[0]['values'];
+        return view('pages.warranty', compact('meta', 'page', 'values'));
     }
     
     public function delivery()
@@ -99,8 +86,6 @@ class PageController extends Controller
         $page = Page::where('slug','delivery')->get();
         $breadcrumbs ="sfdgdsfgsdfgsd";
         $bg_image = "bg_image";
-        //$values = $page->toArray();
-        //$values = $values['values']; 
         $values = ($page->toArray())[0]['values']; 
         /*
             $values = array (
@@ -131,11 +116,6 @@ class PageController extends Controller
             }
 
 
-            /* $categories = \App\Models\Category::all();
-            foreach ($categories as $category) {
-                 $url = route('catalog.category', ['slug'=>$category->slug ]);
-                $paths[$url] = $url;
-            } */
             $products = \App\Models\Product::where('status',1)->get();
             foreach ($products as $product) {
                 $url = $product->getUrl();
@@ -155,29 +135,7 @@ class PageController extends Controller
                 }
             }
 
-            /*
-            if ($city && $city->sitemap_add) {
-                $add =explode("\n", $city->sitemap_add);
-                foreach($add as $link) {
-                    $url = url($link);
-                    if (!in_array($url, $remove)) {
-                        Sitemap::addTag($url, false, 'daily', '1');
-                    }
-                }
-            } */
-
-
-
-        /* $page = Page::where('lang', 'en')->orderBy('updated_at', 'DESC')->first();
-        Sitemap::addTag(config('app.url') . '/en/', $page ? $page->updated_at : '', 'monthly', '1');
-        Sitemap::addTag(config('app.url') . '/en/services/', $page ? $page->updated_at : '', 'monthly', '1');
-        Sitemap::addTag(config('app.url') . '/en/cooperation/', '', 'monthly', '1');
-        $pages = Page::where('lang', 'en')->where('type', 'story')->orderBy('updated_at', 'DESC')->get();
-        foreach ($pages as $page) {
-            Sitemap::addTag(config('app.url') . '/en/' . $page->alias . '.html', $page->updated_at, 'daily', '1');
-        } */
-
-        return Sitemap::render();
+         return Sitemap::render();
     }
     public function test()
     {

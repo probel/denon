@@ -12,7 +12,7 @@
                                     <div class="image__wrapper icon-center">
                                         <img class="catalog__filter__slider__image d-block" src="{{ asset($item->values["bg_image"]) }}" alt="">
                                     </div>
-                                    {{ $item["title"] ?? ''}}
+                                    {!!   $item["title"] ?? '' !!}
                                 </a>
                             </div>
                         @endforeach        
