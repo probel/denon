@@ -22,10 +22,10 @@
         <div class="col-xl-10 mx-auto px-0">
             <div class="cart-page__content">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-xl-6">
                         <h2 class="text-uppercase">ВАШ ЗАКАЗ</h2>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-xl-6">
                         <h2 class="text-uppercase">ОФОРМЛЕНИЕ ЗАКАЗА</h2>
                     </div>
                 </div>

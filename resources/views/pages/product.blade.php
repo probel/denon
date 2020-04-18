@@ -312,43 +312,43 @@
                     <div class="tab-pane" id="product-desc-03">
                         <div class="downloads text-uppercase">
                             {{-- здесь класс .title (у первого downloads__row) --}}
-                            <div class="row downloads__row title align-items-lg-center">
-                                <div class="col-sm-4"></div>
-                                <div class="col-sm-2">Дата</div>
-                                <div class="col-sm-2">ВЕС</div>
-                                <div class="col-sm-2">ТИП ФАЙЛА</div>
-                                <div class="col-sm-2"></div>
+                            <div class="row downloads__row title align-items-center">
+                                <div class="col-lg-4 col-12"></div>
+                                <div class="col-lg-2 col-sm-3">Дата</div>
+                                <div class="col-lg-2 col-sm-3">ВЕС</div>
+                                <div class="col-lg-2 col-sm-3">ТИП ФАЙЛА</div>
+                                <div class="col-lg-2 col-sm-3"></div>
                             </div>
                             {{-- здесь класс .item (у этого и следующих downloads__row) --}}
-                            <div class="row downloads__row item align-items-lg-center">
-                                <div class="col-sm-4">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
-                                <div class="col-sm-2">12.02.2020</div>
-                                <div class="col-sm-2">-</div>
-                                <div class="col-sm-2">WEBSITE</div>
-                                <div class="col-sm-2"><a class="btn" href="#">Просмотр</a></div>
+                            <div class="row downloads__row item align-items-center">
+                                <div class="col-lg-4 col-12">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
+                                <div class="col-lg-2 col-sm-3">12.02.2020</div>
+                                <div class="col-lg-2 col-sm-3">-</div>
+                                <div class="col-lg-2 col-sm-3">WEBSITE</div>
+                                <div class="col-lg-2 col-sm-3"><a class="btn" href="#">Просмотр</a></div>
                             </div>
-                            <div class="row downloads__row item align-items-lg-center">
-                                <div class="col-sm-4">Информация о продукте</div>
-                                <div class="col-sm-2">06.12.2019</div>
-                                <div class="col-sm-2">1.2MB</div>
-                                <div class="col-sm-2">PDF</div>
-                                <div class="col-sm-2"><a class="btn" href="#">СКАЧАТЬ</a></div>
+                            <div class="row downloads__row item align-items-center">
+                                <div class="col-lg-4 col-12">Информация о продукте</div>
+                                <div class="col-lg-2 col-sm-3">06.12.2019</div>
+                                <div class="col-lg-2 col-sm-3">1.2MB</div>
+                                <div class="col-lg-2 col-sm-3">PDF</div>
+                                <div class="col-lg-2 col-sm-3"><a class="btn" href="#">СКАЧАТЬ</a></div>
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="product-desc-04">
                         <div class="downloads text-uppercase">
-                            <div class="row downloads__row item align-items-lg-center">
-                                <div class="col-sm-10">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
-                                <div class="col-sm-2"><a class="btn" href="#">Просмотр</a></div>
+                            <div class="row downloads__row item align-items-center">
+                                <div class="col-lg-10 col-sm-9">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
+                                <div class="col-lg-2 col-sm-3"><a class="btn" href="#">Просмотр</a></div>
                             </div>
-                            <div class="row downloads__row item align-items-lg-center">
-                                <div class="col-sm-10">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
-                                <div class="col-sm-2"><a class="btn" href="#">Просмотр</a></div>
+                            <div class="row downloads__row item align-items-center">
+                                <div class="col-lg-10 col-sm-9">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
+                                <div class="col-lg-2 col-sm-3"><a class="btn" href="#">Просмотр</a></div>
                             </div>
-                            <div class="row downloads__row item align-items-lg-center">
-                                <div class="col-sm-10">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
-                                <div class="col-sm-2"><a class="btn" href="#">Просмотр</a></div>
+                            <div class="row downloads__row item align-items-center">
+                                <div class="col-lg-10 col-sm-9">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
+                                <div class="col-lg-2 col-sm-3"><a class="btn" href="#">Просмотр</a></div>
                             </div>
 
                         </div>
@@ -356,7 +356,7 @@
                 </div>
                 <!-- bottom line -->
                 <div class="product-description__bottom">
-                    <form action="" class="product-card__form d-flex h-100 align-items-end justify-content-end">
+                    <form action="" class="product-card__form d-flex h-100 align-items-end justify-content-end flex-wrap">
                         <div class="price__wrapper">
                             <div class="old-price">39 990 РУБ</div>
                             <div class="price-sum"><strong class="js-product-sum">29 990 </strong>РУБ</div>

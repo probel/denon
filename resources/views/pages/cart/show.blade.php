@@ -23,11 +23,11 @@
             <div class="cart-page__content">
                 <div class="row">
                     @if (Cart::get()->positions)
-                        <div class="col-lg-6 pr-xl-4">
+                        <div class="col-xl-6 pr-xl-4">
                             <h2 class="cart-page__content__title text-uppercase">ВАШ ЗАКАЗ</h2>
                             @include('shared.cart.content')
                         </div>
-                        <div class="col-lg-6 pl-xl-4">
+                        <div class="col-xl-6 pl-xl-4">
                             <h2 class="cart-page__content__title text-uppercase">ОФОРМЛЕНИЕ ЗАКАЗА</h2>
                             @include('shared.cart.order')
                         </div>

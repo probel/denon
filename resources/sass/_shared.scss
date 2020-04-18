@@ -678,6 +678,18 @@ b, strong {
         color: #fff;
         font-size: 50px;
     }
+    @include media-breakpoint-down(sm) {
+        height: 250px;
+        &__title {
+            font-size: 38px;
+        }
+    }
+    @include media-breakpoint-down(xs) {
+        height: 180px;
+        &__title {
+            font-size: 28px;
+        }
+    }
 }
 .breadcrumb {
     background: transparent;
@@ -795,6 +807,11 @@ b, strong {
             }
         }
     }
+    @include media-breakpoint-down(sm) {
+        &__line .page-title__small {
+            font-size: 18px;
+        }
+    }
 }
 .pagination {
     justify-content: center;
@@ -838,7 +855,7 @@ b, strong {
         height: 86px;
     }
     &__content {
-        height: 86px;
+        min-height: 86px;
     }
     &__title {
         font-size: 18px;
@@ -848,6 +865,22 @@ b, strong {
     &__subtitle {
         font-size: 18px;
         color: $dark;
+
+    }
+    @include media-breakpoint-down(sm) {
+        flex-wrap: wrap;
+        &__icon {
+            margin-right: 0;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        &__title {
+            margin-bottom: 20px;
+        }
+        &__subtitle {
+            font-size: 16px;
+        }
+
     }
 }
 /*==================================================================================================================
@@ -908,6 +941,9 @@ b, strong {
         }
     }
     @include media-breakpoint-down(xs) {
+        &__top {
+            padding: 30px 0;
+        }
         &__middle {
             .col-custom {
                 flex: 0 0 100%;
@@ -930,6 +966,11 @@ b, strong {
         border-style: solid;
         border-width: 0 9px 14px 9px;
         border-color: transparent transparent #fff transparent;
+    }
+    @include media-breakpoint-down(xs) {
+        position: absolute;
+        top: -20px;
+        right: 0;
     }
 }
 .close {

@@ -46,7 +46,7 @@
             <div class="container">
                 <div class="catalog__in__list col-xl-10 mx-auto px-0">
                     <div class="row">
-                        <div class="col-lg-9">
+                        <div class="col-xl-9 order-2 order-xl-1">
                             <div class="row">
                                 <div class="col-lg-4 col-md-6 mb-4">
                                     <div class="catalog__item d-flex flex-column justify-content-between h-100 js-catalog__item">
@@ -330,7 +330,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-xl-3 order-1 order-xl-2">
                             <div class="category-page__filter">
                                 <div class="category-page__filter__block">
                                     <a class="category-page__filter__title" data-toggle="collapse" href="#category-page-filter-1" aria-expanded="true">
@@ -393,7 +393,7 @@
                                         <button type="submit" class="btn btn-triangle btn-broun">СБРОСИТЬ</button>
                                     </form>
                                 </div>
-                                <div class="category-page__filter__block">
+                                <div class="category-page__filter__block last">
                                     <a class="category-page__filter__title" data-toggle="collapse" href="#category-page-filter-4" aria-expanded="true">
                                         Все товары
                                     </a>
@@ -434,7 +434,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">

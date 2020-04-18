@@ -46,7 +46,6 @@
         }
     }
     .buy-item {
-        height: 100px;
         border-bottom: 1px solid rgb(210, 210, 210);
         padding-right: 18px;
         &__image {
@@ -140,6 +139,99 @@
             color: $dark;
             margin-top: 18px
         }
+    }
+    @media (max-width: 1440px) {
+        .breadcrumb__line__in {
+            padding-left: 35px;
+        }
+        &__content {
+            padding-left: 35px;
+            padding-right: 35px;
+        }
+    }
+    @include media-breakpoint-down(lg) {
+        .breadcrumb__line__in {
+            padding-left: 0;
+        }
+        .total-price {
+            margin-top: 30px;
+            margin-bottom: 60px;
+        }
+        .cart-form__footnote {
+            margin-bottom: 60px;
+        }
+    }
+    @include media-breakpoint-down(sm) {
+        &__content {
+            padding: 30px 14px;
+            &__text {
+                font-size: 16px;
+                ul {
+                    > li {
+                        padding-left: 16px;
+                        &:before {
+                            display: block;
+                            content: "";
+                            width: 9px;
+                            height: 9px;
+                            background: $broun;
+                            border-radius: 50%;
+                            position: absolute;
+                            top: 5px;
+                            left: 0;
+                        }
+                    }
+                }
+            }
+        }
+        .total-price {
+           flex-wrap: wrap;
+           padding-right: 0;
+            &__value {
+                width: 100%;
+                margin-bottom: 20px;
+                text-align: right;
+                order: 1;
+            }
+            .btn {
+                margin-left: auto;
+                order: 2;
+                margin-right: 14px;
+            }
+
+        }
+        .cart-form {
+            padding: 20px;
+            .form-label {
+                font-size: 14px;
+            }
+            .buttons__wrapper {
+                .btn {
+                    width: 100%;
+                }
+                .btn-triangle {
+                    margin-right: 14px;
+                }
+            }
+            &__footnote {
+                font-size: 14px;
+                margin-bottom: 30px;
+            }
+        }
+    }
+    @media (max-width: 480px) {
+        .buy-item {
+            padding-bottom: 10px;
+            padding-right: 0;
+            &__option {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+        .cart-form__row .form-group {
+            width: 100%;
+        }
+
     }
 }
 /*==================================================================================================================

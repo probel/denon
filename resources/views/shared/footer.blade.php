@@ -1,7 +1,7 @@
 <footer class="footer">
     <div class="footer__top">
         <div class="container">
-            <div class="col-1 ml-auto text-center">
+            <div class="col-1 ml-auto text-center position-relative">
                 <a href="#" class="slide-to-top icon-center"><span class="arrow"></span></a>
             </div>
         </div>

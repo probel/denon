@@ -66,6 +66,42 @@
         padding-bottom: 17px;
         border-bottom: 1px solid #888888;
     }
+    @include media-breakpoint-down(lg) {
+        &__filter {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-column-gap: 20px;
+            &__block {
+                &:first-child {
+                    border-top: 1px solid rgba(49, 49, 49, 0.22);
+                }
+                &.last {
+                    grid-column: 1/4;
+                }
+            }
+            .catalog__item__bottom {
+                grid-column: 1/4;
+                justify-content: flex-end !important;
+                .form:first-child {
+                    margin-right: 20px;
+                }
+            }
+        }
+    }
+    @include media-breakpoint-down(sm) {
+        &__filter {
+            &__block {
+                grid-column: 1/4;
+            }
+            .catalog__item__bottom {
+                grid-column: 1/4;
+                justify-content: flex-end !important;
+                .form:first-child {
+                    margin-right: 20px;
+                }
+            }
+        }
+    }
 }
 /*==================================================================================================================
                                         catalog-page
@@ -95,7 +131,7 @@
                 color: #000;
                 height: 142px;
                 padding-top: 20px;
-
+                overflow: hidden;
                 &__title {
                     font-size: 16px;
                     font-weight: bold;
@@ -124,6 +160,65 @@
                 .title,
                 .description {
                     padding-left: 40px;
+                }
+            }
+        }
+    }
+    @include media-breakpoint-down(lg) {
+        &__category {
+            &__item {
+                width: calc((100% - 30px)/2);
+                .title {
+                    font-size: 38px;
+                }
+            }
+        }
+    }
+    @include media-breakpoint-down(md) {
+        &__category {
+            &__row {
+                margin-bottom: 30px;
+            }
+            &__item {
+                height: 374px;
+                .title {
+                    font-size:28px;
+                }
+                .description {
+                    height: 172px;
+                }
+                &.left {
+                    .title,
+                    .description {
+                        padding-right: 20px;
+                    }
+                }
+                &.right {
+                    .title,
+                    .description {
+                        padding-left: 20px;
+                    }
+                }
+            }
+        }
+    }
+    @include media-breakpoint-down(sm) {
+        &__category {
+            &__row {
+                flex-wrap: wrap;
+                margin-bottom: 0;
+            }
+            &__item {
+                width: 100%;
+                margin-bottom: 30px;
+                .title,
+                .description {
+                    padding-right: 20px;
+                    padding-left: 20px;
+                }
+                &.left {
+                    text-align: left !important;
+
                 }
             }
         }
