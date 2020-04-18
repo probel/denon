@@ -20,7 +20,6 @@ class ArticleController extends Controller
         $articles = News::where('status',1)
                     ->whereDate('created_at','<=',\Carbon\Carbon::Now())
                     ->orderBy('order','desc')->paginate(9);
-        /* META */
         $breadcrumbs = [
             ['href' => route('front'), 'name' => 'Главная'],
             ['href' => '', 'name' => 'Новости']
@@ -30,8 +29,16 @@ class ArticleController extends Controller
         $view = 'articles news';
         $date = true;
         $page = "sdsdfsd";
+        
         $news = \App\Models\News::get();
-        return view('pages.article.index',compact('articles','page', 'view','date','title','meta','class','breadcrumbs','news'));
+        
+        $news = $news->chunk(3);
+        $news = $news->toArray();
+
+        $news[0] =  array_values($news[0]);
+        $news[1] =  array_values($news[1]);
+        
+        return view('pages.news',compact('articles','page', 'view','date','title','meta','class','breadcrumbs','news'));
     }
     public function promoIndex()
     {

@@ -44,7 +44,7 @@
                     <tr class="menu">
                         <td><a href="{{ route('catalog.show') }}">Каталог</a></td>
                         <td><a href="{{ route('news.index') }}">Новости</a></td>
-                        <td><a href="{{ route('catalog.index',['delivery']) }}">Доставка и оплата</a></td>
+                        <td><a href="{{ route('catalog.index',['delivery']) }}">Доставка и оплата (1)</a></td>
                         <td><a href="{{ route('catalog.index',['contacts']) }}">Контакты</a></td>
                     </tr>
                     <!-- Email Body -->

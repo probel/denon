@@ -4,7 +4,7 @@
     <div class="delivery-page__light-bg">
         <div class="container">
             @include('shared.breadcrumb')
-            <h1 class="main-title text-center">Доставка и оплата</h1>
+            <h1 class="main-title text-center">Доставка и оплата (2)</h1>
             <div class="delivery-page__tabs mx-auto">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs nav-tabs__custom nav-fill">

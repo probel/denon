@@ -8,7 +8,7 @@ use \App\Models\{Category, Brand, Set, SetProduct, SetCategory, Product, Page, M
 class CatalogController extends Controller
 {
     public static function index() {
-
+        
         $products = Product::with(['category'])->where('status',1);
 
         $order = request()->order ?? '';
@@ -30,13 +30,13 @@ class CatalogController extends Controller
         return $res;
     }
     public function resolver($slugLine = null)
-    {
+    {     
         $slugs = explode('/',$slugLine);
         $last = array_pop($slugs);
         $last = $slugLine;
 
         if ($last) {
-            $products = Product::where('slug',$last)->where('status',1)->get();
+        $products = Product::where('slug',$last)->where('status',1)->get();
 
             if ($products->count()) {
                 return $this->product($products->first());
@@ -57,60 +57,31 @@ class CatalogController extends Controller
                     }
                 }
             }
-            //$sets = Set::where('status',1)->where('slug',$last)->get();
-
-            //if ($sets->count()) {
-            //    $setSlug = $slugLine;
-            //    foreach ($sets as $key => $set) {
-            //        if ($set->getPath() == $setSlug) {
-            //            return $this->set($set);
-            //        }
-            //    }
-            //}
-            //$brand = Brand::where('slug',$last)->where('status',1)->first();
-            //if ($brand) {
-            //    return $this->brand($brand);
-            //}
-            //$page = Page::where('status',1)->where('slug',$last)->where('country_id',country()->id)->first();
-            //if ($page && $last != 'catalog') {
-            //    return $this->showPage($page);
-            // }
         }
         abort(404);
     }
+
     public function show()
     {
-
-        /* META */
-        //$metaEntity = Meta::find(2);
-        //$minPrice = \App\Models\ProductPrice::where('qty',1)->min('price');
-        $meta = [];
-            //  'title' => str_replace('%min_price%',$minPrice,$metaEntity->title),
-            // 'description' => str_replace('%min_price%',$minPrice,$metaEntity->description),
-            // 'keywords' => str_replace('%min_price%',$minPrice,$metaEntity->keywords),
-            //];
-        $breadcrumbs = [
-            ['href'=>'/','name'=>'Главная'],
-            ['href'=> route('catalog.show'),'name'=>'Каталог']
-        ];
-        $products = \App\Models\Product::where('status',1);
-        $product  = \App\Models\Product::where('status',1);
-        $accessories = \App\Models\Product::where('status',1);
         $current = null;
         $showAllLink = false;
         $showAllAccessoriesLink = false;
-        if(request()->page == 'all') {
-            $products = $products->get();
-            $accessories = $accessories->get();
-        } else {
-            //$showAllLink = $products->count() -> cv('paginate');
-            //$showAllAccessoriesLink = $accessories->count() > cv('paginate');
-            //$products = $products->paginate(cv('paginate'));
-            //$accessories = $accessories->paginate(cv('paginate'));
-        }
-        $view = 'catalog-view';
-        $pageTitle = 'Каталог';
-        return view('pages.catalog.index',compact('meta','current','products','product','accessories','view','breadcrumbs','pageTitle','showAllLink','showAllAccessoriesLink'));
+
+        $breadcrumbs = [
+            ['href'=>'/','name'=>'Главная'],
+            ['href'=> "#",'name'=>'Каталог']
+        ];
+        
+        $meta = [];
+        
+        $arSelectedCategory = array ('usiliteli','sacdcd-proigryvateli','setevye-proigryvateli','vinilovye-proigryvateli');
+        $selectedCategory = Category::where('status', 1)->whereIn('slug', $arSelectedCategory)->get();
+
+        $products     = \App\Models\Product::where('status',1);
+        //новинки в продуктах
+        $productNews  = \App\Models\Product::where('status',1)->where('new',1)->get();
+        
+        return view('pages.catalog-d',compact('meta','current','products', 'productNews', 'breadcrumbs', 'selectedCategory'));
     }
 
     public function category($category)
@@ -178,8 +149,14 @@ class CatalogController extends Controller
         $accessories = $accessories->get();
         $category = (object) ['id' => 0, 'sets' => null];
         return view('pages.catalog.index',compact(
-            'meta','pageTitle','category','products', 'accessories', 'breadcrumbs',
-            'showAllLink', 'showAllAccessoryLink'));
+                             'meta',
+                             'pageTitle',
+                             'category',
+                             'products',
+                             'accessories',
+                             'breadcrumbs',
+                             'showAllLink',
+                             'showAllAccessoryLink'));
 
     }
     public function brand($brand)

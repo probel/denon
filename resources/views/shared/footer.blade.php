@@ -92,7 +92,7 @@
                                 <a class="footer__menu__link" href="#">Гарантия и сервис</a>
                             </li>
                              <li class="footer__menu__item">
-                                <a class="footer__menu__link" href="#">Доставка и оплата</a>
+                                 <a class="footer__menu__link" href="/delivery">Доставка и оплата</a>
                             </li>
                              <li class="footer__menu__item">
                                 <a class="footer__menu__link" href="#">Инструкции</a>

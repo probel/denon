@@ -15,11 +15,18 @@ Route::any('/home', function () {
 //Route::get('/', 'PageController@showFront')->name('page');
 /* END WORK ROUTES */
 
+Route::group(['prefix' => '/catalog'], function () {
+    Route::get('/', 'CatalogController@show')->name('catalog.show');
+    Route::any('/get', 'CatalogController@index')->name('catalog.get');
+    Route::get('/{slug}', 'CatalogController@resolver')->name('catalog.category');
+    //Route::get('/{category_slug}/{slug}', 'CatalogController@productFind')->name('catalog.product');
+});
+
 Route::get('/contacts', 'PageController@contacts')->name('contacts.show');
 Route::get('/delivery', 'PageController@delivery')->name('delivery.show');
 Route::get('/warranty', 'PageController@warranty')->name('warranty.show');
 
-Route::get('/{category}/{subcategory}/{product}', 'CatalogController@show')->name('catalog.show');
+Route::get('/{category}/{subcategory}/{product}', 'CatalogController@detail')->name('catalog.detail');
 
     
 Route::get('/search',   'SearchController@search')->name('search.show');
@@ -42,15 +49,15 @@ Route::any('/contact', function () {
     return view('pages.contact');
 });
 
-Route::any('/delivery', function () {
-    return view('pages.delivery');
-});
+//Route::any('/delivery', function () {
+//    return view('pages.delivery');
+//});
 Route::any('/guarantee', function () {
     return view('pages.guarantee');
 });
-Route::any('/news', function () {
-    return view('pages.news');
-});
+//Route::any('/news', function () {
+//    return view('pages.news');
+//});
 Route::any('/article', function () {
     return view('pages.article');
 });
@@ -100,12 +107,12 @@ Route::group(['prefix' => '/promo'], function () {
   Route::get('/', 'ArticleController@promoIndex')->name('promo.index');
   Route::get('/{slug}', 'ArticleController@promoShow')->name('promo.show');
 });
-Route::group(['prefix' => '/catalog'], function () {
-    Route::get('/', 'CatalogController@show')->name('catalog.show');
-    Route::any('/get', 'CatalogController@index')->name('catalog.get');
-    Route::get('/{slug}', 'CatalogController@resolver')->name('catalog.category');
-    //Route::get('/{category_slug}/{slug}', 'CatalogController@productFind')->name('catalog.product');
-});
+//Route::group(['prefix' => '/catalog'], function () {
+//    Route::get('/', 'CatalogController@show')->name('catalog.show');
+//    Route::any('/get', 'CatalogController@index')->name('catalog.get');
+//    Route::get('/{slug}', 'CatalogController@resolver')->name('catalog.category');
+//    //Route::get('/{category_slug}/{slug}', 'CatalogController@productFind')->name('catalog.product');
+//});
 Route::group(['prefix' => '/callback'], function () {
     Route::post('/set', 'CallbackController@store')->name('callback.set');
     Route::post('/price', 'CallbackController@price')->name('callback.price');
