@@ -3,13 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\{ MetaTags, Status };
+use App\Traits\{ SeoTrait, Status };
 use SleepingOwl\Admin\Traits\OrderableModel;
 
 class Page extends Model
 {
     use OrderableModel;
-    use MetaTags;
+    use SeoTrait;
     use Status;
 
     public function scopeFindByPosition($query, $position)
@@ -25,10 +25,10 @@ class Page extends Model
     protected $attributes = [
         'order' => false,
     ];
-    
+
     protected $fillable = [
         'order',
-    ];  
+    ];
 
     public function getUrl()
     {
@@ -40,7 +40,7 @@ class Page extends Model
     }
     /**
     * Здесь забираем верхнее меню для главной страницы
-    * 
+    *
     */
     public static function getTitleList()
     {
@@ -50,10 +50,10 @@ class Page extends Model
                       'contacts',
                       'news',
                       'installation');
-            
+
         return Page::where('status', 1)->whereIn('slug', $arTopMenu)->orderby('order','asc')->get();
-    }    
-    
+    }
+
     public function getBreadcrumbs()
     {
         $breadcrumbs = [

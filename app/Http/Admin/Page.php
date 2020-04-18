@@ -81,7 +81,7 @@ class Page extends Section implements Initializable
             ->setOrder([[0, 'asc']])
             ->setColumns([
                 AdminColumn::text('id', '#'),
-                AdminColumn::custom(__('Title') ,function ($model)
+                AdminColumn::custom('Заголовок' ,function ($model)
                 {
                     return '<a href="'.$model->getUrl().'" target="_blank">'.
                         ($model->admin_title ?? $model->name).
@@ -193,7 +193,7 @@ class Page extends Section implements Initializable
                         $elements[] = AdminFormElement::number('values[paginate]', 'Элементов на страницу')
                                         ->setValueSkipped(true)
                                         ->setDefaultValue($page->values['paginate'] ?? 6);
-                        
+
                         break;
                     case 'news':
                     case 'installations':
@@ -203,7 +203,7 @@ class Page extends Section implements Initializable
                                 ->setValueSkipped(true)
                                 ->setDefaultValue($page->values['paginate'] ?? 6),
                         ];
-                        break;                    
+                        break;
                     default:
                         $elements = [
                             AdminFormElement::ckeditor('values[body]', 'Содержимое')

@@ -26,9 +26,9 @@ Route::get('/contacts', 'PageController@contacts')->name('contacts.show');
 Route::get('/delivery', 'PageController@delivery')->name('delivery.show');
 Route::get('/warranty', 'PageController@warranty')->name('warranty.show');
 
-Route::get('/{category}/{subcategory}/{product}', 'CatalogController@detail')->name('catalog.detail');
+/* Route::get('/{category}/{subcategory}/{product}', 'CatalogController@detail')->name('catalog.detail'); */
 
-    
+
 Route::get('/search',   'SearchController@search')->name('search.show');
 Route::group(['prefix' => '/news'], function () {
   Route::get('/', 'ArticleController@newsIndex')->name('news.index');
@@ -72,7 +72,7 @@ Route::group(['prefix' => '/cart'], function () {
     Route::any('/clear', 'CartController@clear')->name('cart.clear');
     Route::post('/order', 'OrderController@store')->name('order.set');
 });
-Route::any('/{slug}/', 'CatalogController@resolver')->where('slug', '(?!admin).*')->name('resolver');
+Route::any('/{slug}', 'CatalogController@resolver')->where('slug', '(?!admin).*')->name('resolver');
 /* END WORK ROUTES */
 
 

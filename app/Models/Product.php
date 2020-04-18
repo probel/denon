@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use SleepingOwl\Admin\Traits\OrderableModel;
-use App\Traits\{ MetaTags, Status };
+use App\Traits\{ SeoTrait, Status };
 class Product extends Model
 {
     use OrderableModel;
-    use MetaTags;
+    use SeoTrait;
     use Status;
     /**
      * @param $query
@@ -24,6 +24,11 @@ class Product extends Model
         'images' => 'array',
         'params' => 'array',
         'variations' => 'array',
+    ];
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'available_date',
     ];
     protected $fillable = [
         'name', 'slug'
@@ -48,7 +53,7 @@ class Product extends Model
     {
         return array (1,2);
     }
-    
+
 
     public function getImage($num = 0)
     {

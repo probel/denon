@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use SleepingOwl\Admin\Traits\OrderableModel;
+use App\Traits\{ SeoTrait, Status };
 
 class Category extends Model
 {
     use OrderableModel;
-    
+    use SeoTrait;
+    use Status;
+
     protected $casts = [
         'values' => 'array'
     ];
@@ -41,11 +44,14 @@ class Category extends Model
     public function getPath()
     {
         $path = $this->slug;
+        if ($this->parent_id) {
+            $path = $this->parent->getPath().'/'.$path;
+        }
         return $path;
     }
     public function getUrl()
     {
-        return route('catalog.category',[$this->getPath()]).'/';
+        return route('resolver',[$this->getPath()]);
     }
     public function getMeta()
     {

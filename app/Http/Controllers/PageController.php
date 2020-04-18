@@ -20,15 +20,18 @@ class PageController extends Controller
      * @param  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($page)
     {
-        echo "test1234123"; 
-        //$page = Page::where('slug',$slug)->first();
-        if (!$page) abort(404);
+        $meta = $page->getMeta();
+        $title = $page->title;
+        $values = $page->values;
 
-        
-        return view('pages.'.$page->type);
-
+        $bgImage = $values['bg_image'] ?? null;
+        $breadcrumbs = [
+            [ 'href'=>'/', 'name'=>   'Denon' ],
+            [ 'href'=> '', 'name'=>   $page->title ],
+        ];
+        return view('pages.'.$page->type,compact('meta','title','page','values','breadcrumbs','bgImage'));
     }
     public function showFront()
     {
@@ -36,71 +39,40 @@ class PageController extends Controller
         if (!$page) abort(404);
         $valueSliderItems = ($page->toArray())['values'];
 
-        $topMenuTitleList = Page::getTitleList(); 
+        $topMenuTitleList = Page::getTitleList();
         $meta       = $page->getMeta();
         $product    = \App\Models\Product::first();
         $category   = \App\Models\Category::where('parent_id','<',1)->first();
         $categories = \App\Models\Category::get();
         $news       = \App\Models\News::get();
         $catalog    = \App\Models\Product::get();
-        
+
         //новинки в продуктах
         $productNews  = \App\Models\Product::where('status',1)->where('new',1)->get();
-             
+
         return view('pages.'.$page->type, compact('meta', 'topMenuTitleList', 'catalog', 'categories', 'news', 'productNews','valueSliderItems'));
 
     }
-
-    public function contacts()
-    {
-        $meta = "sfsdfsdf";
-        $page = Page::find(1);
-        $breadcrumbs ="sfdgdsfgsdfgsd";
-        $bg_image = "bg_image";
-
-        $values = array(
-            'slogan' => "ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ...",
-            'description' => "УНИКАЛЬНЫЕ ТЕХНОЛОГИИ DENON ДЛЯ .",
-            'contacts_icon' => "Путь к иконке",
-            'contacts_title' => "Путь к иконке",
-            'contacts_subtitle' => "Путь к иконке",
-            'contacts_text' => "Путь к иконке",
-            'show_subtitle' => "subtitle",
-            'show_title' => "Путь к иконке",
-            'show_text' => "Шоу рум denon",
-            'legal_text'=> "HTML Информация о магазине ... Буйневич");
-        return view('pages.contact', compact('meta', 'page', 'breadcrumbs', 'bg_image', 'values'));
-    }
-
     public function  warranty()
     {
-        $meta = "sfsdfsdf";
-        $page = Page::where('slug','warranty')->get();
-        $values = ($page->toArray())[0]['values'];
-        return view('pages.warranty', compact('meta', 'page', 'values'));
+        $page = Page::findOrFail(2);
+        return $this->show($page);
     }
-    
     public function delivery()
     {
-        $meta = "sfsdfsdf";
-        $page = Page::where('slug','delivery')->get();
-        $breadcrumbs ="sfdgdsfgsdfgsd";
-        $bg_image = "bg_image";
-        $values = ($page->toArray())[0]['values']; 
-        /*
-            $values = array (
-            'slogan'          => "ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ...",
-            'description'     => "УНИКАЛЬНЫЕ ТЕХНОЛОГИИ DENON ДЛЯ .",
-            'pay_subtitle'    => "sdfsdf",
-            'pay_icon'        => "Путь к иконке",
-            'pay_title'       => "Путь к иконке",
-            'pay_text'        => "Путь к иконке",
-            'delivery_title'  => "Путь к иконке",
-            'delivery_text'   => "Путь к иконке");
-        */     
-        return view('pages.delivery', compact('meta', 'page', 'breadcrumbs', 'bg_image' , 'values'));
+        $page = Page::findOrFail(3);
+        return $this->show($page);
     }
-        
+    public function contacts()
+    {
+        $page = Page::findOrFail(4);
+        return $this->show($page);
+    }
+
+
+
+
+
     public function sitemap()
     {
             $paths = [

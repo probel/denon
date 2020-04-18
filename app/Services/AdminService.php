@@ -52,35 +52,7 @@ class AdminService
             $model->save();
         }
     }
-    public static function getOrderColumnContent($model,$basePath)
-    {
-        $class = get_class($model);
-        $content = '<span class="hidden">'.$model->order.'</span>';
-        if ($model->order > $class::min('order')) {
-            $content .= '<form action="'.$basePath.$model->id.'/up" method="POST" style="display:inline-block;">
-                <input type="hidden" name="_token" value="'.csrf_token().'">
-                <button class="btn btn-default btn-sm" data-toggle="tooltip" title="Подвинуть вверх">
-                    ↑
-                </button>
-            </form>';
-        }
-        $content .= '<form action="'.route('admin.order').'" class="order-form" method="POST" style="display:inline-block;">
-                <input type="hidden" name="_token" value="'.csrf_token().'">
-                <input type="hidden" name="old" value="'.$model->order.'">
-                <input type="hidden" name="model" value="'.$class.'">
-                <input type="hidden" name="id" value="'.$model->id.'">
-                <input class="form-control field-order" type="number" name="new" value="'.$model->order.'">
-            </form>';
-        if ($model->order < $class::max('order')) {
-            $content .= '<form action="'.$basePath.$model->id.'/down" method="POST" style="display:inline-block;">
-                <input type="hidden" name="_token" value="'.csrf_token().'">
-                <button class="btn btn-default btn-sm" data-toggle="tooltip" title="Подвинуть вниз">
-                    ↓
-                </button>
-            </form>';
-        }
-        return $content;
-    }
+
     public static function seoTab($slug = true)
     {
         $elements = [];
@@ -144,8 +116,9 @@ class AdminService
                     AdminFormElement::text('values['.$prefix.'_title]', 'Заголовок')
                         ->setValueSkipped(true)
                         ->setDefaultValue($page->values[$prefix.'_title'] ?? ''),
-                    AdminFormElement::text('values['.$prefix.'_subtitle]', 'Подзаголовок')
+                    AdminFormElement::textarea('values['.$prefix.'_subtitle]', 'Подзаголовок')
                         ->setValueSkipped(true)
+                        ->setRows(2)
                         ->setDefaultValue($page->values[$prefix.'_subtitle'] ?? ''),
                 ]),
             AdminFormElement::view('admin.panelClose'),
@@ -178,7 +151,7 @@ class AdminService
             ];
         } else {
             $fields = [
-                AdminFormElement::view('admin.panelOpen',['key'=>'slogan','title'=>__('Слоган')]),                  
+                AdminFormElement::view('admin.panelOpen',['key'=>'slogan','title'=>__('Слоган')]),
                 AdminFormElement::text('values[slogan]', 'Заголовок')
                     ->setValueSkipped(true)
                     ->setDefaultValue($page->values['slogan'] ?? 'ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ВОСПРОИЗВЕДЕНИИ МУЗЫКИ'),
@@ -186,7 +159,7 @@ class AdminService
                     ->setValueSkipped(true)
                     ->setRows(3)
                     ->setDefaultValue($page->values['description'] ?? 'Уникальные технологии Denon для воспроизведения CD/SACD дисков, строгий отбор комплектующих и мастерство схемотехники помогают воспроизводить звук, максимально приближенный к оригиналу.'),
-                    
+
                 AdminFormElement::view('admin.panelClose'),
             ];
         }
@@ -251,5 +224,38 @@ class AdminService
 
         return $fields;
     }
+    public static function nameColumn()
+    {
+        return AdminColumn::custom('Название', function(\Illuminate\Database\Eloquent\Model $model) {
+            return '<a href="'.$model->getUrl().'" target="blank">'.$model->name.'</a>';
+        })->setOrderable(function($query, $direction) {
+            $query->orderBy('name', $direction);
+        })->setSearchable(true)->setSearchCallback(function ($column, $query, $search) {
+            return $query->where('name', 'like', '%' . $search . '%');
+        });
+    }
+    public static function seoColumn($prefix = 'meta_')
+    {
+        return AdminColumn::custom('SEO', function(\Illuminate\Database\Eloquent\Model $model) use($prefix) {
+            $titleField = $prefix.'title';
+            $descriptionField = $prefix.'description';
+            $keywordsField = $prefix.'keywords';
+            return view('admin.table.seo',compact('model', 'titleField', 'descriptionField', 'keywordsField'));
+        })->setWidth('150px')->setSearchable(false);
+    }
+    public static function orderColumn($path)
+    {
+        return AdminColumn::custom('Положение', function(\Illuminate\Database\Eloquent\Model $model) use($path) {
+            return \App\Services\AdminService::getOrderColumnContent($model,$path);
+        })->setWidth('150px')->setOrderable(function($query, $direction) {
+            $query->orderBy('order', $direction);
+        })->setSearchable(false);
+    }
+    public static function getOrderColumnContent($model,$basePath)
+    {
+        //dd(get_class($model));
+        $class = get_class($model);
+        return view('admin.table.order', compact('model','class','basePath'));
 
+    }
 }

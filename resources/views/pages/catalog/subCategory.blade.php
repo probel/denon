@@ -1,45 +1,9 @@
 @extends('layouts.app')
 @section('content')
 <div class="category-page bg-light">
-    <!-- begin page-title -->
-    <section class="page-title d-flex align-items-center">
-        <div class="container">
-            <div class="col-xl-10 mx-auto px-0">
-                <h1 class="page-title__title text-uppercase mb-0"><strong>SADC/CD </strong>ПРОИГРЫВАТЕЛИ</h1>
-            </div>
-        </div>
-    </section>
-    <!-- end page-title -->
-    <!-- begin slogan -->
-    <section class="slogan">
-        <div class="container">
-            <h2 class="slogan__title text-uppercase text-center">ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ВОСПРОИЗВЕДЕНИИ МУЗЫКИ</h2>
-            <div class="slogan__text text-uppercase text-center mx-auto"> Уникальные технологии Denon для воспроизведения
-                CD/SACD дисков, строгий отбор комплектующих и мастерство схемотехники помогают воспроизводить звук,
-                максимально приближенный к оригиналу.</div>
-        </div>
-    </section>
-    <!-- end slogan -->
-    <section class="breadcrumb__line position-relative">
-        <div class="container h-100">
-            <div class="col-xl-10 mx-auto px-0 h-100">
-                <div class="breadcrumb__line__in d-flex align-items-center position-relative h-100">
-                    <nav aria-label="breadcrumb" class="breadcrumb__wrapper">
-                        <ol class="breadcrumb text-uppercase p-0 m-0">
-                            <li class="breadcrumb-item"><a href="/">DENON</a></li>
-                            <li class="breadcrumb-item"><a href="#">HI-FI КОМПОНЕНТЫ</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">SACD/CD Проигрыватели</li>
-                        </ol>
-                    </nav>
-                    <div class="page-title__small text-uppercase">
-                        <strong>SACD/CD</strong> Проигрыватели
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
-    <!-- begin catalog -->
+    <x-header :bg-image="$bgImage">{!! $title !!}</x-header>
+    <x-slogan :title="$values['slogan'] ?? ''">{!! $values['description'] ?? '' !!}</x-slogan>
+    @include('shared.breadcrumb')
     <section class="catalog">
         {{-- здесь только тизеры товаров совпадают полностью с тизерами на главной, сетка другая --}}
         <div class="catalog__in">
@@ -48,59 +12,14 @@
                     <div class="row">
                         <div class="col-xl-9 order-2 order-xl-1">
                             <div class="row">
+                                @forelse ($products as $product)
                                 <div class="col-lg-4 col-md-6 mb-4">
-                                    <div class="catalog__item d-flex flex-column justify-content-between h-100 js-catalog__item">
-                                        <div>
-                                            <div class="catalog__item__top d-flex align-items-baseline position-relative">
-                                                <div class="sale text-uppercase">
-                                                    <img class="mr-2 pb-2" src="/images/icons/sale.png" alt="">Sale
-                                                </div>
-                                                <div class="in-stock text-uppercase ml-auto">в наличии</div>
-                                                <div class="sticker position-absolute text-uppercase">new</div>
-                                            </div>
-                                            <div class="photo">
-                                                <a class="photo__link h-100 d-flex justify-content-center"
-                                                    href="/catalog/glushilka-svyazi-jyt-1280c-portativnaya-gsm3ggps4g-ltewi-fi/">
-                                                    <img class="photo__image mw-100 mh-100 align-self-center"
-                                                        src="/images/uploads/IMG_4552.png"
-                                                        alt="Глушилка связи JYT-1280C портативная (GSM/3G/GPS/4G LTE/Wi-Fi)">
-                                                </a>
-                                            </div>
-
-                                            <div class="vendor-code text-uppercase text-right">AZ21170</div>
-                                            <div class="name text-center">
-                                                <a
-                                                    href="/catalog/glushilka-svyazi-jyt-1280c-portativnaya-gsm3ggps4g-ltewi-fi/">DCD-1600NE</a>
-                                            </div>
-                                            <div class="catalog__item__description">
-                                                Super Audio CD плеер возносящий воспроизведение дисков на новую высоту
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="price__wrapper text-right">
-
-                                                <div class="expected text-uppercase">поставка ожидается<br>12.04.2020</div>
-                                            </div>
-                                            <div class="catalog__item__bottom d-flex justify-content-between">
-                                                <form action="/quick/" method="post" class="form">
-                                                    <input type="hidden" name="_token"
-                                                        value="OwyMvhMQN52zmHkIbt9Fn0LdbQarRsXXi0rlebBB">
-                                                    <input type="hidden" name="id" value="86">
-                                                    <input type="hidden" name="count" class="js-product-count" value="1">
-                                                    <button type="submit" class="btn ">Купить в 1 клик</button>
-                                                </form>
-                                                <form action="/cart/set/" method="post"
-                                                    class="js-form__to-cart form">
-                                                    <input type="hidden" name="_token"
-                                                        value="OwyMvhMQN52zmHkIbt9Fn0LdbQarRsXXi0rlebBB">
-                                                    <input type="hidden" name="id" value="86">
-                                                    <input type="hidden" name="count" value="1">
-                                                    <button type="submit" class="btn btn-triangle">ПОДРОБНЕЕ</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @include('shared.product.teaser')
                                 </div>
+                                @empty
+
+                                @endforelse
+
                                 <div class="col-lg-4 col-md-6 mb-4">
                                     <div class="catalog__item d-flex flex-column justify-content-between h-100 js-catalog__item">
 

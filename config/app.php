@@ -231,6 +231,7 @@ return [
 
         'Catalog' => \App\Services\CatalogService::class,
         'Cart' => \App\Services\CartService::class,
+        'Helpers' => \App\Services\HelperService::class,
     ],
 
 ];

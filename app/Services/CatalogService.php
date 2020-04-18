@@ -24,31 +24,7 @@ class CatalogService
         ];
         return $meta;
     }
-    public static function getMinPrice()
-    {
-        static $pr = null;
-        if (\is_null($pr)) {
-            /*
-                Мы не можем выбрать просто минимальную цену,
-                так как есть разные страны, в них цены могут как указываться,
-                так и рассчитываться по курсу из цены в России.
-            */
-            $prices = ProductPrice::with('product')
-                                    ->where('price','>',0)
-                                    ->where('country_id',1)
-                                    ->where('qty',1)
-                                    ->orderBy('price')
-                                    ->get();
-            $pr = 0;
-            foreach ($prices as $key => $price) {
-                if ($price->product->status == 1) {
-                    $pr = $price->product->getPrice();
-                    break;
-                }
-            }
-        }
-        return $pr;
-    }
+
     public static function getFrontProducts($amount = 1000)
     {
         return \App\Models\Product::where('status',1)
@@ -58,13 +34,8 @@ class CatalogService
             ->orderBy('order')
             ->get();
     }
-    public static function getFrontAccessory($amount = 1000)
+    public static function getNews()
     {
-        return \App\Models\Product::where('status',1)
-            ->where('front',1)
-            ->where('accessory',1)
-            ->take($amount)
-            ->orderBy('order')
-            ->get();
+        return \App\Models\News::active()->where('in_block',1)->get();
     }
 }

@@ -1,27 +1,32 @@
 <div class="catalog__item d-flex flex-column justify-content-between h-100 js-catalog__item">
-    {{-- новый блок .catalog__item__top --}}
     <div>
         <div class="catalog__item__top d-flex align-items-baseline position-relative">
+            @if ($product->sale)
             <div class="sale text-uppercase">
-                <img class="mr-2 pb-2" src="/images/icons/sale.png" alt="">Sale
+                <img class="mr-2 pb-2" src="{{ asset('/images/icons/sale.png') }}" alt="Sale">Sale
             </div>
-            <div class="in-stock text-uppercase ml-auto">в наличии</div>
+            @endif
+            <div class="in-stock text-uppercase ml-auto">
+                {{ $product->available ? 'в наличии' : 'нет в наличии'}}
+            </div>
+            @if ($product->new)
             <div class="sticker position-absolute text-uppercase">new</div>
+            @endif
         </div>
         <div class="photo">
             <a class="photo__link h-100 d-flex justify-content-center" href="{{ $product->getUrl() }}">
                 <img class="photo__image mw-100 mh-100 align-self-center"
                     src="{{ asset($product->getImage()) }}"
-                    alt="{{ rv(strip_tags($product->getAlt())) }}">
+                    alt="">
             </a>
         </div>
         {{-- новый блок .vendor-code --}}
         <div class="vendor-code text-uppercase text-right">AZ21170</div>
         <div class="name text-center">
-            <a href="{{ $product->getUrl() }}">{!! rv($product->name) !!}</a>
+            <a href="{{ $product->getUrl() }}">{!! $product->name !!}</a>
         </div>
         <div class="catalog__item__description">
-            {!! rv($product->getDescription()) !!}
+            {!! 'd'/* $product->getDescription() */ !!}
         </div>
     </div>
     <div>

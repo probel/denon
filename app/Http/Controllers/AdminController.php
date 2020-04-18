@@ -164,168 +164,7 @@ class AdminController extends Controller
         $content = view('admin.import')->render();
 	    return AdminSection::view($content, 'Импорт городов');
     }
-    public function metaExport()
-    {
-        $items = [];
-        $pages = Page::orderBy('slug')->get();
-        foreach ($pages as $key => $page) {
-            $items[] = [
-                '/'.$page->slug,
-                $page->meta_title,
-                $page->meta_description,
-                $page->meta_tags,
-                $page->title,
-                'Page',
-                $page->id,
-            ];
-        }
-        $categories = Category::orderBy('order')->get();
-        foreach ($categories as $key => $category) {
-            $items[] = [
-                '/catalog/'.$category->slug,
-                $category->meta_title,
-                $category->meta_description,
-                $category->meta_tags,
-                $category->name,
-                'Category',
-                $category->id,
-            ];
-        }
-        $sets = Set::orderBy('order')->get();
-        foreach ($sets as $key => $set) {
-            $items[] = [
-                '/catalog/'.$set->slug,
-                $set->meta_title,
-                $set->meta_description,
-                $set->meta_tags,
-                $set->name,
-                'Set',
-                $set->id,
-            ];
-        }
-        $products = Product::orderBy('order')->get();
-        foreach ($products as $key => $product) {
-            $items[] = [
-                '/'.$product->getPath(),
-                $product->meta_title,
-                $product->meta_description,
-                $product->meta_tags,
-                $product->name,
-                'Product',
-                $product->id,
-            ];
-        }
-        $news = News::orderBy('order')->get();
-        foreach ($news as $key => $item) {
-            $items[] = [
-                '/news/'.$item->slug,
-                $item->meta_title,
-                $item->meta_description,
-                $item->meta_tags,
-                $item->title,
-                'News',
-                $item->id,
-            ];
-        }
-        $blogs = Blog::orderBy('order')->get();
-        foreach ($blogs as $key => $item) {
-            $items[] = [
-                '/blog/'.$item->slug,
-                $item->meta_title,
-                $item->meta_description,
-                $item->meta_tags,
-                $item->title,
-                'Blog',
-                $item->id,
-            ];
-        }
-        $promos = Promo::orderBy('order')->get();
-        foreach ($promos as $key => $item) {
-            $items[] = [
-                '/promo/'.$item->slug,
-                $item->meta_title,
-                $item->meta_description,
-                $item->meta_tags,
-                $item->title,
-                'Promo',
-                $item->id,
-            ];
-        }
-        $headers = [
-            'Url',
-            'Meta Title',
-            'Meta Description',
-            'Meta Keywords',
-            'H1',
-            'Type (НЕ МЕНЯТЬ)',
-            'ID (НЕ МЕНЯТЬ)',
-        ];
 
-        $filename ='metaData_'.date('d.m.Y-H.i').'.csv';
-        header('Content-Type: text/csv; charset=utf-8');
-        Header('Content-Type: application/force-download');
-        header('Content-Disposition: attachment; filename='.$filename.'');
-
-        $output = fopen('php://output', 'w');
-        fputcsv($output, $headers);
-        foreach ($items as $row){
-            fputcsv($output, $row);
-        }
-        fclose($output);
-    }
-    public function metaImportForm() {
-        $content = view('admin.importMeta')->render();
-	    return AdminSection::view($content, 'Импорт метатегов');
-    }
-    public function metaImport(Request $request) {
-        if ($request->file('metas') && $request->file('metas')->isValid()) {
-            $request->file('metas')->storeAs('import','metas.csv');
-            $file = fopen(storage_path('app/import/metas.csv'), 'r');
-            $i = 0;
-            while (($line = fgetcsv($file)) !== FALSE) {
-                if (!$i) {
-                    $i++;
-                    continue;
-                }
-                $modelName = $line[5] ?? '';
-                $id = $line[6] ?? '';
-                if (!$modelName || !$id) continue;
-
-                switch ($modelName) {
-                    case 'News':
-                    case 'Blog':
-                    case 'Promo':
-                    case 'Page':
-                        $h1 = 'title';
-                        break;
-                    default:
-                        $h1 = 'name';
-                        break;
-                }
-                $modelName = "\App\Models\\".$modelName;
-                $model = $modelName::find($id);
-                $model->meta_title = $line[1] ?? '';
-                $model->meta_description = $line[2] ?? '';
-                $model->meta_tags = $line[3] ?? '';
-                if ($title = ($line[4] ?? null)) {
-                    $model->$h1 = $title;
-                }
-                if ($slugLine = ($line[0] ?? null)) {
-                    $slugArray = explode('/',$slugLine);
-                    $slug = array_pop($slugArray);
-                    $model->slug = $slug;
-                }
-                $model->save();
-            }
-            fclose($file);
-
-            \MessagesStack::addSuccess('Мета данные обновлены');
-        } else {
-            \MessagesStack::addError('Ошибка загрузки файла');
-        }
-        $content = view('admin.importMeta')->render();
-	    return AdminSection::view($content, 'Импорт метатегов');
-    }
     public function saveImage(Request $request)
     {
         $path = 'images/uploads';
@@ -371,8 +210,8 @@ class AdminController extends Controller
         $path = 'images/uploads';
         $file = $request->file;
         $settings = [];
-        $filename = $file->getClientOriginalName();
-
+        $extension = $file->getClientOriginalExtension();
+        $filename = md5($file->getClientOriginalName().time()).'.'.$extension;
         if (class_exists('Intervention\Image\Facades\Image') && (bool) getimagesize($file->getRealPath())) {
 
             $image = \Intervention\Image\Facades\Image::make($file);
@@ -390,7 +229,6 @@ class AdminController extends Controller
 
         $file->move($path, $filename);
 
-        //S3 Implement
         $value = $path.'/'.$filename;
 
         return response()->json(['path' => asset($value), 'value' => $value]);

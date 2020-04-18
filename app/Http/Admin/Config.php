@@ -58,8 +58,7 @@ class Config extends Section implements Initializable
                 $query->orderBy('name', 'asc');
             })
             ->setColumns([
-                AdminColumn::text('country.name', 'Страна'),
-                \AdminColumnEditable::text('name')->setLabel('Название'),
+                AdminColumn::text('name')->setLabel('Название'),
                 AdminColumn::text('value')->setLabel('Значение'),
                 AdminColumn::datetime('updated_at')->setLabel('Дата Изменения')->setFormat('d.m.Y H:i'),
             ])
@@ -76,7 +75,6 @@ class Config extends Section implements Initializable
         $item = $id ? \App\Models\Config::find($id) : false;
         $type = $item->type;
         $columns = [
-            AdminFormElement::html('<p><strong>Страна:</strong> '.$item->country->name.'</p>'),
             AdminFormElement::text('name', 'Название'),
             AdminFormElement::$type('value', 'Значение')->setHelpText($item->help),
             /*AdminFormElement::text('meta_title', 'Заголовок META'),

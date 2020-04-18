@@ -25,6 +25,13 @@ Vue.directive('selecttwo', {
 });
 Vue.component('upload-image', require('./components/admin/UploadImageComponent.vue').default);
 Vue.component('multi-fields', require('./components/admin/MultiFieldsComponent.vue').default);
+Vue.component('upload-image', require('./components/admin/UploadImageComponent.vue').default);
+Vue.component('image-component', require('./components/admin/ImageComponent.vue').default);
+Vue.component('select-wide', require('./components/admin/SelectWideComponent.vue').default);
+Vue.component('multi-images', require('./components/admin/MultiImagesComponent.vue').default);
+Vue.component('multi-blocks', require('./components/admin/MultiBlocksComponent.vue').default);
+Vue.component('swap-group', require('./components/admin/SwapGroupComponent.vue').default);
+Vue.component('swap-card', require('./components/admin/SwapCardComponent.vue').default);
 Vue.component('admin-slider', require('./components/admin/SliderComponent.vue').default);
 Vue.component('admin-address', require('./components/admin/AddressComponent.vue').default);
 
@@ -32,25 +39,25 @@ Vue.component('admin-address', require('./components/admin/AddressComponent.vue'
 function switchOnHandler(textareaId, config) {
     // textareaId - идентификатор поля ввода к которому необходимо подключить редактор
     // config - дополнительные настройки
- 
+
     editor = new WYSIWYGEditor(textareaId)
     editor.setConfig(config)
     return editor
  }
- 
+
  function switchOffHandler(editor, textareaId) {
     // editor - объект подключенного редактора
     // textareaId - идентификатор поля ввода к которому необходимо подключить редактор
- 
+
     editor.destroy()
  }
- 
+
  function execHandler(editor, command, textareaId, data) {
     // editor - объект подключенного редактора
     // command - команда, которую необходимо выполнить
     // textareaId - идентификатор поля ввода к которому необходимо подключить редактор
     // data - дополнительные данные
- 
+
      switch (command) {
          case 'insert':
              editor.insertText(data);
@@ -59,43 +66,43 @@ function switchOnHandler(textareaId, config) {
  }
 Admin.setEditor = function () {
     Admin.WYSIWYG.register('ckeditor', switchOnHandler, switchOffHandler, execHandler);
-    
+
     $('.js-ckeditor').each(function (index, element) {
         let id = $(this).attr('id');
         let token = Admin.token;
         let url = '/admin/save/image?_token='+token;
         Admin.WYSIWYG.switchOn(id, 'ckeditor',{defaultLanguage:'ru',extraPlugins: 'uploadimage,image2,justify,youtube,uploadfile',filebrowserUploadUrl: url,uploadUrl: url});
-         
+
      });
 }
 console.log('-- rhis1 --');
 $(document).ready(function () {
     if ($('.js-ckeditor').length) {
         Admin.setEditor();
-        
+
     }
     function switchOnHandler(textareaId, config) {
         // textareaId - идентификатор поля ввода к которому необходимо подключить редактор
         // config - дополнительные настройки
-     
+
         editor = new WYSIWYGEditor(textareaId)
         editor.setConfig(config)
         return editor
      }
-     
+
      function switchOffHandler(editor, textareaId) {
         // editor - объект подключенного редактора
         // textareaId - идентификатор поля ввода к которому необходимо подключить редактор
-     
+
         editor.destroy()
      }
-     
+
      function execHandler(editor, command, textareaId, data) {
         // editor - объект подключенного редактора
         // command - команда, которую необходимо выполнить
         // textareaId - идентификатор поля ввода к которому необходимо подключить редактор
         // data - дополнительные данные
-     
+
          switch (command) {
              case 'insert':
                  editor.insertText(data);
@@ -104,24 +111,24 @@ $(document).ready(function () {
      }
     function setEditor() {
         Admin.WYSIWYG.register('ckeditor', switchOnHandler, switchOffHandler, execHandler);
-        
+
         $('.js-ckeditor').each(function (index, element) {
            var id = $(this).attr('id');
            Admin.WYSIWYG.switchOn(id, 'ckeditor');
-            
+
         });
     }
     $('body').on('click', '.js-add-multi-element', function () {
         $('.js-ckeditor').each(function (index, element) {
             var id = $(this).attr('id');
             Admin.WYSIWYG.switchOff(id);
-             
+
          });
         var block = $(this).parents('.js-multi-elements').find('.js-multi_item:last').clone();
-        
+
         var num = $(block).data('num');
         var new_num = num+1;
-        
+
         $(block).attr('data-num', new_num);
         $(block).find('.form-control').each(function (index, element) {
             $(element).val('');
@@ -137,7 +144,7 @@ $(document).ready(function () {
             $(element).attr('name',name.replace(num,new_num));
             $(element).attr('id',id.replace(num,new_num));
         });
-        
+
         $(block).find('label').each(function (index, element) {
             fr = $(element).attr('for');
             if (fr) {
@@ -145,9 +152,9 @@ $(document).ready(function () {
                 $(element).attr('for',fr.replace(num,new_num));
             }
         });
-        $(this).before(block);  
-         
-        setEditor();    
+        $(this).before(block);
+
+        setEditor();
     });
     $('body').on('click', '.js-remove-multi-element', function () {
         var pid = $(this).parents('.js-multi_item').data('pid');

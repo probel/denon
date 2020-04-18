@@ -4,12 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use SleepingOwl\Admin\Traits\OrderableModel;
-
+use App\Traits\{ SeoTrait, Status };
 
 class News extends Model
 {
 
     use OrderableModel;
+    use SeoTrait;
+    use Status;
+
     protected $casts = [
         'fields' => 'array',
     ];

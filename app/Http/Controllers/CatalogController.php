@@ -8,7 +8,7 @@ use \App\Models\{Category, Brand, Set, SetProduct, SetCategory, Product, Page, M
 class CatalogController extends Controller
 {
     public static function index() {
-        
+
         $products = Product::with(['category'])->where('status',1);
 
         $order = request()->order ?? '';
@@ -30,31 +30,39 @@ class CatalogController extends Controller
         return $res;
     }
     public function resolver($slugLine = null)
-    {     
+    {
         $slugs = explode('/',$slugLine);
-        $last = array_pop($slugs);
-        $last = $slugLine;
-
-        if ($last) {
-        $products = Product::where('slug',$last)->where('status',1)->get();
-
-            if ($products->count()) {
-                return $this->product($products->first());
-                    $catSlug = implode('/',$slugs);
-                    foreach ($products as $key => $product) {
-
-                        return $this->product($product);
-
-                    }
+        if (count($slugs) == 1) {
+            $slug = array_pop($slugs);
+            $category = Category::active()->where('slug',$slug)->first();
+            if ($category) {
+                return $this->category($category);
             }
-            $categories = Category::with('childs')->where('status',1)->where('slug',$last)->get();
+            $page = Page::active()->where('slug',$slug)->whereType('typical')->first();
+            if ($page) {
+                $controller = new PageController();
+                return $controller->show($page);
+            }
+        } else {
+            $slug = array_pop($slugs);
+            $parentSlug = array_pop($slugs);
 
-            if ($categories->count()) {
-                $catSlug = $slugLine;
-                foreach ($categories as $key => $category) {
-                    if ($category->getPath() == $catSlug) {
-                        return $this->category($category);
-                    }
+            $products = Product::with('category.parent')->active()->where('slug',$slug)->get();
+
+            foreach ($products as $product) {
+                if ($product->category->slug == $parentSlug) {
+                    return $this->product($product);
+                }
+            }
+
+            $categories = Category::with('parent')
+                                ->active()
+                                ->where('parent_id','>',0)
+                                ->where('slug',$slug)
+                                ->get();
+            foreach ($categories as $key => $category) {
+                if($category->parent->slug == $parentSlug) {
+                    return $this->subCategory($category);
                 }
             }
         }
@@ -71,34 +79,46 @@ class CatalogController extends Controller
             ['href'=>'/','name'=>'Главная'],
             ['href'=> "#",'name'=>'Каталог']
         ];
-        
+
         $meta = [];
-        
+
         $arSelectedCategory = array ('usiliteli','sacdcd-proigryvateli','setevye-proigryvateli','vinilovye-proigryvateli');
         $selectedCategory = Category::where('status', 1)->whereIn('slug', $arSelectedCategory)->get();
 
         $products     = \App\Models\Product::where('status',1);
         //новинки в продуктах
         $productNews  = \App\Models\Product::where('status',1)->where('new',1)->get();
-        
+
         return view('pages.catalog-d',compact('meta','current','products', 'productNews', 'breadcrumbs', 'selectedCategory'));
     }
 
     public function category($category)
     {
-        if (!$category) {
-            abort(404);
-        }
         /* META */
         $meta = $category->getMeta();
         $breadcrumbs = [
-            ['href'=>'/','name'=>'Главная'],
-            ['href'=>route('catalog.show'),'name'=>'Каталог'],
-            ['href'=> '','name'=>$category->name],
+            [ 'href'=>'/', 'name'=>   'Denon' ],
+            [ 'href'=> '', 'name'=>   $category->title ],
         ];
-
-        $news = "test";
-        return view('pages.catalog.index',compact('meta','category','breadcrumbs','news'));
+        $title = $category->title;
+        return view('pages.catalog.category',compact('meta', 'title', 'category', 'breadcrumbs'));
+    }
+    public function subCategory($category)
+    {
+        /* META */
+        $meta = $category->getMeta();
+        $breadcrumbs = [
+            [ 'href'=>'/', 'name'=>   'Denon' ],
+            [ 'href'=> $category->parent->getUrl(), 'name'=>   $category->parent->title ],
+            [ 'href'=> '', 'name'=>   $category->title ],
+        ];
+        $title = $category->title;
+        $values = $category->values;
+        $bgImage = $values['bg_image'] ?? 'images/project/page-title.jpg';
+        $paginate = \Helpers::config('paginate') ?? 6;
+        $products = $category->products()->active()->orderBy('order')->paginate($paginate);
+        //dd($products->count());
+        return view('pages.catalog.subCategory',compact('meta', 'title', 'values', 'bgImage', 'products', 'category', 'breadcrumbs'));
     }
     public function set($set)
     {
@@ -226,11 +246,11 @@ class CatalogController extends Controller
                 ['href'=>route('catalog.show'),'name'=>'Каталог'],
 
             ];
-            
+
                 $category = $product->category;
                 $breadcrumbs[] = ['href'=> route('catalog.category',['slug'=>$category->slug]),'name'=>$category->name];
 
-            
+
             $breadcrumbs[] = ['href'=> '','name'=> \strip_tags($product->name)];
             $view = 'productcard';
             $title = $product->name;
