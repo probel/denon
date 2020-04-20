@@ -36,9 +36,9 @@ class OrderShipped extends Mailable
     public function build()
     {
         $order = $this->order;
-        $title = 'Новый заказ от пользователя '.$order->fio;
-        
-        return $this->from(getConfigValue('message_from'),$_SERVER['HTTP_HOST'])->subject($title)->view('emails.orders.shipped')->with([
+        $title = 'Новый заказ от пользователя '.$order->name;
+
+        return $this->from(env('MAIL_FROM_ADDRESS'),$_SERVER['HTTP_HOST'])->subject($title)->view('emails.orders.shipped')->with([
             'order' => $this->order,
         ]);
     }

@@ -1,100 +1,98 @@
 @extends('layouts.app')
 @section('content')
-
 <div class="product-page bg-light">
-    <section class="breadcrumb__line position-relative">
-        <div class="container h-100">
-            <div class="col-xl-10 mx-auto px-0 h-100">
-                <div class="breadcrumb__line__in d-flex align-items-center position-relative h-100">
-                    <nav aria-label="breadcrumb" class="breadcrumb__wrapper">
-                        <ol class="breadcrumb text-uppercase p-0 m-0">
-                            <li class="breadcrumb-item"><a href="/">DENON</a></li>
-                            <li class="breadcrumb-item"><a href="#">HI-FI КОМПОНЕНТЫ</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">виниловые проигрыватели</li>
-                        </ol>
-                    </nav>
-                    <div class="page-title__small text-uppercase">
-                        <strong>{{ $product['name'] ?? '' }}</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    @include('shared.breadcrumb')
     <div class="container">
         <div class="col-xl-10 mx-auto px-0">
             <!-- begin product-card -->
             <div class="product-card">
                 <div class="catalog__item__top d-flex align-items-baseline position-relative">
-                    @if ($product['sale']  == 1)
-                        <div class="sale text-uppercase">
-                            <img class="mr-2 pb-2" src="/images/icons/sale.png" alt="">Sale
-                        </div>
-                    @endif
-                    @if ($product['stock']  == 1)
-                    <div class="in-stock text-uppercase ml-auto">в наличии</div>
-                @else
-                    <div class="in-stock text-uppercase ml-auto">нет в наличии</div>
-                    @endif
-                    
-                    @if ($product['new']  == 1)
+                    <div class="sale text-uppercase">
+                        @if ($product->gift)
+                        <img class="mr-2 pb-2" src="/images/icons/sale.png" alt="Подарок">
+                        @endif
+                        @if ($product->old_price)
+                        Sale
+                        @endif
+                    </div>
+                    <div class="in-stock text-uppercase ml-auto">
+                        {{ $product->available ? 'в наличии' : 'нет в наличии'}}
+                    </div>
+                    @if ($product->new)
                     <div class="sticker position-absolute text-uppercase">new</div>
-                @endif 
+                    @endif
                 </div>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-xl-6">
                         <div class="product-card__sliders">
                             <div class="photo-big">
-                                <a href="#" class="photo-big__item d-flex h-100" data-lightbox="product-00001">
-                                    <img class="m-auto img-fluid" src="{{ asset($product->images[0]) }}">
+                                <a href="{{ asset($product->getImage()['path']) }}" data-key="0" class="photo-big__item d-flex h-100 js-big-image">
+                                    <img class="m-auto img-fluid" alt="{{ $product->getImage()['alt'] }}" src="{{ asset($product->getImage()['path']) }}">
                                 </a>
                             </div>
+                            <div class="vendor-code d-xl-none text-right">{{ $product->article }}</div>
                             <div class="photo-small photo-small-slick">
-                                @foreach ($product->images as $k=>$v)
-                                    <div class="photo-small__item d-flex mx-auto">
-                                        <img class="align-self-center m-auto" src="{{ asset($v) }}" alt="">
-                                    </div>
-                                @endforeach 
+                                @foreach ($product->getImages() as $imageKey => $image)
+                                <img class="photo-small__item d-flex mx-auto js-small-image align-self-center m-auto" data-key="{{ $imageKey }}" src="{{ asset($image['path']) }}" alt="{{ asset($image['alt']) }}">
+                                @endforeach
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-xl-6">
                         <div class="product-card__info">
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <h1 class="product-card__title">{{ $product['name'] ?? '' }}</h1>
-                                    <h2 class="product-card__subtitle">{{ $product['short_description'] ?? '' }}</h2>
+                                    <h1 class="product-card__title">{{ $product->name }}</h1>
+                                    <h2 class="product-card__subtitle">{!! $product->short_description !!}</h2>
                                 </div>
-                                <div class="vendor-code">{{ $product['articul'] ?? '' }}</div>
+                                <div class="vendor-code d-none d-xl-block">{{ $product->article }}</div>
                             </div>
+                            @if (count($product->variations ?? []))
                             <div class="color-check d-flex">
                                 <div class="color-check__caption">Цвет:</div>
-                                <div class="color-check__icon" style="background-color: #000;"></div>
-                                <div class="color-check__icon" style="background-color: #fff; border-color: #000"></div>
-                                <div class="color-check__icon" style="background-color: rgb(125, 80, 36);;"></div>
+                                @foreach ($product->variations as $key => $variant)
+                                <div class="color-check__icon__wrapper js-change-color-wrapper {{ $loop->first ? 'active' : '' }}">
+                                    <div class="color-check__icon js-change-color" data-key="{{ $key }}" data-toggle="tooltip" title="{{ $variant['title'] ?? '' }}" style="background-color: {{ $variant['color'] ?? '' }};"></div>
+                                </div>
+                                @endforeach
                             </div>
+                            @endif
+                            @if ($product->description)
                             <div class="product-card__description d-flex flex-column position-relative">
                                 <div class="product-card__description__caption text-uppercase">ОПИСАНИЕ</div>
                                 <div class="product-card__description__text text-justify">
-                                    {!!  $product['description'] ?? '' !!}
+                                    {!! $product->description !!}
                                 </div>
+                                @if ($product->footnote)
                                 <div class="product-card__description__footnote mt-auto text-lg-right">
-                                    {!!  $product['long description'] ?? '' !!}
+                                    {!! $product->footnote !!}
                                 </div>
+                                @endif
                             </div>
-                            <form action="/" method="post" class="product-card__form js-form__to-cart">
+                            @endif
+                            <form action="{{ route('cart.set') }}" method="post" class="product-card__form js-form__to-cart">
                                 {{ csrf_field() }}
-                                <input type="hidden" name="id" value="product-id">
-                                <div class="d-flex justify-content-between align-items-end">
+                                <div class="d-flex justify-content-between align-items-end flex-wrap">
                                     <div class="price__wrapper">
-                                        <div class="old-price">{{ $product['old_price'] ?? '' }} РУБ</div>
-                                        <div class="price-sum"><strong class="js-product-sum">{{ $product['price'] ?? '' }} </strong>РУБ</div>
+                                        @if ($product->old_price)
+                                        <div class="old-price"><span class="js-product-old_sum">{{ number_format($product->old_price, 0, '.', ' ') }}</span> РУБ</div>
+                                        @endif
+                                        <div class="price-sum"><strong class="js-product-sum">{{ number_format($product->price, 0, '.', ' ') }} </strong> РУБ</div>
                                     </div>
-                                    <div class="d-flex align-items-end">
+                                    <div class="d-flex align-items-end count__wrapper">
                                         <div class="plusminus d-flex align-items-center js-plusminus">
                                             <div class="plusminus__caption text-uppercase">Количество:</div>
                                             <span class="minus js-minus">-</span>
-                                            <input type="hidden" name="id" value="product-id">
-                                            <input type="text" name="count" class="js-product-count" data-price="product-price" data-old_price="product-oldprice" id="" value="1" readonly>
+                                            <input type="hidden" name="pid" value="{{ $product->id }}">
+                                            <input type="hidden" name="vid" value="0">
+                                            <input type="hidden" name="confirm" value="1">
+                                            <input
+                                                type="text"
+                                                name="count"
+                                                class="text-center js-product-count"
+                                                data-price="{{ $product->price }}"
+                                                data-old_price="{{ $product->old_price }}"
+                                                value="1" readonly>
                                             <span class="plus js-plus">+</span>
                                         </div>
                                         <button class="btn btn-triangle btn-broun" type="submit">
@@ -129,54 +127,15 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="product-desc-01">
                         <div class="product-description__desc">
-                            <p>Новый AV-ресивер Denon AVR-S650H предлагает самые современные технологии изображения и звука. Впервые в 5 канальном
-                                AV-ресивере предлагаются технологии старших линеек - встроенная технология HEOS предоставляет быстрый доступ к тысячам
-                                музыкальных радиостанций в сети Интернет и музыкальным сервисам Spotify, Deezer и Tidal, а программа автоматической
-                                настройки акустики Audyssey, с помощью входящего в комплект микрофона, поможет быстро и правильно настроить звук всей
-                                системы.
-                            </p>
-                            <p>Смотрите свои любимые фильмы и телевизионные шоу с потрясающим качеством изображения благодаря поддержке технологий
-                                Dolby Vision and HDR. Совместимость с Apple AirPlay 2, Amazon Alexa и Google Assistant также делает пользование этим
-                                ресивером простым и удобным.</p>
-                            <img src="/images/project/product-desc-1.jpg" alt="">
-                            <ul>
-                                <li>Высококачественный 5-канальный усилитель: мощный и динамичный звук с мощностью 135 Вт на канал</li>
-                                <li>Поддержка новейших видеоформатов: великолепное качество изображения в формате 4K Ultra HD / 60 Гц благодаря технологиям HDR10, Dolby Vision и HLG</li>
-                                <li>Широкие возможности подключения: 5 входов HDMI  и 1 выход с поддержкой HDCP 2.3 на всех портах</li>
-                                <li>Программа ассистент по настройке и графический интерфейс пользователя: быстрая и правильная настройка всех функций</li>
-                                <li>Встроенная сетевая технология HEOS: быстрый и простой доступ к музыкальным онлайн-сервисам Spotify, Tidal, TuneIn, Deezer и другим в сети Интернет через бесплатное приложение HEOS для смартфонов или через AirPlay2.</li>
-                                <li>Подключение к Smart TV: удобное управление AV-ресивером через пульт телевизора через HDMI-CEC</li>
-                                <li>Поддержка eARC (Enhanced Audio Return Channel): Позволяет передавать многоканальный звук в формате Dolby True HD и DTS HA Master Audio напрямую с телевизора на AV-ресивер через подключенный кабель HDMI</li>
-                                <li>Порт USB на фронтальной панели: воспроизведение аудио в форматах MP3, WAV, FLAC, ALAC и DSD</li>
-                                <li>Четыре кнопки быстрого выбора источника: сохраните ваши предпочтительные настройки звука для каждого источника</li>
-                                <li>Программа настройки звука Audyssey MultEQ: Возможность точно настроить звук с учетом акустических особенностей вашей комнаты</li>
-                            </ul>
+                            {!! $product->long_description !!}
                         </div>
+                        @if (count($product->icons ?? []))
                         <div class="product-description__icons d-flex flex-wrap align-items-center justify-content-between">
-                            <img src="/images/project/prod-icon-1.jpg" alt="">
-                            <img src="/images/project/prod-icon-2.jpg" alt="">
-                            <img src="/images/project/prod-icon-3.jpg" alt="">
-                            <img src="/images/project/prod-icon-4.jpg" alt="">
-                            <img src="/images/project/prod-icon-5.jpg" alt="">
-                            <img src="/images/project/prod-icon-6.jpg" alt="">
-                            <img src="/images/project/prod-icon-7.jpg" alt="">
-                            <img src="/images/project/prod-icon-8.jpg" alt="">
-                            <img src="/images/project/prod-icon-9.jpg" alt="">
-                            <img src="/images/project/prod-icon-10.jpg" alt="">
-                            <img src="/images/project/prod-icon-11.jpg" alt="">
-                            <img src="/images/project/prod-icon-12.jpg" alt="">
-                            <img src="/images/project/prod-icon-13.jpg" alt="">
-                            <img src="/images/project/prod-icon-14.jpg" alt="">
-                            <img src="/images/project/prod-icon-15.jpg" alt="">
-                            <img src="/images/project/prod-icon-16.jpg" alt="">
-                            <img src="/images/project/prod-icon-17.jpg" alt="">
-                            <img src="/images/project/prod-icon-18.jpg" alt="">
-                            <img src="/images/project/prod-icon-19.jpg" alt="">
-                            <img src="/images/project/prod-icon-20.jpg" alt="">
-                            <img src="/images/project/prod-icon-21.jpg" alt="">
-                            <img src="/images/project/prod-icon-22.jpg" alt="">
-                            <img src="/images/project/prod-icon-23.jpg" alt="">
+                            @foreach ($product->icons as $icon)
+                            <img src="{{ asset($icon['path'] ?? '') }}" alt="{{ $icon['alt'] ?? '' }}">
+                            @endforeach
                         </div>
+                        @endif
                     </div>
                     <div class="tab-pane" id="product-desc-02">
                         <div class="accordion features" id="features-accordion">
@@ -303,43 +262,43 @@
                     <div class="tab-pane" id="product-desc-03">
                         <div class="downloads text-uppercase">
                             {{-- здесь класс .title (у первого downloads__row) --}}
-                            <div class="row downloads__row title align-items-lg-center">
-                                <div class="col-sm-4"></div>
-                                <div class="col-sm-2">Дата</div>
-                                <div class="col-sm-2">ВЕС</div>
-                                <div class="col-sm-2">ТИП ФАЙЛА</div>
-                                <div class="col-sm-2"></div>
+                            <div class="row downloads__row title align-items-center">
+                                <div class="col-lg-4 col-12"></div>
+                                <div class="col-lg-2 col-sm-3">Дата</div>
+                                <div class="col-lg-2 col-sm-3">ВЕС</div>
+                                <div class="col-lg-2 col-sm-3">ТИП ФАЙЛА</div>
+                                <div class="col-lg-2 col-sm-3"></div>
                             </div>
                             {{-- здесь класс .item (у этого и следующих downloads__row) --}}
-                            <div class="row downloads__row item align-items-lg-center">
-                                <div class="col-sm-4">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
-                                <div class="col-sm-2">12.02.2020</div>
-                                <div class="col-sm-2">-</div>
-                                <div class="col-sm-2">WEBSITE</div>
-                                <div class="col-sm-2"><a class="btn" href="#">Просмотр</a></div>
+                            <div class="row downloads__row item align-items-center">
+                                <div class="col-lg-4 col-12">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
+                                <div class="col-lg-2 col-sm-3">12.02.2020</div>
+                                <div class="col-lg-2 col-sm-3">-</div>
+                                <div class="col-lg-2 col-sm-3">WEBSITE</div>
+                                <div class="col-lg-2 col-sm-3"><a class="btn" href="#">Просмотр</a></div>
                             </div>
-                            <div class="row downloads__row item align-items-lg-center">
-                                <div class="col-sm-4">Информация о продукте</div>
-                                <div class="col-sm-2">06.12.2019</div>
-                                <div class="col-sm-2">1.2MB</div>
-                                <div class="col-sm-2">PDF</div>
-                                <div class="col-sm-2"><a class="btn" href="#">СКАЧАТЬ</a></div>
+                            <div class="row downloads__row item align-items-center">
+                                <div class="col-lg-4 col-12">Информация о продукте</div>
+                                <div class="col-lg-2 col-sm-3">06.12.2019</div>
+                                <div class="col-lg-2 col-sm-3">1.2MB</div>
+                                <div class="col-lg-2 col-sm-3">PDF</div>
+                                <div class="col-lg-2 col-sm-3"><a class="btn" href="#">СКАЧАТЬ</a></div>
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="product-desc-04">
                         <div class="downloads text-uppercase">
-                            <div class="row downloads__row item align-items-lg-center">
-                                <div class="col-sm-10">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
-                                <div class="col-sm-2"><a class="btn" href="#">Просмотр</a></div>
+                            <div class="row downloads__row item align-items-center">
+                                <div class="col-lg-10 col-sm-9">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
+                                <div class="col-lg-2 col-sm-3"><a class="btn" href="#">Просмотр</a></div>
                             </div>
-                            <div class="row downloads__row item align-items-lg-center">
-                                <div class="col-sm-10">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
-                                <div class="col-sm-2"><a class="btn" href="#">Просмотр</a></div>
+                            <div class="row downloads__row item align-items-center">
+                                <div class="col-lg-10 col-sm-9">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
+                                <div class="col-lg-2 col-sm-3"><a class="btn" href="#">Просмотр</a></div>
                             </div>
-                            <div class="row downloads__row item align-items-lg-center">
-                                <div class="col-sm-10">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
-                                <div class="col-sm-2"><a class="btn" href="#">Просмотр</a></div>
+                            <div class="row downloads__row item align-items-center">
+                                <div class="col-lg-10 col-sm-9">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
+                                <div class="col-lg-2 col-sm-3"><a class="btn" href="#">Просмотр</a></div>
                             </div>
 
                         </div>
@@ -347,16 +306,20 @@
                 </div>
                 <!-- bottom line -->
                 <div class="product-description__bottom">
-                    <form action="" class="product-card__form d-flex h-100 align-items-end justify-content-end">
+                    <form action="{{ route('cart.set') }}" class="product-card__form d-flex h-100 align-items-end justify-content-end flex-wrap js-form__to-cart">
                         <div class="price__wrapper">
-                            <div class="old-price">39 990 РУБ</div>
-                            <div class="price-sum"><strong class="js-product-sum">29 990 </strong>РУБ</div>
+                            <div class="old-price"><span class="js-product-old_sum">{{ number_format($product->old_price, 0, '.', ' ') }}</span> РУБ</div>
+                            <div class="price-sum"><strong class="js-product-sum">{{ number_format($product->price, 0, '.', ' ') }}</strong> РУБ</div>
                         </div>
                         <div class="plusminus d-flex align-items-center js-plusminus">
                             <div class="plusminus__caption text-uppercase">Количество:</div>
                             <span class="minus js-minus">-</span>
-                            <input type="hidden" name="id" value="product-id">
-                            <input type="text" name="count" class="js-product-count" data-price="product-price" data-old_price="product-oldprice" id="" value="1" readonly="">
+                            <input type="hidden" name="pid" value="{{ $product->id }}">
+                            <input type="hidden" name="vid" value="0">
+                            <input type="hidden" name="confirm" value="1">
+                            @csrf
+                            <input type="text" name="count" data-price="{{ $product->price }}"
+                                data-old_price="{{ $product->old_price }}" class="text-center js-product-count" data-price="product-price" data-old_price="product-oldprice" id="" value="1" readonly="">
                             <span class="plus js-plus">+</span>
                         </div>
                         <button class="btn btn-triangle btn-broun" type="submit">
@@ -368,4 +331,10 @@
         </div>
     </div>
 </div>
+@endsection
+@section('sctipts')
+    <script>
+        window.defaultImages = @json($product->images);
+        window.variations = @json($product->variations);
+    </script>
 @endsection

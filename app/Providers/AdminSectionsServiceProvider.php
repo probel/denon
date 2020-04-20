@@ -24,6 +24,8 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\Product::class => 'App\Http\Admin\Product',
         \App\Models\Config::class => 'App\Http\Admin\Config',
         \App\Models\News::class => 'App\Http\Admin\News',
+        \App\Models\Promo::class => 'App\Http\Admin\Promo',
+        \App\Models\Installation::class => 'App\Http\Admin\Installation',
     ];
 
 

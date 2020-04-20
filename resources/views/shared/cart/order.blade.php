@@ -1,19 +1,17 @@
 
-<form  action="{{ route('order.set') }}/"
-        method="post"
-        class="cart-form js-form__cart-submit">
+<form  action="{{ route('order.store') }}" method="post" class="cart-form js-form__cart-submit">
     <div class="form-group">
-        <label class="form-label text-uppercase" for="cart-recal-form-name">имя</label>
+        <label class="form-label text-uppercase" for="cart-recal-form-name">имя<sup>*</sup></label>
         <input class="form-control" id="cart-recal-form-name" type="text" name="name" placeholder="Введите имя" required="required">
     </div>
     <div class="cart-form__row d-flex justify-content-between flex-wrap">
         <div class="form-group">
-            <label class="form-label text-uppercase" for="cart-recal-form-tel">НОМЕР ТЕЛЕФОНА</label>
+            <label class="form-label text-uppercase" for="cart-recal-form-tel">НОМЕР ТЕЛЕФОНА<sup>*</sup></label>
             <input class="form-control" id="cart-recal-form-tel" type="text" name="tel" placeholder="+7" required="required">
         </div>
         <div class="form-group">
             <label class="form-label text-uppercase" for="cart-recal-form-email">ЭЛЕКТРОННАЯ ПОЧТА</label>
-            <input class="form-control" id="cart-recal-form-email" type="email" name="email" placeholder="name@domain.ru" required="required">
+            <input class="form-control" id="cart-recal-form-email" type="email" name="email" placeholder="name@domain.ru">
         </div>
     </div>
     <div class="form-group">
@@ -26,7 +24,7 @@
     </div>
     <label class="checkbox square">
         <input type="checkbox" name="category-page-filter-1" value="1" checked="checked">
-        <span class="checkbox__text">Согласен с <a href="#">Условиями обработки  персональных данных</a></span>
+    <span class="checkbox__text">Согласен с <a target="blank" href="{{ Helpers::gpu(9) }}">Условиями обработки  персональных данных</a></span>
     </label>
     @csrf
     <div class="d-flex buttons__wrapper flex-wrap justify-content-end">

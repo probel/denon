@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use SleepingOwl\Admin\Traits\OrderableModel;
-use App\Traits\{ SeoTrait, Status };
+use App\Traits\{ SeoTrait, Status, ArticleTrait };
 
 class News extends Model
 {
@@ -12,9 +12,10 @@ class News extends Model
     use OrderableModel;
     use SeoTrait;
     use Status;
+    use ArticleTrait;
 
     protected $casts = [
-        'fields' => 'array',
+        'values' => 'array',
     ];
     public function scopeFindByPosition($query, $position)
     {
@@ -24,8 +25,13 @@ class News extends Model
     {
         return route('news.show',['slug'=>$this->slug]);
     }
-    public function getMeta()
+    public function getBreadcrumbs()
     {
-        return array ("111", "222");
+        $breadcrumbs = [
+            ['href'=>'/','name' => 'Denon'],
+            ['href'=> route('news.index'), 'name' => 'Новости'],
+            ['href'=> '','name' => $this->title],
+        ];
+        return $breadcrumbs;
     }
 }

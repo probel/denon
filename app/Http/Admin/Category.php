@@ -83,10 +83,11 @@ class Category extends Section implements Initializable
 
             $tabs = [];
             $fields = AdminService::getSloganFields($model);
-            $fields[] = AdminFormElement::view('admin.panelOpen',['key'=>'teaser','title'=>__('Тизер (для подкатегорий)')]);
+            $fields[] = AdminFormElement::view('admin.form.panelOpen',['key'=>'teaser','title'=>__('Тизер (для подкатегорий)')]);
+            $fields[] = AdminFormElement::image('teaser_image', 'Картинка на главной');
             $fields[] = AdminFormElement::text('teaser_title', 'Подзаголовок');
             $fields[] = AdminFormElement::ckeditor('teaser_description', 'Описание');
-            $fields[] = AdminFormElement::view('admin.panelClose');
+            $fields[] = AdminFormElement::view('admin.form.panelClose');
             $tabs[] = AdminDisplay::tab(AdminForm::elements($fields))->setLabel('Содержимое');
 
             $tabs[] = AdminService::seoTab();
@@ -98,7 +99,7 @@ class Category extends Section implements Initializable
 
         $model = $id ? \App\Models\Category::find($id) : null;
         $columns = [AdminFormElement::text('name', 'Название')->required(),];
-        
+
         $columns = array_merge($columns, AdminService::getSloganFields($page));
         $columns[] = AdminFormElement::columns()
                 ->addColumn([AdminFormElement::checkbox('status', 'Доступен')])

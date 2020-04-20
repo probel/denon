@@ -1,92 +1,80 @@
 @extends('layouts.app')
 @section('content')
-<div class="article-page position-relative">
+<div class="article-page bg-light">
+    @include('shared.breadcrumb')
     <div class="container">
-        @include('shared.breadcrumb')
-        <main>
-            <h1 class="main-title acticle-title text-center">{!! rv($title) !!}</h1>
-            <div class="article-content {{ class_basename($article) == 'Blog' ? 'blog-page-content' : '' }}">
-                @php
-                    $promoDate = $article->date ? $article->date->format('d.m.Y') : '';
-                @endphp
-                @if ($article->fields && count($article->fields))
-                    @foreach ($article->fields as $field)
-                        @include('shared.article.field')
-                    @endforeach
-                @else
-                {!! rv(str_replace('%date%',$promoDate,$article->body)) !!}
+        <div class="col-xl-10 mx-auto px-0">
+            <div class="article-page__content">
+                <div class="article-page__content__title__wrapper d-flex align-items-baseline justify-content-between">
+                    <h1 class="article-page__content__title text-uppercase">{{ $title }}</h1>
+                    <div class="article-page__content__date">{{ $article->created_at->format('d.m.Y') }}</div>
+                </div>
+                <div class="article-page__content__text">
+                    {!! $article->body !!}
+                </div>
+                @if ($article->values['link_path'] ?? null)
+                <a href="{{ $article->values['link_path'] }}" class="article-page__content__big-link text-center text-uppercase">{{ $article->values['link_text'] ?? '' }}</a>
                 @endif
-
             </div>
-        </main>
+        </div>
     </div>
 </div>
-@if (class_basename($article) == 'Blog')
-    <div class="article-page__comments grey-borders position-relative">
-        @include('shared.article.comments')
-    </div>
-@endif
-@if (class_basename($article) == 'Promo' &&
-    $others = \App\Models\Promo::where('id','!=',$article->id)
-                                ->whereStatus(1)
-                                ->orderBy('order','desc')
-                                ->take(5)
-                                ->get())
-    <div class="others-promo">
-        <div class="container">
-            <h2 class="main-title text-center">Другие акции</h2>
-            <div class="blog__slider js-news__slider">
-                @foreach ($others as $item)
-                    @include('shared.article.teaser',['article'=>$item,'date'=>true])
-                @endforeach
-            </div>
-            <div class="blog__slider__navigate justify-content-center align-items-center js-news__slider-navigate">
-                <button type="button" class="prev icon-center nav-arrow js-news-prev">@svg('images/svg/prev.svg')</button>
-                <button type="button" class="next icon-center nav-arrow js-news-next">@svg('images/svg/next.svg')</button>
-            </div>
-        </div>
-    </div>
-@endif
-@if (class_basename($article) == 'News' &&
-    $others = \App\Models\News::where('id','!=',$article->id)
-                                ->whereStatus(1)
-                                ->orderBy('order','desc')
-                                ->take(5)
-                                ->get())
-    <div class="others-promo others-news">
-        <div class="container">
-            <h2 class="main-title text-center">Другие новости</h2>
-            <div class="blog__slider js-news__slider">
-                @foreach ($others as $item)
-                    @include('shared.article.teaser',['article'=>$item,'date'=>true])
-                @endforeach
-            </div>
-            <div class="blog__slider__navigate justify-content-center align-items-center js-news__slider-navigate">
-                <button type="button" class="prev icon-center nav-arrow js-news-prev">@svg('images/svg/prev.svg')</button>
-                <button type="button" class="next icon-center nav-arrow js-news-next">@svg('images/svg/next.svg')</button>
+<section class="news">
+    <div class="row row-second position-relative">
+        @if ($art = $article->getPrev())
+        <div class="col-6 ml-15">
+            <div class="d-flex row-second__wrapper">
+                <div class="row-second__image flex-shrink-0">
+                    <div class="news__item__image" style="background-image: url({{ asset($art->image) }})"></div>
+                </div>
+                <div class="first news__item row-second__news__item py-3 my-auto">
+                    <div class="news__item__height overflow-hidden">
+                        <div class="news__item__date text-right">{{ $art->created_at->format('d.m.Y') }}</div>
+                        <h3 class="news__item__title text-uppercase">
+                            <a href="{{ $art->getUrl() }}">{{ $art->title }}</a>
+                        </h3>
+                        <div class="news__item__text text-justify">
+                            {!! $art->description !!}
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <a class="news__item__more text-uppercase " href="{{ $art->getUrl() }}">ЧИТАТЬ ДАЛЬШЕ</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-@endif
-@if (class_basename($article) == 'Blog' &&
-    $others = \App\Models\Blog::where('id','!=',$article->id)
-                                ->whereStatus(1)
-                                ->orderBy('order','desc')
-                                ->take(5)
-                                ->get())
-    <div class="others-promo others-news">
-        <div class="container">
-            <h2 class="main-title text-center">Другие статьи</h2>
-            <div class="blog__slider js-news__slider">
-                @foreach ($others as $item)
-                    @include('shared.article.teaser',['article'=>$item,'date'=>false])
-                @endforeach
-            </div>
-            <div class="blog__slider__navigate justify-content-center align-items-center js-news__slider-navigate">
-                <button type="button" class="prev icon-center nav-arrow js-news-prev">@svg('images/svg/prev.svg')</button>
-                <button type="button" class="next icon-center nav-arrow js-news-next">@svg('images/svg/next.svg')</button>
+        @endif
+        @if ($art = $article->getNext())
+        <div class="col-6 position-static">
+            <div class="container position-absolute container-absolute">
+                <div class="col-xl-10 mx-auto h-100 px-0">
+                    <div class="col-md-6 offset-6 px-0">
+                        <div class="d-flex row-second__wrapper">
+                            <div class="row-second__image__second flex-shrink-0">
+                                <div class="news__item__image"
+                                    style="background-image: url({{ asset($art->image) }})"></div>
+                            </div>
+                            <div class="news__item row-second__news__item py-3 my-auto">
+                                <div class="news__item__height overflow-hidden">
+                                <div class="news__item__date text-right">{{ $art->created_at->format('d.m.Y') }}</div>
+                                    <h3 class="news__item__title text-uppercase">
+                                        <a href="{{ $art->getUrl() }}">{{ $art->title }}</a>
+                                    </h3>
+                                    <div class="news__item__text text-justify">
+                                        {!! $art->description !!}
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <a class="news__item__more text-uppercase " href="{{ $art->getUrl() }}">ЧИТАТЬ ДАЛЬШЕ</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        @endif
     </div>
-@endif
+    <div class="news__row-separator"></div>
+</section>
 @endsection

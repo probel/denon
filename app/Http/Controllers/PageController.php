@@ -27,30 +27,16 @@ class PageController extends Controller
         $values = $page->values;
 
         $bgImage = $values['bg_image'] ?? null;
-        $breadcrumbs = [
-            [ 'href'=>'/', 'name'=>   'Denon' ],
-            [ 'href'=> '', 'name'=>   $page->title ],
-        ];
+        $breadcrumbs = $page->getBreadcrumbs();
         return view('pages.'.$page->type,compact('meta','title','page','values','breadcrumbs','bgImage'));
     }
     public function showFront()
     {
-        $page = Page::find(1);
-        if (!$page) abort(404);
-        $valueSliderItems = ($page->toArray())['values'];
-
-        $topMenuTitleList = Page::getTitleList();
+        $page = Page::findOrFail(1);
         $meta       = $page->getMeta();
-        $product    = \App\Models\Product::first();
-        $category   = \App\Models\Category::where('parent_id','<',1)->first();
-        $categories = \App\Models\Category::get();
-        $news       = \App\Models\News::get();
-        $catalog    = \App\Models\Product::get();
-
-        //новинки в продуктах
-        $productNews  = \App\Models\Product::where('status',1)->where('new',1)->get();
-
-        return view('pages.'.$page->type, compact('meta', 'topMenuTitleList', 'catalog', 'categories', 'news', 'productNews','valueSliderItems'));
+        $values = $page->values;
+        $title = $page->title;
+        return view('pages.front', compact('meta',  'page','values','title'));
 
     }
     public function  warranty()
@@ -69,49 +55,47 @@ class PageController extends Controller
         return $this->show($page);
     }
 
-
-
-
-
     public function sitemap()
     {
-            $paths = [
-                route('front'),
-                //route('catalog.show')
-            ];
-            $remove = [];
-            if($city && $city->sitemap_remove) {
-                $links = explode("\n", $city->sitemap_remove);
-                foreach($links as $link) {
-                    $remove[] = url($link);
-                }
-            }
+        $paths = [
+            route('front'),
+        ];
 
+        $categories = \App\Models\Category::active()->get();
+        foreach ($categories as  $category) {
+            $url = $category->getUrl();
+            $paths[$url] = $url;
+        }
+        $products = \App\Models\Product::active()->get();
+        foreach ($products as $product) {
+            $url = $product->getUrl();
+            $paths[$url] = $url;
+        }
+        $pages = Page::active()->get();
+        foreach ($pages as $item) {
+            $url = $item->getUrl();
+            $paths[$url] = $url;
+        }
+        $pages = \App\Models\News::active()->get();
+        foreach ($pages as $item) {
+            $url = $item->getUrl();
+            $paths[$url] = $url;
+        }
+        $pages = \App\Models\Promo::active()->get();
+        foreach ($pages as $item) {
+            $url = $item->getUrl();
+            $paths[$url] = $url;
+        }
+        $pages = \App\Models\Installation::active()->get();
+        foreach ($pages as $item) {
+            $url = $item->getUrl();
+            $paths[$url] = $url;
+        }
+        array_sort($paths);
+        foreach ($paths as $url) {
+            Sitemap::addTag($url, false, 'daily', '1');
+        }
 
-            $products = \App\Models\Product::where('status',1)->get();
-            foreach ($products as $product) {
-                $url = $product->getUrl();
-                $paths[$url] = $url;
-            }
-            $pages = Page::where('status',1)->get();
-            foreach ($pages as $item) {
-                $url = route('page.show', ['slug' => $item->slug]).'/';
-                if (!in_array($url, $remove)) {
-                    Sitemap::addTag($url, $item->updated_at, 'daily', '1');
-                }
-            }
-            array_sort($paths);
-            foreach ($paths as $url) {
-                if (!in_array($url, $remove)) {
-                    Sitemap::addTag($url, false, 'daily', '1');
-                }
-            }
-
-         return Sitemap::render();
-    }
-    public function test()
-    {
-        $cart = \Cart::get();
-        return('$cart');
+        return Sitemap::render();
     }
 }

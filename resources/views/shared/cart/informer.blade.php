@@ -1,4 +1,4 @@
-<a href="{{ route('cart.show') }}/" class="cart-circle d-block position-relative">
+<a href="{{ route('cart.show') }}" class="cart-circle d-block position-relative">
     <span class="cart-icon position-absolute">
         @svg('images/svg/cart-icon.svg')
     </span>

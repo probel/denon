@@ -16,12 +16,7 @@ class Order extends Model
         'updated_at',
         'date'
     ];
-    public function items()
-    {
-        return $this->hasMany('App\Models\OrderItem');
-    }
-    public function country()
-    {
-        return $this->belongsTo(Country::class);
-    }
+    protected $casts = [
+        'items' => 'collection'
+    ];
 }

@@ -17,6 +17,7 @@ try {
     /*require('social-likes');
     require('jquery-lazy'); */
 } catch (e) {}
+require('@fancyapps/fancybox');
 require('slick-slider');
 
 /**

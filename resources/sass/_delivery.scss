@@ -46,6 +46,29 @@
             }
         }
     }
+    @include media-breakpoint-down(lg) {
+        .breadcrumb__line__in {
+            padding-left: 0;
+        }
+    }
+    @include media-breakpoint-down(md) {
+        &__content {
+            padding-left: 35px;
+            padding-right: 35px;
+            &__text {
+                flex-wrap: wrap;
+                img {
+                    margin-top: 20px;
+                    margin-left: auto;
+                }
+            }
+        }
+    }
+    @include media-breakpoint-down(sm) {
+        &__content {
+            padding: 30px 14px;
+        }
+    }
 }
 
 /*==================================================================================================================

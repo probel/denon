@@ -22,6 +22,7 @@ class Product extends Model
     }
     protected $casts = [
         'images' => 'array',
+        'icons' => 'array',
         'params' => 'array',
         'variations' => 'array',
     ];
@@ -45,7 +46,11 @@ class Product extends Model
 
     public function getUrl()
     {
-        $url = route('resolver',[$this->slug]);
+        $path = $this->slug;
+        if ($this->category) {
+            $path = $this->category->getPath().'/'.$path;
+        }
+        $url = route('resolver',[$path]);
         return $url;
     }
 
@@ -57,6 +62,18 @@ class Product extends Model
 
     public function getImage($num = 0)
     {
-        return $this->images[$num] ?? '';
+        return $this->getImages()[$num] ?? ['path' => 'images/no-image.jpg','alt' => $this->name];
+    }
+    public function getImages()
+    {
+        $images = $this->images;
+        if (count($this->variations ?? [])) {
+            $variations = $this->variations;
+            $variant = array_shift($variations);
+            if (count($variant['images'] ?? [])) {
+                $images = $variant['images'];
+            }
+        }
+        return $images;
     }
 }

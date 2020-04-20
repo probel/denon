@@ -105,7 +105,7 @@ class AdminService
     }
     public static function getTitleFields($page,$prefix = '') {
         $fields = [
-            AdminFormElement::view('admin.panelOpen',['key'=>'title','title'=>__('Заголовок'),'type'=>'info']),
+            AdminFormElement::view('admin.form.panelOpen',['key'=>'title','title'=>__('Заголовок'),'type'=>'info']),
             AdminFormElement::columns()
                 ->addColumn([
                     AdminFormElement::image('values['.$prefix.'_icon]', 'Иконка')
@@ -121,7 +121,7 @@ class AdminService
                         ->setRows(2)
                         ->setDefaultValue($page->values[$prefix.'_subtitle'] ?? ''),
                 ]),
-            AdminFormElement::view('admin.panelClose'),
+            AdminFormElement::view('admin.form.panelClose'),
         ];
         return $fields;
     }
@@ -130,7 +130,7 @@ class AdminService
         //dd($page->values,array_key_exists('bg_image',$page->values));
         if ($isBg) {
             $fields = [
-                AdminFormElement::view('admin.panelOpen',['key'=>'slogan','title'=>__('Первый экран')]),
+                AdminFormElement::view('admin.form.panelOpen',['key'=>'slogan','title'=>__('Первый экран')]),
                 AdminFormElement::columns()
                     ->addColumn([
                         AdminFormElement::image('values[bg_image]', 'Фоновая картинка')
@@ -147,11 +147,11 @@ class AdminService
                             ->setRows(3)
                             ->setDefaultValue(($page && $page->values && array_key_exists('description',$page->values)) ? $page->values['description'] : 'Уникальные технологии Denon для воспроизведения CD/SACD дисков, строгий отбор комплектующих и мастерство схемотехники помогают воспроизводить звук, максимально приближенный к оригиналу.')
                     ]),
-                AdminFormElement::view('admin.panelClose'),
+                AdminFormElement::view('admin.form.panelClose'),
             ];
         } else {
             $fields = [
-                AdminFormElement::view('admin.panelOpen',['key'=>'slogan','title'=>__('Слоган')]),
+                AdminFormElement::view('admin.form.panelOpen',['key'=>'slogan','title'=>__('Слоган')]),
                 AdminFormElement::text('values[slogan]', 'Заголовок')
                     ->setValueSkipped(true)
                     ->setDefaultValue($page->values['slogan'] ?? 'ТОЧНОСТЬ - КЛЮЧЕВОЙ АСПЕКТ ПРИ ВОСПРОИЗВЕДЕНИИ МУЗЫКИ'),
@@ -160,7 +160,7 @@ class AdminService
                     ->setRows(3)
                     ->setDefaultValue($page->values['description'] ?? 'Уникальные технологии Denon для воспроизведения CD/SACD дисков, строгий отбор комплектующих и мастерство схемотехники помогают воспроизводить звук, максимально приближенный к оригиналу.'),
 
-                AdminFormElement::view('admin.panelClose'),
+                AdminFormElement::view('admin.form.panelClose'),
             ];
         }
         return $fields;
@@ -170,7 +170,7 @@ class AdminService
 
         $values = $page->values ?? [];
         $fields = [
-            AdminFormElement::view('admin.panelOpen',['key'=>'slider','title'=> 'Слайдер']),
+            AdminFormElement::view('admin.form.panelOpen',['key'=>'slider','title'=> 'Слайдер']),
             AdminFormElement::text('values[title]', 'Заголовок')
                         ->setDefaultValue($values['title'] ?? '')
                         ->setValueSkipped(true),
@@ -180,16 +180,16 @@ class AdminService
             AdminFormElement::images('values[images]', 'Картинки')
                         ->setDefaultValue($values['images'] ?? '')
                         ->setValueSkipped(true),
-            AdminFormElement::view('admin.panelClose'),
-            AdminFormElement::view('admin.panelOpen',['key'=>'about','title'=> 'О нас']),
+            AdminFormElement::view('admin.form.panelClose'),
+            AdminFormElement::view('admin.form.panelOpen',['key'=>'about','title'=> 'О нас']),
             AdminFormElement::text('values[about_title]', 'Заголовок')
                         ->setDefaultValue($values['about_title'] ?? '')
                         ->setValueSkipped(true),
             AdminFormElement::ckeditor('values[about_description]', 'Описание')
                         ->setDefaultValue($values['about_description'] ?? '')
                         ->setValueSkipped(true),
-            AdminFormElement::view('admin.panelClose'),
-            AdminFormElement::view('admin.panelOpen',['key'=>'stats','title'=> 'Статистика']),
+            AdminFormElement::view('admin.form.panelClose'),
+            AdminFormElement::view('admin.form.panelOpen',['key'=>'stats','title'=> 'Статистика']),
             AdminFormElement::text('values[stats_authors]', 'Авторов на сайте')
                         ->setDefaultValue($values['stats_authors'] ?? '')
                         ->setValueSkipped(true)
@@ -214,12 +214,12 @@ class AdminService
                         ->setDefaultValue($values['stats_map'] ?? '')
                         ->setValueSkipped(true)
                         ->setHelpText('Оставьте пустым, что бы отображать реальное значение'),
-            AdminFormElement::view('admin.panelClose'),
-            AdminFormElement::view('admin.panelOpen',['key'=>'faq','title'=> 'Как писать']),
+            AdminFormElement::view('admin.form.panelClose'),
+            AdminFormElement::view('admin.form.panelOpen',['key'=>'faq','title'=> 'Как писать']),
             AdminFormElement::ckeditor('values[faq]', 'Текст')
                         ->setDefaultValue($values['faq'] ?? '')
                         ->setValueSkipped(true),
-            AdminFormElement::view('admin.panelClose'),
+            AdminFormElement::view('admin.form.panelClose'),
         ];
 
         return $fields;
@@ -232,6 +232,16 @@ class AdminService
             $query->orderBy('name', $direction);
         })->setSearchable(true)->setSearchCallback(function ($column, $query, $search) {
             return $query->where('name', 'like', '%' . $search . '%');
+        });
+    }
+    public static function titleColumn()
+    {
+        return AdminColumn::custom('Заголовок', function(\Illuminate\Database\Eloquent\Model $model) {
+            return '<a href="'.$model->getUrl().'" target="blank">'.$model->title.'</a>';
+        })->setOrderable(function($query, $direction) {
+            $query->orderBy('title', $direction);
+        })->setSearchable(true)->setSearchCallback(function ($column, $query, $search) {
+            return $query->where('title', 'like', '%' . $search . '%');
         });
     }
     public static function seoColumn($prefix = 'meta_')

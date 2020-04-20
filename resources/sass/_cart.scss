@@ -48,6 +48,11 @@
     .buy-item {
         border-bottom: 1px solid rgb(210, 210, 210);
         padding-right: 18px;
+        &__wrapper {
+            @include media-breakpoint-down(sm) {
+                flex-wrap: wrap;
+            }
+        }
         &__image {
             width: 90px;
             margin-right: 20px;
@@ -238,23 +243,19 @@
                                         cart-empty
 ==================================================================================================================*/
 .cart-empty {
-    margin-top: -40px;
     padding-bottom: 68px;
+    margin: 0 auto;
     &__title {
-        font-weight: 300;
-        font-size: 20px;
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #000;
         margin-bottom: 36px;
-        >strong {
-            font-weight: 600;
-        }
     }
     .btn {
-        width: 248px;
+        margin: 0 auto;
     }
-    @include media-breakpoint-down(xs) {
-        margin-top: 0;
-        padding-bottom: 0;
-    }
+
 }
 /*==================================================================================================================
                                         quick order

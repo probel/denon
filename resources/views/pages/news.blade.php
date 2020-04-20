@@ -38,7 +38,7 @@
                                             <a href="#">{{ $item[0]['title'] ?? '' }}</a>
                                         </h3>
                                         <div class="news__item__text text-justify">
-                                            <p> {{ $item[0]['description'] ?? '' }} </p> 
+                                            <p> {{ $item[0]['description'] ?? '' }} </p>
                                         </div>
                                     </div>
                                     <div class="text-right">
@@ -51,7 +51,7 @@
                 </div>
             </div>
 
-           
+
 
             <div class="news__row-separator"></div>
             <div class="row row-second position-relative">
@@ -104,12 +104,7 @@
                     </div>
                 </div>
             </div>
-            <div class="news__row-separator"></div> 
+            <div class="news__row-separator"></div>
         @endforeach
     </section>
-
-
-  
-
-<!-- end news -->
 @endsection

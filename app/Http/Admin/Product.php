@@ -27,14 +27,14 @@ class Product extends Section implements Initializable
         $this->title = 'Товары';
         $this->icon = 'fab fa-product-hunt';
         $this->created(function ($config, \Illuminate\Database\Eloquent\Model $model) {
-            $this->setImages($model);
+            $this->setValues($model);
         });
         $this->updated(function ($config, \Illuminate\Database\Eloquent\Model $model) {
-            $this->setImages($model);
+            $this->setValues($model);
         });
 
     }
-    public static function setImages(&$model)
+    public static function setValues(&$model)
     {
 
         $allow = [
@@ -45,6 +45,8 @@ class Product extends Section implements Initializable
         if (!in_array(request()->next_action, $allow)) return null;
 
         $model->images = request()->images;
+        $model->icons = request()->icons;
+        $model->variations = request()->variations;
         $model->save();
 
     }
@@ -81,14 +83,15 @@ class Product extends Section implements Initializable
                 //dd($request->all());
                 //$query->orderBy('order', 'asc');
             })
-            ->setOrder([[7, 'asc']])
+            ->setOrder([[1, 'asc']])
             ->setColumns([
+                AdminColumn::text('article','Артикул')->setWidth('90px'),
                 AdminService::nameColumn(),
                 \AdminColumnEditable::checkbox('status','Доступен', 'Не доступен')
                     ->setLabel('Статус')
                     ->setWidth('120px'),
                 AdminService::seoColumn(),
-                AdminColumn::text('price','Цена'),
+                AdminColumn::text('price','Цена')->setWidth('90px'),
                 AdminColumn::custom('Категория',function(\Illuminate\Database\Eloquent\Model $model) {
                     $res = '<a href="/admin/categories/'.$model->category->id.'/edit">'.$model->category->title.'</a>'.
                     '<a target="_blank" href="'.$model->category->getUrl().'"><i class="ml-2 fas fa-external-link-alt"></i></a>';
@@ -100,13 +103,8 @@ class Product extends Section implements Initializable
                     }
                     return $res;
                 }),
-
-                AdminColumn::datetime('created_at')->setLabel('Дата Создания')->setFormat('d.m.Y'),
                 AdminColumn::datetime('updated_at')->setLabel('Дата Изменения')->setFormat('d.m.Y H:i'),
-                AdminService::orderColumn('/admin/products/'),
-                //AdminColumn::order()->setLabel('Положение'),
-               // \AdminColumnEditable::text('slug')->setLabel('Алиас'),
-
+                //AdminService::orderColumn('/admin/products/'),
             ])
             ->setDisplaySearch(true)
             ->paginate(20);
@@ -140,7 +138,7 @@ class Product extends Section implements Initializable
                 AdminFormElement::columns()
                     ->addColumn([AdminFormElement::checkbox('status', 'Доступен')])
                     ->addColumn([AdminFormElement::checkbox('front', 'Отображать на главной')->setDefaultValue(0)])
-                    ->addColumn([AdminFormElement::checkbox('stock', 'Распродажа')->setDefaultValue(1)])
+                    ->addColumn([AdminFormElement::checkbox('gift', 'Подарок')->setDefaultValue(1)])
                     ->addColumn([AdminFormElement::checkbox('new', 'Новинка')->setDefaultValue(1)])
                     ->addColumn([AdminFormElement::checkbox('available', 'В наличии')->setDefaultValue(1)]),
                 AdminFormElement::columns()
@@ -157,12 +155,23 @@ class Product extends Section implements Initializable
 
             $tabs[] = AdminDisplay::tab(AdminForm::elements($elements))->setLabel('Основное');
             $tabs[] = AdminDisplay::tab(AdminForm::elements([
-                /* AdminFormElement::ckeditor('short_description', 'Описание в тизере'), */
-                AdminFormElement::textarea('short_description', 'Короткое описание')->setRows(3)->setHelpText('Отображается в тизере. Если не указано, то отображается полное описание'),
+                AdminFormElement::view('admin.form.panelOpen', ['key' => 'tab_cart','title' => 'Карточка товара' ]),
+                AdminFormElement::ckeditor('short_description', 'Короткое описание под заголовком'),
                 AdminFormElement::ckeditor('description', 'Описание'),
-                /* AdminFormElement::ckeditor('review', 'Обзор'), */
+                AdminFormElement::ckeditor('footnote', 'Сноска'),
+                AdminFormElement::view('admin.form.panelClose'),
+                AdminFormElement::view('admin.form.panelOpen', ['key' => 'tab_description','title' => 'Вкладка "Описание"' ]),
+                AdminFormElement::ckeditor('long_description', 'Длинное описание'),
+                AdminFormElement::view('admin.form.panelOpen', ['key' => 'icons','title' => 'Иконки', 'type' => 'info' ]),
+                AdminFormElement::view('admin.form.multiImages', ['items' => $product->icons ?? [],'prefix' => 'icons' ]),
+                AdminFormElement::view('admin.form.panelClose'),
+                AdminFormElement::view('admin.form.panelClose'),
 
             ]))->setLabel('Описания');
+            $tabs[] = AdminDisplay::tab(AdminForm::elements([
+                AdminFormElement::view('admin.form.productVariations', ['items' => $product->variations ?? [],'prefix' => 'variations' ]),
+
+            ]))->setLabel('Цвета');
             $tabs[] = AdminService::seoTab();
             return $tabs;
         });

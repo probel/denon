@@ -53,8 +53,8 @@ class Category extends Model
     {
         return route('resolver',[$this->getPath()]);
     }
-    public function getMeta()
+    public function getTitle()
     {
-        return array ("111", "222");
+        return $this->id == 20 ? str_replace('PRO','<span class="white">PRO</span>',$this->title) : $this->title;
     }
 }

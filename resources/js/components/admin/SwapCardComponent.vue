@@ -1,20 +1,22 @@
 <template>
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <div class="pull-left header-btns" role="tab">
-                <button v-if="index > 0" @click="$parent.swapItems(index,index-1)"  type="button" class="btn btn-xs btn-success"><i class="fa fa-chevron-up"></i></button>
-                <button v-if="index < (count - 1)" @click="$parent.swapItems(index,index+1)" type="button" class="btn btn-xs btn-danger"><i class="fa fa-chevron-down"></i></button>
+    <div class="card card-info">
+        <div class="card-header">
+            <div class="float-left header-btns">
+                <button v-if="index > 0" @click="$parent.swapItems(index,index-1)"  type="button" class="btn btn-tool"><i class="fa fa-chevron-up"></i></button>
+                <button v-if="index < (count - 1)" @click="$parent.swapItems(index,index+1)" type="button" class="btn btn-tool"><i class="fa fa-chevron-down"></i></button>
             </div>
-            <h3 class="panel-title cursor-pointer">
-                <a role="button" data-toggle="collapse" :href="'#collapse'+index" aria-expanded="true">
-                    {{ titleText }}
-                </a>
-            </h3>
+            <h3 class="card-title cursor-pointer" data-card-widget="collapse">#{{ index+1 }}</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" @click="$parent.removeItem(index)">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
         </div>
-        <div :id="'collapse'+index" class="panel-collapse collapse" role="tabpanel">
-            <div class="panel-body">
-                <slot></slot>
-            </div>
+        <div class="card-body">
+            <slot></slot>
         </div>
     </div>
 </template>

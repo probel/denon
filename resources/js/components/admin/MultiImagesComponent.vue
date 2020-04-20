@@ -37,7 +37,7 @@
         </div>
         <div style="margin: 15px 0;">
             <div class="d-flex align-items-center">
-                <div id="upload-zone" class="upload-zone text-center flex-grow-1 bg-light">
+                <div :id="hash" class="upload-zone text-center flex-grow-1 bg-light">
                     <i class="fa fa-plus"></i>
                     Перетяните или кликните здесь
                 </div>
@@ -69,6 +69,7 @@
                 fields: [],
                 iteration: 0,
                 count: 0,
+                hash: Math.random().toString(36).substring(7),
             }
         },
         mounted() {
@@ -87,7 +88,7 @@
             initUpload () {
                 let self = this,
                     container = $(self.$el.parentNode);
-                let area = $('#upload-zone');
+                let area = $('#'+this.hash);
                     area.dropzone({
                         url: this.url,
                         method: 'POST',

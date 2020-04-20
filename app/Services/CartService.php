@@ -11,7 +11,7 @@ class CartService
     {
         static $cart = null;
         if (is_null($cart) || $isUpdate) {
-            
+
             $data = self::getStored();
             $pids = array_column($data, 'pid');
             $products = Product::whereIn('id',$pids)->get();
@@ -41,16 +41,17 @@ class CartService
         }
         return $cart;
     }
-    
+
     public static function set($pid,$vid = null, $qty = 1)
     {
         $cart = self::getStored();
 
         $product = Product::find($pid);
         if ($product) {
-            if (is_null($vid) || !isset($product->variantions[$vid])) {
-                if (is_array($product->variantions)) {
-                    $vid = array_values($product->variantions)[0];
+
+            if (is_null($vid) || !isset($product->variations[$vid])) {
+                if (is_array($product->variations)) {
+                    $vid = array_key_first($product->variations);
                 } else {
                     $vid = null;
                 }
@@ -77,14 +78,14 @@ class CartService
     }
     public static function clear()
     {
-        
+
         session(['cart' => []]);
         $cart = self::get(true);
         return $cart;
     }
     private static function getStored()
     {
-        $cart = session('cart', []);  
+        $cart = session('cart', []);
         return $cart;
     }
 }

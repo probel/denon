@@ -22,64 +22,41 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
-        $cart = cartGet();
+        $cart = \Cart::get();
         $res = ['status' => 'success'];
-        //dd(route('success'));
-        if (count($cart)) {
+
+        if ($cart->positions) {
 
             $order = new Order;
-            $order->country_id = country()->id;
-            $order->delivery = $request->cart_delivery;
-            $order->fio = $request->name;
-            $order->phone = $request->phone;
-            $order->address = $request->address;
-            $order->comment = $request->message;
-            $order->date = time();
+            $order->name = strip_tags($request->name ?? '');
+            $order->phone = strip_tags($request->tel ?? '');
+            $order->email = strip_tags($request->email ?? '');
+            $order->address = strip_tags($request->address ?? '');
+            $order->comment = strip_tags($request->comment ?? '');
+            $order->date = \Carbon\Carbon::now();
+            $order->price = $cart->total;
+            $order->items = $cart->items;
             $order->save();
 
-            $res['name'] = $order->fio;
-            $res['phone'] = $order->phone;
-            $res['status'] = 'success';
-            $total = 0;
-            $items = [];
-            $pids = array_keys($cart);
-            $products = \App\Models\Product::whereIn('id',$pids)->get();
-            foreach ($products as $product) {
-                $sum = $product->getPrice()*$cart[$product->id];
-                $items[] = [
-                    'order_id'=>$order->id,
-                    'product_id' => $product->id,
-                    'price' => $sum,
-                    'count' => $cart[$product->id],
-                ];
-                $total += $sum;
+            $mails = explode(',',\Helpers::config('order_mail'));
+            foreach ($mails as $key => $mail) {
+                $mail = trim($mail);
+                if (!$mail) continue;
+
+                Mail::to($mail)->send(new OrderShipped($order));
             }
+            $res['popup'] = view('shared.cart.success')->render();
 
-            $pid = \DB::table('order_items')->insert($items);
+            \Cart::clear();
 
-            $order->price = $total;
-            $order->save();
-
-            Mail::to(getConfigValue('message_mail'))->send(new OrderShipped($order));
-
-
-
-            session(['cart' => []]);
-            session(['order_id' => $order->id]);
-            return redirect(route('success').'/');
-            $res['fields'] = [
-                '.js-cart-count' => cartCount() ? ('<span class="items rounded-circle icon-center position-absolute ">'.cartCount().'</span>') : '',
-                '.js-cart-sum'  => cartSum(),
-                '.js-order-phone' => $request->phone,
-                '.js-order-name' => $request->name,
-            ];
-            $res['location'] = '/success';
-            $res['popup'] = '#order-pop';
         } else {
             $res['location'] = '/';
         }
-        return back();
+        if (request()->ajax()) {
+            return response()->json($res);
+        }
+        session(['ordered' => true]);
+        return redirect(route('cart.show'));
     }
     public function storeWholesale(Request $request)
     {

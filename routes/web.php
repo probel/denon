@@ -11,9 +11,7 @@ Route::any('/home', function () {
 })->name('home');
 /* END FOR ADMIN */
 
-/* WORK ROUTES */
-//Route::get('/', 'PageController@showFront')->name('page');
-/* END WORK ROUTES */
+Route::get('/', 'PageController@showFront')->name('front');
 
 Route::group(['prefix' => '/catalog'], function () {
     Route::get('/', 'CatalogController@show')->name('catalog.show');
@@ -22,17 +20,26 @@ Route::group(['prefix' => '/catalog'], function () {
     //Route::get('/{category_slug}/{slug}', 'CatalogController@productFind')->name('catalog.product');
 });
 
-Route::get('/contacts', 'PageController@contacts')->name('contacts.show');
-Route::get('/delivery', 'PageController@delivery')->name('delivery.show');
-Route::get('/warranty', 'PageController@warranty')->name('warranty.show');
-
+Route::get('/search',   'SearchController@search')->name('search.show');
+Route::get('/contacts', 'PageController@contacts')->name('contacts');
+Route::get('/delivery', 'PageController@delivery')->name('delivery');
+Route::get('/warranty', 'PageController@warranty')->name('warranty');
+Route::get('/sitemap.xml', 'PageController@sitemap')->name('sitemap');
 /* Route::get('/{category}/{subcategory}/{product}', 'CatalogController@detail')->name('catalog.detail'); */
 
 
-Route::get('/search',   'SearchController@search')->name('search.show');
+
 Route::group(['prefix' => '/news'], function () {
-  Route::get('/', 'ArticleController@newsIndex')->name('news.index');
-  Route::get('/{slug}', 'ArticleController@newsShow')->name('news.show');
+    Route::get('/', 'ArticleController@newsIndex')->name('news.index');
+    Route::get('/{slug}', 'ArticleController@newsShow')->name('news.show');
+});
+Route::group(['prefix' => '/promo'], function () {
+    Route::get('/', 'ArticleController@promoIndex')->name('promo.index');
+    Route::get('/{slug}', 'ArticleController@promoShow')->name('promo.show');
+});
+Route::group(['prefix' => '/installation'], function () {
+    Route::get('/', 'ArticleController@installationIndex')->name('installation.index');
+    Route::get('/{slug}', 'ArticleController@installationShow')->name('installation.show');
 });
 
 /* LAYOUT */
@@ -64,13 +71,13 @@ Route::any('/article', function () {
 /* END LAYOUT */
 
 /* WORK ROUTES */
-Route::get('/', 'PageController@showFront')->name('front');
+
 Route::group(['prefix' => '/cart'], function () {
     Route::get('/', 'CartController@show')->name('cart.show');
     Route::any('/set', 'CartController@set')->name('cart.set');
     Route::any('/remove', 'CartController@remove')->name('cart.remove');
     Route::any('/clear', 'CartController@clear')->name('cart.clear');
-    Route::post('/order', 'OrderController@store')->name('order.set');
+    Route::post('/order', 'OrderController@store')->name('order.store');
 });
 Route::any('/{slug}', 'CatalogController@resolver')->where('slug', '(?!admin).*')->name('resolver');
 /* END WORK ROUTES */
@@ -90,7 +97,7 @@ Route::get('/answers/{hash}', 'QuestionController@showMail')->name('answer');
 
 Route::get('/test', 'PageController@test')->name('test');
 Route::get('robots.txt', 'PageController@robots')->name('robots');
-Route::get('/sitemap.xml', 'PageController@sitemap')->name('sitemap');
+
 Route::get('/sitemap', 'PageController@pageSitemap')->name('page.sitemap');
 Route::get('/success', 'OrderController@success')->name('success');
 Route::get('/thankyou', 'CallbackController@success')->name('callback.success');
@@ -103,10 +110,7 @@ Route::group(['prefix' => '/blog'], function () {
 //  Route::get('/', 'ArticleController@newsIndex')->name('news.index');
 //  Route::get('/{slug}', 'ArticleController@newsShow')->name('news.show');
 //});
-Route::group(['prefix' => '/promo'], function () {
-  Route::get('/', 'ArticleController@promoIndex')->name('promo.index');
-  Route::get('/{slug}', 'ArticleController@promoShow')->name('promo.show');
-});
+
 //Route::group(['prefix' => '/catalog'], function () {
 //    Route::get('/', 'CatalogController@show')->name('catalog.show');
 //    Route::any('/get', 'CatalogController@index')->name('catalog.get');

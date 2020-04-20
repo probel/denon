@@ -495,7 +495,8 @@ b, strong {
                     right: -7px;
                 }
             }
-            &:hover {
+            &:hover,
+            &.current {
                 .white {
                     background: $bg-light;
                     &:after {
@@ -517,7 +518,8 @@ b, strong {
                 width: 100%;
                 white-space: nowrap;
                 display: inline-block;
-                &:hover {
+                &:hover,
+                &.current {
                     color: #fff;
                     background: $broun;
                 }
@@ -915,6 +917,12 @@ b, strong {
             font-size: 16px;
             font-weight: bold;
             margin-bottom: 11px;
+            >a {
+                color: #fff;
+                &:hover {
+                    color: $broun;
+                }
+            }
         }
         &__item {
             margin-bottom: 3px;

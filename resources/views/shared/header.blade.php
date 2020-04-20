@@ -1,5 +1,4 @@
 <div class="navbar navbar-expand-xl p-0 d-block">
-    <!-- header top begin -->
     <div class="header-top ">
         <div class="container">
             <div class="d-flex w-100 justify-content-between align-items-center">
@@ -14,31 +13,31 @@
                 <div class="d-xl-flex d-none align-items-center">
                     <ul class="header-top__menu list-unstyled d-flex mb-0">
                         <li class="header-top__menu__item">
-                            <a class="header-top__menu__link text-uppercase" href="#">ИНСТАЛЛЯЦИЯ</a>
+                            <a class="header-top__menu__link text-uppercase" href="{{ route('installation.index') }}">ИНСТАЛЛЯЦИЯ</a>
                         </li>
                         <li class="header-top__menu__item">
-                            <a class="header-top__menu__link text-uppercase" href="/news">НОВОСТИ</a>
+                            <a class="header-top__menu__link text-uppercase" href="{{ route('news.index') }}">НОВОСТИ</a>
                         </li>
                         <li class="header-top__menu__item">
-                            <a class="header-top__menu__link text-uppercase" href="/warranty">ГАРАНТИЯ И СЕРВИС</a>
+                            <a class="header-top__menu__link text-uppercase" href="{{ route('warranty') }}">ГАРАНТИЯ И СЕРВИС</a>
                         </li>
                         <li class="header-top__menu__item">
-                            <a class="header-top__menu__link text-uppercase" href="/delivery">ДОСТАВКА И ОПЛАТА</a>
+                            <a class="header-top__menu__link text-uppercase" href="{{ route('delivery') }}">ДОСТАВКА И ОПЛАТА</a>
                         </li>
                         <li class="header-top__menu__item">
-                            <a class="header-top__menu__link text-uppercase" href="#">
+                            <a class="header-top__menu__link text-uppercase" href="{{ route('contacts') }}">
                                 <i class="fas fa-map-marker-alt mr-1"></i>КОНТАКТЫ
                             </a>
                         </li>
                     </ul>
                     <div class="header-top__contacts">
-                        <p>8 (499) 254-62-97 (магазин)</p>
-                        <p>8 (916) 707-5-777 (сервис)</p>
+                        <p>{!! Helpers::config('phone_shop') !!} (магазин)</p>
+                        <p>{!! Helpers::config('phone_service') !!} (сервис)</p>
                     </div>
                     <div class="header-top__contacts">
-                        <p class="hide-lg-text"><i class="far fa-clock mr-1"></i>ПН-ВС 10:00-22:00</p>
+                        <p class="hide-lg-text"><i class="far fa-clock mr-1"></i>{!! Helpers::config('schedule') !!}</p>
                         <p>
-                            <a class="color-broun" href="mailto:shop.denon@mail.ru">
+                            <a class="color-broun" href="mailto:{!! Helpers::config('email') !!}">
                                 <i class="fas fa-envelope mr-1"></i><span class="hide-lg-text">Напишите нам</span>
                             </a>
                         </p>
@@ -47,64 +46,67 @@
             </div>
         </div>
     </div>
-    <!-- header top end -->
-    <!-- header begin-->
     <header class="header">
         <div class="container">
             <div class="d-flex w-100 flex-column flex-xl-row align-items-center">
                 <nav class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="header-top__menu list-unstyled mb-0 mr-0 d-xl-none">
                         <li class="header-top__menu__item">
-                            <a class="header-top__menu__link text-uppercase" href="#">ИНСТАЛЛЯЦИЯ</a>
+                            <a class="header-top__menu__link text-uppercase" href="{{ route('installation.index') }}">ИНСТАЛЛЯЦИЯ</a>
                         </li>
                         <li class="header-top__menu__item">
-                            <a class="header-top__menu__link text-uppercase" href="#">НОВОСТИ</a>
+                            <a class="header-top__menu__link text-uppercase" href="{{ route('news.index') }}">НОВОСТИ</a>
                         </li>
                         <li class="header-top__menu__item">
-                            <a class="header-top__menu__link text-uppercase" href="#">ГАРАНТИЯ И СЕРВИС</a>
+                            <a class="header-top__menu__link text-uppercase" href="{{ route('warranty') }}">ГАРАНТИЯ И СЕРВИС</a>
                         </li>
                         <li class="header-top__menu__item">
-                            <a class="header-top__menu__link text-uppercase" href="#">ДОСТАВКА И ОПЛАТА</a>
+                            <a class="header-top__menu__link text-uppercase" href="{{ route('delivery') }}">ДОСТАВКА И ОПЛАТА</a>
                         </li>
                         <li class="header-top__menu__item">
-                            <a class="header-top__menu__link text-uppercase" href="#">
+                            <a class="header-top__menu__link text-uppercase" href="{{ route('contacts') }}">
                                 <i class="fas fa-map-marker-alt mr-1"></i>КОНТАКТЫ
                             </a>
                         </li>
                     </ul>
                     <ul class="header__menu list-unstyled d-flex align-items-center flex-column flex-xl-row mb-0 ml-auto">
+                        @foreach (\Catalog::getCategories()->whereNull('parent_id') as $parent)
                         <li class="header__menu__item position-relative">
-                            <a class="header__menu__link text-uppercase" href="#" id="header__menu__link-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Домашний кинотеатр
+                            <a class="header__menu__link text-uppercase {{ Request::is($parent->getPath().'*') ? 'current' : '' }}"
+                                href="{{ $parent->getUrl() }}"
+                                @if ($parent->childs_count)
+                                    id="header__menu__link-{{ $parent->id }}"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false"
+                                @endif>
+                                {!! $parent->getTitle() !!}
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="header__menu__link-1">
+                            @if ($parent->childs_count)
+                            <div class="dropdown-menu" aria-labelledby="header__menu__link-{{ $parent->id }}">
                                 <ul class="dropdown-menu__list list-unstyled">
+                                    @foreach ($parent->childs->where('status',1)->sortBy('order') as $child)
                                     <li class="dropdown-menu__item">
-                                        <a class="dropdown-menu__link text-uppercase" href="#">AV РЕСИВЕРЫ</a>
+                                        <a class="dropdown-menu__link text-uppercase {{ Request::is($child->getPath().'*') ? 'current' : '' }}" href="{{ $child->getUrl() }}">{{ $child->title }}</a>
                                     </li>
-                                    <li class="dropdown-menu__item">
-                                        <a class="dropdown-menu__link text-uppercase" href="#">АКУСТИЧЕСКИЕ СИСТЕМЫ ДЛЯ ТВ</a>
-                                    </li>
+                                    @endforeach
                                 </ul>
                             </div>
+                            @endif
                         </li>
+                        @endforeach
+                        @if ($cat = \Catalog::getCategory(21))
                         <li class="header__menu__item">
-                            <a class="header__menu__link text-uppercase" href="#">HI-FI компоненты</a>
+                            <a class="header__menu__link text-uppercase {{ Request::is($cat->getPath().'*') ? 'current' : '' }}" href="{{ $cat->getUrl() }}">{!! $cat->getTitle() !!}</a>
                         </li>
+                        @endif
+                        @if ($cat = \Catalog::getCategory(20))
                         <li class="header__menu__item">
-                            <a class="header__menu__link text-uppercase" href="#">Минисистемы</a>
+                            <a class="header__menu__link text-uppercase {{ Request::is($cat->getPath().'*') ? 'current' : '' }}" href="{{ $cat->getUrl() }}">{!! $cat->getTitle() !!}</a>
                         </li>
+                        @endif
                         <li class="header__menu__item">
-                            <a class="header__menu__link text-uppercase" href="#">НАушники</a>
-                        </li>
-                        <li class="header__menu__item">
-                            <a class="header__menu__link text-uppercase" href="#">DENON DJ</a>
-                        </li>
-                        <li class="header__menu__item">
-                            <a class="header__menu__link text-uppercase" href="#">DENON <span class="white">PRO</span></a>
-                        </li>
-                        <li class="header__menu__item">
-                            <a class="header__menu__link text-uppercase" href="#"><i class="fas fa-bullhorn mr-1"></i> АКЦИИ</a>
+                            <a class="header__menu__link text-uppercase {{ Request::is('promo*') ? 'current' : '' }}" href="{{ route('promo.index') }}"><i class="fas fa-bullhorn mr-1"></i> АКЦИИ</a>
                         </li>
                     </ul>
                 </nav>
@@ -116,10 +118,10 @@
                         <div class="dropdown-menu" aria-labelledby="mobile-phones__link">
                             <ul class="dropdown-menu__list list-unstyled mb-0">
                                 <li class="dropdown-menu__item">
-                                    <a class="dropdown-menu__link" href="tel:+7(916)707-57-77"><span class="caption">Магазин</span>+7(916)707-57-77</a>
+                                    <a class="dropdown-menu__link" href="tel:{!! Helpers::config('phone_shop') !!}"><span class="caption">Магазин</span>{!! Helpers::config('phone_shop') !!}</a>
                                 </li>
                                 <li class="dropdown-menu__item">
-                                    <a class="dropdown-menu__link" href="tel:+7(495)651-25-38"><span class="caption">Сервис</span>+7(495)651-25-38</a>
+                                    <a class="dropdown-menu__link" href="tel:{!! Helpers::config('phone_service') !!}"><span class="caption">Сервис</span>{!! Helpers::config('phone_service') !!}</a>
                                 </li>
                             </ul>
                         </div>
@@ -127,7 +129,7 @@
                     <a class="mobile-menu__item d-xl-none" href="mailto:shop.denon@mail.ru">
                         <i class="fas fa-envelope"></i>
                     </a>
-                    <div class="cart-block d-flex align-items-center align-self-center js-cart-wrapper">
+                    <div class="cart-block d-flex align-items-center align-self-center js-cart-informer">
                         @include('shared.cart.informer')
                     </div>
                 </div>

@@ -58,67 +58,26 @@ class Order extends Section implements Initializable
     public function onDisplay()
     {
         return AdminDisplay::datatables()
-            ->setApply(function ($query) {
-                $query->orderBy('id', 'desc');
-            })
+            ->setOrder([[0, 'desc']])
             ->setColumns([
 
                 AdminColumn::text('id', '#'),
-                AdminColumn::text('date', 'Дата'),
-                AdminColumn::text('country.name', 'Страна'),
-                AdminColumn::custom('Статус', function ($order) {
-                    $res = '';
-                    switch ($order->status) {
-                        case 'new':
-                            $res = '<span class="label label-info">Новый</span>';
-                            break;
-                        case 'complited':
-                            $res = '<span class="label label-success">Обработан</span>';
-                            break;
-                        default:
-                            $res = '<span class="label label-default">'. $order->status .'</span>';
-                            break;
-                    }
-                    return $res;
-                }),
-                AdminColumn::text('type', 'Тип'),
                 AdminColumn::custom('Клиент', function ($order) {
                     $res = '';
-                    $res.= 'ФИО: ' .$order->fio.'<br>';
-                    $res.= 'телефон: ' .$order->phone.'<br>';
-                    $res.= 'город: ' .$order->city.'<br>';
+                    $res.= 'ФИО: ' .$order->name.'<br>';
+                    $res.= 'Телефон: ' .$order->phone.'<br>';
+                    if($order->email)
+                        $res.= 'Email: ' .$order->email.'<br>';
                     if($order->address)
-                        $res.= 'адрес: ' .$order->address.'<br>';
+                        $res.= 'Адрес: ' .$order->address.'<br>';
                     $res.= 'комментарий: ' .$order->comment;
                     return $res;
                 }),
-                AdminColumn::custom('Товары', function ($order) {
-                    $res = '';
-
-                    foreach($order->items as $item) {
-                        $res .= '<a href="/admin/products/'.$item->product_id.'/edit">'.$item->product->name. '</a>  (' . $item->price . ' '.$order->country->currency.')  - '.$item->count.' шт.<br>';
-                    }
-                    return $res;
+                AdminColumn::custom('Заказ', function ($order) {
+                    return view('admin.table.orderItems',['items'=>$order->items]);
                 }),
-                AdminColumn::custom('Способ доставки', function ($order) {
-                    $res = '';
-                    switch ($order->delivery) {
-                        case 'pickup':
-                            $res = 'Самовывоз';
-                            break;
-                        case 'address':
-                            $res = 'Курьерская доставка';
-                            break;
-                        case 'post':
-                            $res = 'Почта России';
-                            break;
-                        default:
-                    }
-                    return $res;
-                }),
-                \AdminColumnEditable::text('price', 'Цена'),
+                AdminColumn::text('price', 'Сумма'),
                 AdminColumn::datetime('created_at')->setLabel('Дата Создания')->setFormat('d.m.Y H:i'),
-                AdminColumn::datetime('updated_at')->setLabel('Дата Изменения')->setFormat('d.m.Y H:i'),
             ])
             ->setDisplaySearch(true)
             ->paginate(10);

@@ -12,6 +12,7 @@ use AdminFormElement;
 use AdminColumn;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use App\Services\AdminService;
 /**
  * Class Promo
  *
@@ -26,40 +27,27 @@ class Promo extends Section implements Initializable
         $this->title = 'Акции';
         $this->icon = 'fa fa-book';
         $this->created(function ($config, \Illuminate\Database\Eloquent\Model $model) {
-
-            $this->setSlug($model);
-            $this->saveValues($model);
+            $this->setValues($model);
         });
         $this->updated(function ($config, \Illuminate\Database\Eloquent\Model $model) {
-
-            $this->setSlug($model);
-            $this->saveValues($model);
+            $this->setValues($model);
         });
     }
-    private function setSlug(&$model)
+    private static function setValues(&$model)
     {
-        $i = 0;
-        while (true) {
-            $slug = $model->slug ? $model->slug : Str::slug($model->title, '-');
-            if ($i) {
-                $slug .= '_' . $i;
-            }
-            $is = \App\Models\Promo::where('slug', $slug)->where('id', '!=', $model->id)->first();
-            $i++;
-            if (!$is) {
-                break;
-            }
-        }
-        if (!$model->slug || $i) {
-            $model->slug = $slug;
-            $model->save();
-        }
-    }
-    public function saveValues(&$model)
-    {
-        $model->fields = request()->fields;
+
+        $allow = [
+            'save_and_continue',
+            'save_and_create',
+            'save_and_close'
+        ];
+        if (!in_array(request()->next_action, $allow)) return null;
+
+        $model->values = request()->values;
         $model->save();
+
     }
+
     /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
      *
@@ -87,33 +75,15 @@ class Promo extends Section implements Initializable
     public function onDisplay()
     {
         return AdminDisplay::datatables()
-
-            ->setApply(function ($query) {
-                //$query->orderBy('created_at', 'desc');
-            })
-            ->setOrder([[8, 'asc']])
+            ->setOrder([[2, 'desc']])
             ->setColumns([
-                AdminColumn::datetime('created_at')->setFormat('d.m.Y')->setLabel('Дата'),
-                \AdminColumnEditable::checkbox('status','Доступен','Не доступен')->setLabel('Статус'),
-                AdminColumn::custom('Заголовок', function(\Illuminate\Database\Eloquent\Model $model) {
-                    return '<a href="'.$model->getUrl().'" target="_blank">'.$model->title.'</a>';
-                })->setOrderable(function($query, $direction) {
-                    $query->orderBy('title', $direction);
-                })->setSearchable(true)->setSearchCallback(function ($column, $query, $search) {
-                    return $query->where('title', 'like', '%' . $search . '%');
-                }),
-                AdminColumn::datetime('date')->setLabel('Дата действия')->setFormat('d.m.Y'),
-                AdminColumn::text('date_auto')->setLabel('Автопродление'),
-                AdminColumn::text('slug')->setLabel('Алиас'),
+                AdminService::titleColumn(),
+                \AdminColumnEditable::checkbox('status','Доступен','Не доступен')
+                    ->setLabel('Статус')
+                    ->setWidth('120px'),
                 AdminColumn::datetime('created_at')->setLabel('Дата Создания')->setFormat('d.m.Y H:i'),
                 AdminColumn::datetime('updated_at')->setLabel('Дата Изменения')->setFormat('d.m.Y H:i'),
-                AdminColumn::custom('Положение', function(\Illuminate\Database\Eloquent\Model $model) {
-                    return \App\Services\AdminService::getOrderColumnContent($model,'/admin/promos/');
-                })->setWidth('150px')->setOrderable(function($query, $direction) {
-                    $query->orderBy('order', $direction);
-                })->setSearchable(false),
             ])
-            //->setDisplaySearch(true)
             ->paginate(50);
     }
 
@@ -128,49 +98,36 @@ class Promo extends Section implements Initializable
         $tabs = AdminDisplay::tabbed();
         $tabs->setTabs(function () use($id) {
             $tabs = [];
-            $items = [
-                ['type' => 'image','key'=>'image','title' => 'Image'],
-                ['type' => 'text','key'=>'title_en','title'=>'Name [EN]'],
-                ['type' => 'text','key'=>'title_de','title'=>'Name [DE]'],
-                ['type' => 'text','key'=>'title_ru','title'=>'Name [RU]'],
-                ['type' => 'clearfix'],
-                ['type' => 'ckeditor','key'=>'text_en','title'=>'Text [EN]'],
-                ['type' => 'ckeditor','key'=>'text_de','title'=>'Text [DE]'],
-                ['type' => 'ckeditor','key'=>'text_ru','title'=>'Text [RU]'],
-            ];
-            $items = [];
-            if ($id && $promo = \App\Models\Promo::find($id)) {
-                $items = $promo->fields ?? [];
-            }
 
-            $prefix = 'fields';
-            $title = 'Поля';
             $products = \App\Models\Product::orderBy('name')->pluck('name','id')->toArray();
-
+            $promo = $id ? \App\Models\Promo::find($id) : null;
             $elements = [
                 AdminFormElement::text('title', 'Заголовок')->required(),
                 AdminFormElement::columns()
-                                ->addColumn([AdminFormElement::date('date', 'Дата действия'),],2)
-                                ->addColumn([AdminFormElement::checkbox('date_auto', 'Автопродление')],2),
-                AdminFormElement::html('<div class="clearfix"></div>'),
-                AdminFormElement::html('<div><strong>Для вывода даты действия акции используйте переменную %date%</strong></div>'),
-                AdminFormElement::view('admin.multi_fields',compact('items','prefix','title','products')),
-                AdminFormElement::html('<div class="clearfix"></div>'),
-                //AdminFormElement::ckeditor('body', 'Содержимое'),
+                    ->addColumn([AdminFormElement::checkbox('status', 'Опубликован')],3)
+                    /* ->addColumn([AdminFormElement::checkbox('in_block', 'Отображать в блоке')],3) */,
+                AdminFormElement::ckeditor('body', 'Содержимое'),
+                AdminFormElement::view('admin.form.panelOpen', ['key' => 'link','title' => 'Ссылка после текта' ]),
+                AdminFormElement::columns()
+                    ->addColumn([
+                        $elements[] = AdminFormElement::text('values[link_text]', 'Текст')
+                            ->setValueSkipped(true)
+                            ->setDefaultValue($promo->values['link_text'] ?? '')
+                    ])->addColumn([
+                        $elements[] = AdminFormElement::text('values[link_path]', 'Адрес')
+                            ->setValueSkipped(true)
+                            ->setDefaultValue($promo->values['link_path'] ?? '')
+                    ]),
+                AdminFormElement::view('admin.form.panelClose'),
             ];
 
             $tabs[] = AdminDisplay::tab(AdminForm::elements($elements))->setLabel('Содержимое');
             $tabs[] = AdminDisplay::tab(AdminForm::elements([
                 AdminFormElement::date('created_at', 'Дата публикации')->setDefaultValue(\Carbon\Carbon::now()),
                 AdminFormElement::image('image', 'Превью картинка'),
-
+                AdminFormElement::textarea('description', 'Короткое описание')->setRows(3),
             ]))->setLabel('Превью');
-            $tabs[] = AdminDisplay::tab(new \SleepingOwl\Admin\Form\FormElements([
-                AdminFormElement::text('slug', 'Алиас'),
-                AdminFormElement::text('meta_title', 'Заголовок META')->setHelpText('Доступны переменные: %brand% -> Имя производителя, %category% -> Имя категории. %city%, %city1%, %city2%, %city3%, %city4%, %city5%, %city6% -> "в "+%city5%'),
-                AdminFormElement::textarea('meta_description', 'Описание META')->setRows(2)->setHelpText('Доступны переменные: %brand% -> Имя производителя, %category% -> Имя категории. %city%, %city1%, %city2%, %city3%, %city4%, %city5%, %city6% -> "в "+%city5%'),
-                AdminFormElement::text('meta_tags', 'Ключи META')->setHelpText('Доступны переменные: %brand% -> Имя производителя, %category% -> Имя категории. %city%, %city1%, %city2%, %city3%, %city4%, %city5%, %city6% -> "в "+%city5%'),
-            ]))->setLabel('SEO');
+            $tabs[] = AdminService::seoTab();
             return $tabs;
         });
         return AdminForm::form()->addElement($tabs);

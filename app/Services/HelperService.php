@@ -28,4 +28,20 @@ class HelperService
         }
         return $items;
     }
+    public static function gpu($id)
+    {
+        $url = '/';
+        if ($page = self::pages()->find($id)) {
+            $url = $page->getUrl();
+        }
+        return $url;
+    }
+    public static function pages()
+    {
+        static $items = null;
+        if (\is_null($items)) {
+            $items = \App\Models\Page::active()->get();
+        }
+        return $items;
+    }
 }

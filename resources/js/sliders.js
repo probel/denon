@@ -50,14 +50,5 @@ $(document).ready(() => {
               }
             }
         ]
-      });
-    $('.photo-small-slick').not('.slick-initialized').slick({
-        arrows: true,
-        prevArrow: '<button type="button" class="slick-prev"></button>',
-        nextArrow: '<button type="button" class="slick-next"></button>',
-        dots: false,
-        infinite: true,
-        slidesToShow: 4,
-        slidesToScroll: 1
-      });
+    });
 });
