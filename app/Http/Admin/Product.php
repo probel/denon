@@ -47,6 +47,7 @@ class Product extends Section implements Initializable
         $model->images = request()->images;
         $model->icons = request()->icons;
         $model->variations = request()->variations;
+        $model->params = request()->params;
         $model->save();
 
     }
@@ -172,6 +173,17 @@ class Product extends Section implements Initializable
                 AdminFormElement::view('admin.form.productVariations', ['items' => $product->variations ?? [],'prefix' => 'variations' ]),
 
             ]))->setLabel('Цвета');
+            $tabs[] = AdminDisplay::tab(AdminForm::elements([
+                AdminFormElement::view('admin.form.panelOpen', ['key' => 'params_main','title' => 'Общие', ]),
+                AdminFormElement::view('admin.form.productParams', ['items' => $product->params['main'] ?? [],'prefix' => 'params[main]' ]),
+                AdminFormElement::view('admin.form.panelClose'),
+                AdminFormElement::view('admin.form.panelOpen', ['key' => 'params_spec','title' => 'Спецификации', ]),
+                AdminFormElement::view('admin.form.productParams', ['items' => $product->params['spec'] ?? [],'prefix' => 'params[spec]' ]),
+                AdminFormElement::view('admin.form.panelClose'),
+                AdminFormElement::view('admin.form.panelOpen', ['key' => 'params_common','title' => 'Общие', ]),
+                AdminFormElement::view('admin.form.productParams', ['items' => $product->params['common'] ?? [],'prefix' => 'params[common]' ]),
+                AdminFormElement::view('admin.form.panelClose'),
+            ]))->setLabel('Характеристики');
             $tabs[] = AdminService::seoTab();
             return $tabs;
         });

@@ -5,7 +5,7 @@
                 <button v-if="index > 0" @click="$parent.swapItems(index,index-1)"  type="button" class="btn btn-tool"><i class="fa fa-chevron-up"></i></button>
                 <button v-if="index < (count - 1)" @click="$parent.swapItems(index,index+1)" type="button" class="btn btn-tool"><i class="fa fa-chevron-down"></i></button>
             </div>
-            <h3 class="card-title cursor-pointer" data-card-widget="collapse">#{{ index+1 }}</h3>
+            <h3 class="card-title cursor-pointer" data-card-widget="collapse">{{ title ? title : '#'+(index+1) }}</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>

@@ -35,6 +35,7 @@ Vue.component('swap-card', require('./components/admin/SwapCardComponent.vue').d
 Vue.component('admin-slider', require('./components/admin/SliderComponent.vue').default);
 Vue.component('admin-address', require('./components/admin/AddressComponent.vue').default);
 Vue.component('product-variations', require('./components/admin/ProductVariationsComponent.vue').default);
+Vue.component('product-params', require('./components/admin/ProductParamsComponent.vue').default);
 
 
 function switchOnHandler(textareaId, config) {
