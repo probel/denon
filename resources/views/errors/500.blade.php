@@ -1,9 +1,9 @@
 @php
     $breadcrumbs = [
         ['href'=>'/','name' => 'Denon'],
-        ['href'=> '','name' => 404],
+        ['href'=> '','name' => 500],
     ];
-    $title = 'Страница не найдена';
+    $title = 'Ошибка сервера';
 @endphp
 @extends('layouts.app')
 @section('content')
@@ -13,7 +13,7 @@
         <div class="col-xl-10 mx-auto px-0">
             <div class="article-page__content">
                 <div class="text-center">
-                    <h1 class="article-page__content__title text-uppercase">Страница не найдена</h1>
+                    <h1 class="article-page__content__title text-uppercase">Ошибка сервера</h1>
                 </div>
                 <div class="article-page__content__text">
                     <div class="text-center mt-5">

@@ -13,6 +13,7 @@ use AdminColumn;
 use AdminDisplay;
 use AdminForm;
 use AdminFormElement;
+use Illuminate\Support\Str;
 use App\Jobs\UpdatePrices;
 use \App\Models\{
     Category,
@@ -204,6 +205,31 @@ class AdminController extends Controller
         $res = "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction(1, '/".$value."');</script>";
         return $res;
         return response()->json(['uploaded'=>1,'url' => '/'.$value, 'fileName' => $filename]);
+    }
+    public function saveFieldFile(Request $request)
+    {
+        $path = 'files/documents';
+        $file = $request->file;
+        $settings = [];
+        $fl= $file->getClientOriginalName();
+        $filename = pathinfo($fl, PATHINFO_FILENAME);
+        $filename  = Str::slug($filename , '_');
+        $extension = pathinfo($fl, PATHINFO_EXTENSION);
+        $fn = $filename;
+        $i = 1;
+        while (true) {
+            if (\file_exists(public_path($path.'/'.$fn.'.'.$extension))) {
+                $fn = $filename.'_'.$i;
+                $i++;
+            } else {
+                $filename = $fn.'.'.$extension;
+                break;
+            }
+        }
+
+        $file->move($path, $filename);
+        $value = $path.'/'.$filename;
+        return response()->json(['path' => asset($value), 'value' => $value]);
     }
     public function saveFieldImage(Request $request)
     {

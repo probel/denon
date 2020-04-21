@@ -23,6 +23,7 @@ Vue.directive('selecttwo', {
         })
     },
 });
+Vue.component('upload-file', require('./components/admin/UploadFileComponent.vue').default);
 Vue.component('upload-image', require('./components/admin/UploadImageComponent.vue').default);
 Vue.component('multi-fields', require('./components/admin/MultiFieldsComponent.vue').default);
 Vue.component('upload-image', require('./components/admin/UploadImageComponent.vue').default);
@@ -36,6 +37,7 @@ Vue.component('admin-slider', require('./components/admin/SliderComponent.vue').
 Vue.component('admin-address', require('./components/admin/AddressComponent.vue').default);
 Vue.component('product-variations', require('./components/admin/ProductVariationsComponent.vue').default);
 Vue.component('product-params', require('./components/admin/ProductParamsComponent.vue').default);
+Vue.component('product-uploads', require('./components/admin/ProductUploadsComponent.vue').default);
 
 
 function switchOnHandler(textareaId, config) {

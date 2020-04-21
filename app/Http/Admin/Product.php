@@ -48,6 +48,7 @@ class Product extends Section implements Initializable
         $model->icons = request()->icons;
         $model->variations = request()->variations;
         $model->params = request()->params;
+        $model->uploads = request()->uploads;
         $model->save();
 
     }
@@ -184,7 +185,11 @@ class Product extends Section implements Initializable
                 AdminFormElement::view('admin.form.productParams', ['items' => $product->params['common'] ?? [],'prefix' => 'params[common]' ]),
                 AdminFormElement::view('admin.form.panelClose'),
             ]))->setLabel('Характеристики');
+            $tabs[] = AdminDisplay::tab(AdminForm::elements([
+                AdminFormElement::view('admin.form.productUploads', ['items' => $product->uploads ?? [],'prefix' => 'uploads' ]),
+            ]))->setLabel('Загрузки');
             $tabs[] = AdminService::seoTab();
+            //dd($product->uploads);
             return $tabs;
         });
         return AdminForm::form()->addElement($tabs);

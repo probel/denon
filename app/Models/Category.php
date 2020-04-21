@@ -15,6 +15,7 @@ class Category extends Model
     protected $casts = [
         'values' => 'array'
     ];
+    protected $with = ['parent'];
     /**
      * @param $query
      * @param int $position
@@ -35,11 +36,12 @@ class Category extends Model
     }
     public function parent()
     {
-        return $this->belongsTo('App\Models\Category','parent_id');
+        return $this->belongsTo(Category::class,'parent_id');
     }
+
     public function childs()
     {
-        return $this->hasMany('App\Models\Category','parent_id');
+        return $this->hasMany(Category::class,'parent_id');
     }
     public function getPath()
     {

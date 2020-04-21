@@ -61,12 +61,12 @@ class PageController extends Controller
             route('front'),
         ];
 
-        $categories = \App\Models\Category::active()->get();
+        $categories = Category::active()->get();
         foreach ($categories as  $category) {
             $url = $category->getUrl();
             $paths[$url] = $url;
         }
-        $products = \App\Models\Product::active()->get();
+        $products = Product::active()->get();
         foreach ($products as $product) {
             $url = $product->getUrl();
             $paths[$url] = $url;

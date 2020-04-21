@@ -24,6 +24,7 @@ class Product extends Model
         'images' => 'array',
         'icons' => 'array',
         'params' => 'array',
+        'uploads' => 'array',
         'variations' => 'array',
     ];
     protected $dates = [
@@ -54,12 +55,6 @@ class Product extends Model
         return $url;
     }
 
-    public function getMeta()
-    {
-        return array (1,2);
-    }
-
-
     public function getImage($num = 0)
     {
         return $this->getImages()[$num] ?? ['path' => 'images/no-image.jpg','alt' => $this->name];
@@ -76,4 +71,34 @@ class Product extends Model
         }
         return $images;
     }
+    public function isDescription()
+    {
+        return (boolean) trim(\strip_tags($this->long_description));
+    }
+    public function isParams()
+    {
+        foreach ($this->params ?? [] as $group) {
+            if (count($group)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public function isUploads()
+    {
+        return (boolean) count($this->uploads ?? []);
+    }
+    public function similar()
+    {
+        static $products = null;
+        if (is_null($products)) {
+            $products = $this->category->products()
+                                    ->active()
+                                    ->orderBy('name')
+                                    ->get(['id','name','params']);
+        }
+
+        return $products;
+    }
+
 }

@@ -10,7 +10,32 @@
                     :title = "field.title"
                 >
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-2">
+                            <div class="form-group ">
+                                <label :for="'type_'+hash+key" class="control-label">Тип</label>
+                                <select
+                                    class="form-control"
+                                    v-model="field.type"
+                                    :name="prefix+'['+key+'][type]'"
+                                    :id="'type_'+hash+key">
+                                    <option value="document">Document</option>
+                                    <option value="pdf">PDF</option>
+                                    <option value="website">Website</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group ">
+                                <label :for="'date_'+hash+key" class="control-label">Дата</label>
+                                <input type="date"
+                                    class="form-control"
+                                    v-model="field.date"
+                                    :name="prefix+'['+key+'][date]'"
+                                    :id="'date_'+hash+key"
+                                >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group ">
                                 <label :for="'title_'+hash+key" class="control-label">Заголовок</label>
                                 <input type="text"
@@ -21,9 +46,9 @@
                                 >
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div v-if="field.type == 'website'" class="col-md-4">
                             <div class="form-group ">
-                                <label :for="'value_'+hash+key" class="control-label">Значение</label>
+                                <label :for="'value_'+hash+key" class="control-label">Адрес</label>
                                 <input type="text"
                                     class="form-control"
                                     v-model="field.value"
@@ -32,17 +57,16 @@
                                 >
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <div class="custom-control custom-checkbox checkbox-inline">
-                                    <input
-                                        type="checkbox"
-                                        v-model="field.dot"
-                                        :name="prefix+'['+key+'][dot]'"
-                                        class="custom-control-input"
-                                        :id="'param_dot-'+hash+key">
-                                    <label class="custom-control-label" :for="'param_dot-'+hash+key">Отображать точками</label>
-                                </div>
+                        <div v-else class="col-md-4">
+                            <div class="form-group ">
+                                <label :for="'value_'+hash+key" class="control-label">Файл</label>
+                                <upload-file
+                                        :url="url"
+                                        :name="prefix+'['+key+'][value]'"
+                                        :value="field.value ? field.value : ''"
+                                    >
+                                </upload-file>
+
                             </div>
                         </div>
                     </div>
@@ -67,13 +91,9 @@
                 type: String,
                 default: ''
             },
-            isdescription: {
-                type: Boolean,
-                default: true
-            },
-            isimage: {
-                type: Boolean,
-                default: true
+            url: {
+                default: '/admin/save/fieldfile',
+                type: String
             },
         },
         data: () => {
@@ -94,8 +114,9 @@
             addBlock: function() {
                 let element = {
                     title: '',
-                    color: '',
-                    images: []
+                    date: (new Date()).toISOString().split('T')[0],
+                    type: 'document',
+                    value: ''
                 }
                 this.$set(this.fields, this.fields.length, element);
             },

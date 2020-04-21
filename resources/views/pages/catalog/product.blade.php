@@ -108,23 +108,30 @@
             <div class="product-description">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs d-flex nav-fill nav-tabs__custom">
+                    @if ($product->isDescription())
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#" data-target="#product-desc-01">Описание</a>
                     </li>
+                    @endif
+                    @if ($product->isParams())
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#"
-                           data-target="#product-desc-02">Характеристики</a>
+                        <a class="nav-link {{ $product->isDescription() ? '' : 'active' }}" data-toggle="tab" href="#"
+                           data-target="#params">Характеристики</a>
                     </li>
+                    @endif
+                    @if ($product->isUploads())
                     <li class="nav-item">
-                        <a class="nav-link"
-                           data-toggle="tab" href="#" data-target="#product-desc-03">ЗАГРУЗКИ</a>
+                        <a class="nav-link {{ ($product->isDescription() && $product->isParams()) ? '' : 'active' }}"
+                            data-toggle="tab" href="#" data-target="#product-desc-03">ЗАГРУЗКИ</a>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#" data-target="#product-desc-04">ОБЗОРЫ</a>
                     </li>
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content">
+                    @if ($product->isDescription())
                     <div class="tab-pane active" id="product-desc-01">
                         <div class="product-description__desc">
                             {!! $product->long_description !!}
@@ -137,155 +144,17 @@
                         </div>
                         @endif
                     </div>
-                    <div class="tab-pane" id="product-desc-02">
-                        <div class="accordion features" id="features-accordion">
-                            <div class="features__caption d-flex align-items-end">
-                                <h2 class="features__caption__title mb-0">Предлагаем Вам сравнить модели по параметрам:</h2>
-                                <div class="features__caption__item product">Denon AVR-S650H</div>
-                                <div class="features__caption__item">
-                                    <select>
-                                        <option selected>Выбрать модель</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                                <div class="features__caption__item">
-                                    <select>
-                                        <option selected>Выбрать модель</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="features__item">
-                                {{-- надо дописать класс js чтобы при раскрытии пункта появлялся -is-open --}}
-                                <div class="features__item__header d-flex align-items-center -is-open" id="features-item-header-1"
-                                            role="button" data-toggle="collapse"
-                                            data-target="#features-item-content-1"
-                                            aria-expanded="true"
-                                            aria-controls="collapseOne">
-                                    <div class="icon position-relative"></div>
-                                    <h2 class="title text-uppercase">ОСНОВНЫЕ ХАРАКТЕРИСТКИ</h2>
-                                </div>
-
-                                <div id="features-item-content-1" class="collapse show" aria-labelledby="features-item-header-1" data-parent="#features-accordion">
-                                    <table class="features__table">
-                                        <tbody>
-                                            <tr>
-                                                <td class="caption">Диапазон частот</td>
-                                                <td>
-                                                    <span class="circle"></span>
-                                                    <span class="circle"></span>
-                                                    <span class="circle"></span>
-                                                </td>
-                                                <td>
-                                                    <span class="circle"></span>
-                                                </td>
-                                                <td>-</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="caption">Прибор подавляет цифровые сигналы</td>
-                                                <td>GPS L1, GPS L2, Глонасс</td>
-                                                <td>GPS L1, GPS L2, Глонасс</td>
-                                                <td>-</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="caption">Радиус действия</td>
-                                                <td><span class="circle"></span></td>
-                                                <td><span class="circle"></span></td>
-                                                <td><span class="circle"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="caption">Источник питания</td>
-                                                <td>12 В</td>
-                                                <td>15 В</td>
-                                                <td>17 В</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="caption">Питание</td>
-                                                <td>от сети 220 В</td>
-                                                <td>от сети 220 В</td>
-                                                <td>от сети 220 В</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="caption">Условия эксплуатации прибора</td>
-                                                <td>температура</td>
-                                                <td>температура</td>
-                                                <td>температура</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="caption">Габариты, мм</td>
-                                                <td>85.7 х 20.5 х 20.5</td>
-                                                <td>85.7 х 20.5 х 20.5</td>
-                                                <td>85.7 х 20.5 х 20.5</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="caption">Вес, г</td>
-                                                <td>25</td>
-                                                <td>25</td>
-                                                <td>25</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="features__item">
-                                <div class="features__item__header d-flex align-items-center" id="features-item-header-2" role="button" data-toggle="collapse"
-                                data-target="#features-item-content-2" aria-expanded="false" aria-controls="collapseOne">
-                                <div class="icon position-relative"></div>
-                                    <h2 class="title text-uppercase">СПЕЦИФИКАЦИИ</h2>
-                                </div>
-
-                                <div id="features-item-content-2" class="collapse" aria-labelledby="features-item-header-2" data-parent="#features-accordion">
-                                    <div class="card-body">
-                                       таблица
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="features__item">
-                                <div class="features__item__header d-flex align-items-center" id="features-item-header-3" role="button" data-toggle="collapse"
-                                data-target="#features-item-content-3" aria-expanded="false" aria-controls="collapseOne">
-                                <div class="icon position-relative"></div>
-                                    <h2 class="title text-uppercase">ОБЩИЕ</h2>
-                                </div>
-
-                                <div id="features-item-content-3" class="collapse" aria-labelledby="features-item-header-3" data-parent="#features-accordion">
-                                    <div class="card-body">
-                                        таблица
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    @endif
+                    @if ($product->isParams())
+                    <div class="tab-pane {{ $product->isDescription() ? '' : 'active' }}" id="params">
+                        @include('shared.product.params')
                     </div>
-                    <div class="tab-pane" id="product-desc-03">
-                        <div class="downloads text-uppercase">
-                            {{-- здесь класс .title (у первого downloads__row) --}}
-                            <div class="row downloads__row title align-items-center">
-                                <div class="col-lg-4 col-12"></div>
-                                <div class="col-lg-2 col-sm-3">Дата</div>
-                                <div class="col-lg-2 col-sm-3">ВЕС</div>
-                                <div class="col-lg-2 col-sm-3">ТИП ФАЙЛА</div>
-                                <div class="col-lg-2 col-sm-3"></div>
-                            </div>
-                            {{-- здесь класс .item (у этого и следующих downloads__row) --}}
-                            <div class="row downloads__row item align-items-center">
-                                <div class="col-lg-4 col-12">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
-                                <div class="col-lg-2 col-sm-3">12.02.2020</div>
-                                <div class="col-lg-2 col-sm-3">-</div>
-                                <div class="col-lg-2 col-sm-3">WEBSITE</div>
-                                <div class="col-lg-2 col-sm-3"><a class="btn" href="#">Просмотр</a></div>
-                            </div>
-                            <div class="row downloads__row item align-items-center">
-                                <div class="col-lg-4 col-12">Информация о продукте</div>
-                                <div class="col-lg-2 col-sm-3">06.12.2019</div>
-                                <div class="col-lg-2 col-sm-3">1.2MB</div>
-                                <div class="col-lg-2 col-sm-3">PDF</div>
-                                <div class="col-lg-2 col-sm-3"><a class="btn" href="#">СКАЧАТЬ</a></div>
-                            </div>
-                        </div>
+                    @endif
+                    @if ($product->isUploads())
+                    <div class="tab-pane {{ ($product->isDescription() && $product->isParams()) ? '' : 'active' }}" id="product-desc-03">
+                        @include('shared.product.uploads');
                     </div>
+                    @endif
                     <div class="tab-pane fade" id="product-desc-04">
                         <div class="downloads text-uppercase">
                             <div class="row downloads__row item align-items-center">
@@ -334,6 +203,7 @@
 @endsection
 @section('sctipts')
     <script>
+        window.similar = @json($product->similar());
         window.defaultImages = @json($product->images);
         window.variations = @json($product->variations);
     </script>

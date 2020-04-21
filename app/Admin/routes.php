@@ -5,6 +5,7 @@ Route::get('', ['as' => 'admin.dashboard', 'uses' => 'App\Http\Controllers\Admin
 
 
 Route::post('/save/image', ['as' => 'admin.save.image', 'uses' => 'App\Http\Controllers\AdminController@saveImage']);
+Route::post('/save/fieldfile', ['as' => 'admin.save.fieldfile', 'uses' => 'App\Http\Controllers\AdminController@saveFieldFile']);
 Route::post('/save/fieldimage', ['as' => 'admin.save.fieldimage', 'uses' => 'App\Http\Controllers\AdminController@saveFieldImage']);
 Route::get('cities/export', ['as' => 'admin.export', 'uses' => 'App\Http\Controllers\AdminController@contactsExport']);
 Route::get('cities/import', ['as' => 'admin.importForm', 'uses' => 'App\Http\Controllers\AdminController@contactsImportForm']);

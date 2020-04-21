@@ -53,8 +53,7 @@ class CatalogService
     {
         $categories = null;
         if (is_null($categories)) {
-            $categories = Category::with('childs','parent')
-                            ->withCount('childs')
+            $categories = Category::with(['parent'])
                             ->active()
                             ->orderBy('order')
                             ->get();

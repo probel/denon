@@ -8,7 +8,42 @@ window.yaCounterTemp = {
         console.log(goal);
     }
 }
+if (window.similar) {
+    $(document).on('change', '.js-change-similar', function () {
+        let pid = $(this).data('pid');
+        let cid = $(this).val();
+        let row = $(this).data('row');
+        let product = _.find(similar, (p) => { return p.id == pid });
+        let compare = _.find(similar, (p) => { return p.id == cid });
+        if (product && compare) {
+            setCompareValues(product, compare, row);
+        } else {
+            $('.param-row-'+row).html('');
+        }
+    });
+    function setCompareValues(product, compare, row) {
+        let names = [];
+        if (!product.params) return false;
 
+        _.forEach(product.params, function(group, groupKey) {
+            _.forEach(group, function(param) {
+                let title = param.title;
+                let html = '';
+                let compareParam = _.find(compare.params[groupKey], (p) => { return p.title == title});
+                if (compareParam) {
+                    if (compareParam.dot) {
+                        for (let index = 0; index < parseInt(compareParam.value); index++) {
+                            html += '<span class="circle"></span>';
+                        }
+                    } else {
+                        html = compareParam.value;
+                    }
+                }
+                $(`#features-item-${groupKey} [data-title="${title}"] .param-row-${row}`).html(html);
+            });
+        });
+    }
+}
 if (window.defaultImages) {
     initProductSlider();
     window.images = defaultImages;
@@ -163,4 +198,9 @@ $(document).ready(function () {
     });
 
 });
-
+$('.js-features__item').on('hide.bs.collapse', function () {
+    $($(this).data('header')).removeClass('-is-open');
+})
+$('.js-features__item').on('show.bs.collapse', function () {
+    $($(this).data('header')).addClass('-is-open');
+})
