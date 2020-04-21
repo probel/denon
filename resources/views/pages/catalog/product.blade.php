@@ -154,12 +154,12 @@
                     @endif
                     @if ($product->isUploads())
                     <div class="tab-pane {{ ($product->isDescription() && $product->isParams()) ? '' : 'active' }}" id="product-desc-03">
-                        @include('shared.product.uploads');
+                        @include('shared.product.uploads')
                     </div>
                     @endif
                     @if ($product->isRelated())
                     <div class="tab-pane {{ ($product->isDescription() || $product->isParams() || $product->isUploads()) ? '' : 'active' }}" id="product-desc-04">
-                        @include('shared.product.related');
+                        @include('shared.product.related')
                     </div>
                     @endif
                 </div>

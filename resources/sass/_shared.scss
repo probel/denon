@@ -7,14 +7,14 @@ body {
     background: #fff;
 }
 ::-webkit-scrollbar {
-    width: 3px;
+    width: 4px;
 }
 ::-webkit-scrollbar-track {
-    background: $main-light;
+    background: #eeeeee;
     border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-    background: $red;
+    background: $broun;
     border-radius: 10px;
 }
 
@@ -425,6 +425,9 @@ b, strong {
     &-red {
         color: $red !important;
     }
+    &-blue {
+        color: $blue !important;
+    }
 }
 .bg-light {
     background: $bg-light !important;
@@ -526,6 +529,26 @@ b, strong {
             }
         }
     }
+    .search {
+        .form-control {
+            width: 200px;
+            height: 30px;
+            background: #fff;
+            border: none;
+            font-size: 12px;
+            padding-right: 25px;
+        }
+        .icon {
+            right: 5px;
+            top: 6px;
+            color: $bg-dark;
+        }
+    }
+    @media (max-width: 1540px) {
+        &__menu__item {
+            margin-right: 0;
+        }
+    }
     @media (max-width: 1290px) {
         &-top {
             &__contacts {
@@ -535,20 +558,17 @@ b, strong {
                 margin-right: 26px;
             }
         }
-        &__menu__item {
-            margin-right: 0;
-        }
     }
     @include media-breakpoint-down(lg) {
         .navbar-collapse {
-            width: calc(100% + 240px);
-            margin: 0 -120px;
+            width: calc(100% + 280px);
+            margin: 0 -140px;
         }
         &-top {
             background: #fff;
             padding: 12px 0;
             &__menu {
-                padding: 9px 120px;
+                padding: 9px 140px;
                 background: #eeeeee;
                 &__item {
                     margin-right: 0;
@@ -562,7 +582,7 @@ b, strong {
         }
         background: #3e3e3e;
         &__menu {
-            padding: 9px 120px;
+            padding: 9px 140px;
             border-bottom: 1px solid $broun;
             &__item {
                 text-align: right;
@@ -592,6 +612,12 @@ b, strong {
                         color: $broun;
                     }
                 }
+            }
+        }
+        .search {
+            .form-control {
+                margin-left: auto;
+                width: 290px;
             }
         }
     }
@@ -625,6 +651,7 @@ b, strong {
                 width: 24px;
             }
         }
+
     }
     &:hover, &:focus {
         .cart-circle {
@@ -634,10 +661,14 @@ b, strong {
             }
         }
     }
+    @media (max-width: 1540px) {
+        margin-left: 24px;
+    }
     @include media-breakpoint-down(lg) {
         margin-left: 18px;
     }
 }
+
 .mobile-menu {
     &__item {
         font-size: 20px;
@@ -1054,3 +1085,134 @@ b, strong {
 .cursor-pointer {
     cursor: pointer;
 }
+/*==================================================================================================================
+                                       cart-informer__popup
+==================================================================================================================*/
+.cart-informer__popup {
+    position: absolute;
+    top: 100%;
+    margin-top: 5px;
+    right: 0;
+    z-index: 100;
+    width: 418px;
+    padding: 30px 12px 36px 22px;
+    background: #fff;
+    display: none;
+    .-is-open & {
+        display: block;
+    }
+    .title {
+        font-size: 18px;
+        margin-bottom: 18px;
+        color: #3e3e3e;
+        .icon {
+            margin-left: 12px;
+            padding-bottom: 6px;
+            svg path {
+                fill: #3e3e3e;
+            }
+        }
+    }
+    .buy-item {
+        padding-right: 12px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        &__image {
+            width: 90px;
+            margin-right: 16px;
+        }
+        &__name {
+            font-size: 14px;
+        }
+        .price-wrapper {
+            margin-right: 14px;
+        }
+    }
+    .total-price {
+        margin-top: 30px;
+        margin-bottom: 34px;
+        padding-right: 12px;
+        font-size: 14px;
+        &__sum {
+            margin-left: 50px;
+            font-size: 18px;
+        }
+    }
+    .btn-triangle {
+        margin-right: 14px;
+    }
+    .buy-list {
+        padding-right: 10px;
+        height: 310px;
+        overflow-y: scroll;
+    }
+}
+/*==================================================================================================================
+                                       search-page
+==================================================================================================================*/
+.search-page {
+    &__form {
+        margin-bottom: 55px;
+        .form-control {
+            border: 1px solid rgb(160, 160, 160);
+            background-color: rgb(238, 238, 238);
+            padding-right: 32px;
+        }
+        .icon {
+            right: 8px;
+            top: 10px;
+            color: $bg-dark;
+        }
+    }
+    .results {
+        &__title {
+            color: #0b0b0b;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 24px;
+        }
+        .buy-item {
+            &__info {
+                width: 125px;
+                margin-right: 20px;
+            }
+            &__name {
+                font-size: 14px;
+            }
+            &__option {
+                font-size: 18px;
+                color: $dark;
+            }
+            .in-stock {
+                width: 152px;
+                font-size: 16px;
+                &__title {
+                    margin-bottom: 6px;
+                }
+            }
+        }
+        .pagination {
+            margin-top: 40px;
+        }
+        @include media-breakpoint-down(md) {
+            .buy-item__option {
+                font-size: 14px;
+            }
+        }
+        @include media-breakpoint-down(sm) {
+            .buy-item {
+                flex-wrap: wrap;
+                padding-right: 0;
+                &__info {
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+                .in-stock {
+                    width: 100%;
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+}
+

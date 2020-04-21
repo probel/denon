@@ -12,7 +12,7 @@ Route::any('/home', function () {
 /* END FOR ADMIN */
 
 Route::get('/', 'PageController@showFront')->name('front');
-Route::get('/search',   'SearchController@search')->name('search.show');
+Route::get('/search',   'SearchController@search')->name('search');
 Route::get('/contacts', 'PageController@contacts')->name('contacts');
 Route::get('/delivery', 'PageController@delivery')->name('delivery');
 Route::get('/warranty', 'PageController@warranty')->name('warranty');

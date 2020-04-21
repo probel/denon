@@ -108,6 +108,12 @@
                         <li class="header__menu__item">
                             <a class="header__menu__link text-uppercase {{ Request::is('promo*') ? 'current' : '' }}" href="{{ route('promo.index') }}"><i class="fas fa-bullhorn mr-1"></i> АКЦИИ</a>
                         </li>
+                        <li class="header__menu__item search position-relative">
+                            <form action="{{ route('search') }}" method="GET">
+                                <input class="form-control" type="text" name="find" value="{{ request()->find }}" placeholder="Поиск...">
+                            </form>
+                            <span class="icon position-absolute"><i class="fas fa-search"></i></span>
+                        </li>
                     </ul>
                 </nav>
                 <div class="mobile-menu d-flex align-items-center ml-auto">

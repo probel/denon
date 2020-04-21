@@ -9,7 +9,9 @@
                     <div class="row">
                         <div class="col-xl-6 pr-xl-4">
                             <h2 class="cart-page__content__title text-uppercase">ВАШ ЗАКАЗ</h2>
-                            <div class="js-cart-content">@include('shared.cart.content')</div>
+                            <div class="js-cart-content">
+                                @include('shared.cart.content')
+                            </div>
                         </div>
                         <div class="col-xl-6 pl-xl-4">
                             <h2 class="cart-page__content__title text-uppercase">ОФОРМЛЕНИЕ ЗАКАЗА</h2>

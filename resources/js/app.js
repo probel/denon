@@ -198,6 +198,15 @@ $(document).ready(function () {
     });
 
 });
+$('.js-cart-informer').hover(function () {
+       $(this).addClass('-is-open');
+});
+$(document).on('click', '.cart-informer__popup',function (e) {
+    e.stopPropagation();
+});
+$(document).on('click', function (e) {
+    $('.js-cart-informer').removeClass('-is-open');
+});
 $('.js-features__item').on('hide.bs.collapse', function () {
     $($(this).data('header')).removeClass('-is-open');
 })

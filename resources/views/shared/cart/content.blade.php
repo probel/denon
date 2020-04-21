@@ -6,7 +6,7 @@
         @csrf
         <div class="d-flex align-items-center buy-item__wrapper h-100">
             <div class="d-flex align-items-center buy-item__product flex-grow-1">
-                <div class="buy-item__image">
+                <div class="buy-item__image flex-shrink-0">
                     <a class="d-block buy-item__image__link" href="{{ $item->product->getUrl() }}">
                         <img class="mw-100 mh-100" src="{{ asset($item->product->getImage()['path']) }}" alt="{{ $item->product->getImage()['alt'] }}">
                     </a>
