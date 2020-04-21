@@ -35,16 +35,31 @@ class Product extends Model
     protected $fillable = [
         'name', 'slug'
     ];
-    /**
-     * Один ко многим с категорией
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id','id');
+        return $this->belongsTo(Category::class);
     }
-
+    public function news()
+    {
+        return $this->belongsToMany(News::class, 'product_news');
+    }
+    public function installations()
+    {
+        return $this->belongsToMany(Installation::class, 'product_installations');
+    }
+    public function promos()
+    {
+        return $this->belongsToMany(Promo::class, 'product_promos');
+    }
+    public function related()
+    {
+        $items = $this->news;
+        $items = $items->merge($this->promos);
+        $items = $items->merge($this->installations);
+        $items = $items->where('status',1)->sortByDesc('created_at');
+        return $items;
+    }
     public function getUrl()
     {
         $path = $this->slug;
@@ -87,6 +102,10 @@ class Product extends Model
     public function isUploads()
     {
         return (boolean) count($this->uploads ?? []);
+    }
+    public function isRelated()
+    {
+        return (boolean) $this->related()->count();
     }
     public function similar()
     {

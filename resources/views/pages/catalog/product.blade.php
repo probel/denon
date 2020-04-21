@@ -121,13 +121,15 @@
                     @endif
                     @if ($product->isUploads())
                     <li class="nav-item">
-                        <a class="nav-link {{ ($product->isDescription() && $product->isParams()) ? '' : 'active' }}"
+                        <a class="nav-link {{ ($product->isDescription() || $product->isParams()) ? '' : 'active' }}"
                             data-toggle="tab" href="#" data-target="#product-desc-03">ЗАГРУЗКИ</a>
                     </li>
                     @endif
+                    @if ($product->isRelated())
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#" data-target="#product-desc-04">ОБЗОРЫ</a>
+                        <a class="nav-link" {{ ($product->isDescription() || $product->isParams() || $product->isUploads()) ? '' : 'active' }} data-toggle="tab" href="#" data-target="#product-desc-04">ОБЗОРЫ</a>
                     </li>
+                    @endif
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content">
@@ -155,23 +157,11 @@
                         @include('shared.product.uploads');
                     </div>
                     @endif
-                    <div class="tab-pane fade" id="product-desc-04">
-                        <div class="downloads text-uppercase">
-                            <div class="row downloads__row item align-items-center">
-                                <div class="col-lg-10 col-sm-9">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
-                                <div class="col-lg-2 col-sm-3"><a class="btn" href="#">Просмотр</a></div>
-                            </div>
-                            <div class="row downloads__row item align-items-center">
-                                <div class="col-lg-10 col-sm-9">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
-                                <div class="col-lg-2 col-sm-3"><a class="btn" href="#">Просмотр</a></div>
-                            </div>
-                            <div class="row downloads__row item align-items-center">
-                                <div class="col-lg-10 col-sm-9">Инструкция ПО ЭКСПЛУАТАЦИИ</div>
-                                <div class="col-lg-2 col-sm-3"><a class="btn" href="#">Просмотр</a></div>
-                            </div>
-
-                        </div>
+                    @if ($product->isRelated())
+                    <div class="tab-pane {{ ($product->isDescription() || $product->isParams() || $product->isUploads()) ? '' : 'active' }}" id="product-desc-04">
+                        @include('shared.product.related');
                     </div>
+                    @endif
                 </div>
                 <!-- bottom line -->
                 <div class="product-description__bottom">

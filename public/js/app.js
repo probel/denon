@@ -47598,8 +47598,8 @@ $(document).ready(function () {
     $(this).parents('.js-plusminus').find('[name="count"]').val(val);
     var price = parseFloat($(this).parents('.js-plusminus').find('[name="count"]').data('price'));
     var oldPrice = parseFloat($(this).parents('.js-plusminus').find('[name="count"]').data('old_price'));
-    $('.js-product-sum').text((val * price).toLocaleString('ru'));
-    $('.js-product-old_sum').text((val * oldPrice).toLocaleString('ru'));
+    $(this).parents('.js-form__to-cart').find('.js-product-sum').text((val * price).toLocaleString('ru'));
+    $(this).parents('.js-form__to-cart').find('.js-product-old_sum').text((val * oldPrice).toLocaleString('ru'));
 
     if ($(this).hasClass('js-up')) {
       $(this).parents('.js-plusminus').submit();
@@ -47615,8 +47615,8 @@ $(document).ready(function () {
 
     var price = parseFloat($(this).parents('.js-plusminus').find('[name="count"]').data('price'));
     var oldPrice = parseFloat($(this).parents('.js-plusminus').find('[name="count"]').data('old_price'));
-    $('.js-product-sum').text((val * price).toLocaleString('ru'));
-    $('.js-product-old_sum').text((val * oldPrice).toLocaleString('ru'));
+    $(this).parents('.js-form__to-cart').find('.js-product-sum').text((val * price).toLocaleString('ru'));
+    $(this).parents('.js-form__to-cart').find('.js-product-old_sum').text((val * oldPrice).toLocaleString('ru'));
     $(this).parents('.js-plusminus').find('[name="count"]').val(val);
 
     if ($(this).hasClass('js-up')) {
@@ -47767,6 +47767,7 @@ $(document).ready(function () {
     nextArrow: '<button type="button" class="slick-next"></button>',
     dots: true,
     infinite: true,
+    autoplay: true,
     speed: 300,
     slidesToShow: 1
   });

@@ -122,6 +122,7 @@ class Product extends Section implements Initializable
      */
     public function onEdit($id)
     {
+
         $product = $id ? \App\Models\Product::find($id) : false;
 
         $tabs = AdminDisplay::tabbed();
@@ -188,6 +189,17 @@ class Product extends Section implements Initializable
             $tabs[] = AdminDisplay::tab(AdminForm::elements([
                 AdminFormElement::view('admin.form.productUploads', ['items' => $product->uploads ?? [],'prefix' => 'uploads' ]),
             ]))->setLabel('Загрузки');
+            $tabs[] = AdminDisplay::tab(AdminForm::elements([
+                AdminFormElement::multiselectajax('news', 'Новости')
+                    ->setModelForOptions('\App\Models\News')
+                    ->setDisplay('title'),
+                AdminFormElement::multiselectajax('promos', 'Акции')
+                    ->setModelForOptions('\App\Models\Promo')
+                    ->setDisplay('title'),
+                AdminFormElement::multiselectajax('installations', 'Инсталяции')
+                    ->setModelForOptions('\App\Models\Installation')
+                    ->setDisplay('title'),
+            ]))->setLabel('Обзоры');
             $tabs[] = AdminService::seoTab();
             //dd($product->uploads);
             return $tabs;

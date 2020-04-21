@@ -7,6 +7,7 @@ $(document).ready(() => {
         nextArrow: '<button type="button" class="slick-next"></button>',
         dots: true,
         infinite: true,
+        autoplay: true,
         speed: 300,
         slidesToShow: 1
       });
