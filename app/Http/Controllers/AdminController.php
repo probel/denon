@@ -27,7 +27,7 @@ class AdminController extends Controller
     public function index()
     {
         if (\Auth::user()->isManager()) {
-            return redirect('admin/callbacks');
+            return redirect('admin/orders');
         } else {
             return redirect('admin/orders');
         }

@@ -153,6 +153,19 @@ $(document).ready(function () {
             });
         return false;
     });
+    $(document).on('click', '.js-front-filter-link', function () {
+        let href = '/category/'+$(this).data('id');
+        axios.get(href)
+            .then((response) => {
+                $('.js-front-caltalog-content').html(response.data.html);
+                $('.js-front-filter-link').removeClass('active');
+                $(this).addClass('active');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        return false;
+    });
     function formResponse(data) {
         if (data.location) {
             location.href = data.location;

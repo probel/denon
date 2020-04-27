@@ -4,7 +4,9 @@
     <x-slogan :title="$values['slogan'] ?? ''">{!! $values['description'] ?? '' !!}</x-slogan>
     <section>
         @include('blocks.filter')
-        @include('blocks.catalog')
+        <div class="catalog__in js-front-caltalog-content">
+            @include('blocks.catalog',['category' => Catalog::getFrontCategory()])
+        </div>
     </section>
     @include('blocks.news')
 @endsection

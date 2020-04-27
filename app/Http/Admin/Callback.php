@@ -70,7 +70,6 @@ class Callback extends Section implements Initializable
 
                 AdminColumn::text('id', '#'),
                 AdminColumn::text('created_at', 'Дата'),
-                AdminColumn::text('country.name', 'Страна'),
                 \AdminColumnEditable::checkbox('status', 'Обработан', 'Не обработан')->setLabel('Статус')->setEditableMode('inline'),
                 AdminColumn::text('type', 'Форма'),
                 AdminColumn::custom('Клиент', function ($callback) {
@@ -111,7 +110,6 @@ class Callback extends Section implements Initializable
     public function onEdit($id)
     {
         $columns = [
-            AdminFormElement::select('country_id', 'Страна')->setModelForOptions(\App\Models\Country::class)->setDisplay('name'),
             AdminFormElement::checkbox('status', 'Обработан', 'Не обработан')->setLabel('Обработан'),
             AdminFormElement::datetime('created_at', 'Дата'),
             AdminFormElement::text('name', 'ФИО'),

@@ -11431,10 +11431,10 @@ b, strong {
   font-size: 12px;
   display: block;
 }
-.catalog__filter__slider__link:hover {
+.catalog__filter__slider__link:hover, .catalog__filter__slider__link.active {
   font-size: 18px;
 }
-.catalog__filter__slider__link:hover .catalog__filter__slider__image {
+.catalog__filter__slider__link:hover .catalog__filter__slider__image, .catalog__filter__slider__link.active .catalog__filter__slider__image {
   transform: scale(1.5);
 }
 .catalog__filter__slider .slick-track {

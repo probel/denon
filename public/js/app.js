@@ -47572,6 +47572,19 @@ $(document).ready(function () {
     });
     return false;
   });
+  $(document).on('click', '.js-front-filter-link', function () {
+    var _this = this;
+
+    var href = '/category/' + $(this).data('id');
+    axios.get(href).then(function (response) {
+      $('.js-front-caltalog-content').html(response.data.html);
+      $('.js-front-filter-link').removeClass('active');
+      $(_this).addClass('active');
+    })["catch"](function (error) {
+      console.log(error);
+    });
+    return false;
+  });
 
   function formResponse(data) {
     if (data.location) {

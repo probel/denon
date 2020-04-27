@@ -18,6 +18,8 @@ Route::get('/delivery', 'PageController@delivery')->name('delivery');
 Route::get('/warranty', 'PageController@warranty')->name('warranty');
 Route::get('/sitemap.xml', 'PageController@sitemap')->name('sitemap');
 
+Route::get('/category/{slug}', 'CatalogController@categoryFront')->name('category.front');
+
 Route::group(['prefix' => '/news'], function () {
     Route::get('/', 'ArticleController@newsIndex')->name('news.index');
     Route::get('/{slug}', 'ArticleController@newsShow')->name('news.show');

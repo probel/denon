@@ -54,7 +54,7 @@ class CatalogService
         $categories = null;
         if (is_null($categories)) {
             $categories = Category::with(['parent','childs'])
-                            ->withCount('childs')
+                            ->withCount('childs','products')
                             ->active()
                             ->orderBy('order')
                             ->get();
@@ -65,12 +65,13 @@ class CatalogService
     {
         return self::getCategories()->find($id);
     }
-    public static function getFrontProducts()
+    public static function getFrontCategory()
     {
-        return \App\Models\Product::active()
-            ->where('front',1)
-            ->orderBy('order')
-            ->get();
+        static $category = null;
+        if (is_null($category)) {
+            $category = self::getCategories()->where('products_count','>',0)->first();
+        }
+        return $category;
     }
     public static function getNews()
     {

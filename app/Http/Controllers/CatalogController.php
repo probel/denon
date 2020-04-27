@@ -29,6 +29,17 @@ class CatalogController extends Controller
         ];
         return $res;
     }
+    public function categoryFront($id)
+    {
+        $category = Category::active()->findOrFail($id);
+        if (request()->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'html' => view('blocks.catalog',['category'=>$category])->render(),
+            ]);
+        }
+        abort(404);
+    }
     public function resolver($slugLine = null)
     {
         $slugs = explode('/',$slugLine);

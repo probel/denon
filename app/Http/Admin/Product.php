@@ -140,7 +140,7 @@ class Product extends Section implements Initializable
                     ],3),
                 AdminFormElement::columns()
                     ->addColumn([AdminFormElement::checkbox('status', 'Доступен')])
-                    ->addColumn([AdminFormElement::checkbox('front', 'Отображать на главной')->setDefaultValue(0)])
+                    //->addColumn([AdminFormElement::checkbox('front', 'Отображать на главной')->setDefaultValue(0)])
                     ->addColumn([AdminFormElement::checkbox('gift', 'Подарок')->setDefaultValue(1)])
                     ->addColumn([AdminFormElement::checkbox('new', 'Новинка')->setDefaultValue(1)])
                     ->addColumn([AdminFormElement::checkbox('available', 'В наличии')->setDefaultValue(1)]),
@@ -176,7 +176,7 @@ class Product extends Section implements Initializable
 
             ]))->setLabel('Цвета');
             $tabs[] = AdminDisplay::tab(AdminForm::elements([
-                AdminFormElement::view('admin.form.panelOpen', ['key' => 'params_main','title' => 'Общие', ]),
+                AdminFormElement::view('admin.form.panelOpen', ['key' => 'params_main','title' => 'Основные характеристики', ]),
                 AdminFormElement::view('admin.form.productParams', ['items' => $product->params['main'] ?? [],'prefix' => 'params[main]' ]),
                 AdminFormElement::view('admin.form.panelClose'),
                 AdminFormElement::view('admin.form.panelOpen', ['key' => 'params_spec','title' => 'Спецификации', ]),

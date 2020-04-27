@@ -183,7 +183,8 @@
                 max-width: 170px;
                 font-size: 12px;
                 display: block;
-                &:hover {
+                &:hover,
+                &.active {
                     font-size: 18px;
                     .catalog__filter__slider__image {
                         transform: scale(1.5);
