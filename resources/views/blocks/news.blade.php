@@ -7,7 +7,7 @@
         <h2 class="news__title text-uppercase text-center">ОБЗОРЫ НОВИНОК DENON</h2>
     </div>
     @include('shared.article.teasers',['articles'=> $news])
-    <a class="news__show-all w-100 text-center d-block text-uppercase" href="{{ route('news.index') }}">УЗНАТЬ БОЛЬШЕ</a>
+    <a class="news__show-all w-100 text-center d-block text-uppercase pt-0" href="{{ route('news.index') }}">УЗНАТЬ БОЛЬШЕ</a>
 </section>
 @endif
 
