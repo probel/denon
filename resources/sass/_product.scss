@@ -13,14 +13,15 @@
         padding: 0 60px;
     }
     .photo-big {
-        height: 487px;
+        height: 451px;
+        margin: 46px 0 10px;
     }
     .photo-small {
         padding: 0 15px;
         &__item {
             width: auto !important;
             max-width: 90%;
-            max-height: 96px;
+            height: 96px;
             border: 1px solid rgb(229, 229, 229);
             cursor: pointer;
             img {
@@ -317,9 +318,6 @@
             &__item {
                 width: 60px !important;
                 height: 60px;
-            }
-            .slick-arrow {
-                top: 18px;
             }
         }
     }

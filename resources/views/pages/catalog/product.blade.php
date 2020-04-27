@@ -27,13 +27,15 @@
                         <div class="product-card__sliders">
                             <div class="photo-big">
                                 <a href="{{ asset($product->getImage()['path']) }}" data-key="0" class="photo-big__item d-flex h-100 js-big-image">
-                                    <img class="m-auto img-fluid" alt="{{ $product->getImage()['alt'] }}" src="{{ asset($product->getImage()['path']) }}">
+                                    <img class="m-auto mh-100 mw-100" alt="{{ $product->getImage()['alt'] }}" src="{{ asset($product->getImage()['path']) }}">
                                 </a>
                             </div>
                             <div class="vendor-code d-xl-none text-right">{{ $product->article }}</div>
                             <div class="photo-small photo-small-slick">
                                 @foreach ($product->getImages() as $imageKey => $image)
-                                <img class="photo-small__item d-flex mx-auto js-small-image align-self-center m-auto" data-key="{{ $imageKey }}" src="{{ asset($image['path']) }}" alt="{{ asset($image['alt']) }}">
+                                <div class="photo-small__item d-flex mx-auto">
+                                    <img class="js-small-image align-self-center m-auto mh-100 mw-100" data-key="{{ $imageKey }}" src="{{ asset($image['path']) }}" alt="{{ asset($image['alt']) }}">
+                                </div>
                                 @endforeach
                             </div>
                         </div>

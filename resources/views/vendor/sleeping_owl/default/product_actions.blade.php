@@ -1,1 +1,1 @@
-<a class="btn btn-success" href="{{ route('admin.updatePrices') }}">Обновить цены с CRM</a>
+<a class="btn btn-success" href="/admin/products/import">Импорт</a>

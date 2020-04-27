@@ -15,6 +15,8 @@ use AdminForm;
 use AdminFormElement;
 use Illuminate\Support\Str;
 use App\Jobs\UpdatePrices;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\{ ProductImport };
 use \App\Models\{
     Category,
     Page,
@@ -45,125 +47,82 @@ class AdminController extends Controller
         ]);
         return AdminSection::view($content, '');
     }
-    public function frontpage()
+    public function importForm()
     {
-        $formPrimary = AdminForm::form()->addElement(
-            new \SleepingOwl\Admin\Form\FormElements([
-                AdminFormElement::columns()
-                    ->addColumn([AdminFormElement::text('name', 'Город %city%')->required()])
-                    ->addColumn([AdminFormElement::text('name1', 'Города (Кого?, Чего?) %city1%')])
-                    ->addColumn([AdminFormElement::text('name2', 'Городу (Кому?, Чему?) %city2%')]),
-                AdminFormElement::columns()
-                    ->addColumn([AdminFormElement::text('name3', 'Город (Кого?, Что?) %city3%')])
-                    ->addColumn([AdminFormElement::text('name4', 'Городом (Кем?, Чем?) %city4%')])
-                    ->addColumn([AdminFormElement::text('name5', 'Городе (О ком?, О чем?) %city5%')]),
-                //->addColumn([AdminFormElement::text('slug', 'Ссылка')])
-                AdminFormElement::text('slug', 'Субдомен'),
-            ])
-        );
-        $formFront = AdminForm::form()->addElement(
-            new \SleepingOwl\Admin\Form\FormElements([
-                AdminFormElement::text('front_title', 'Заголовок блока'),
-                AdminFormElement::image('front_image', 'Изображение'),
-                AdminFormElement::ckeditor('front_description', 'Текст'),
-                AdminFormElement::text('meta_title', 'Заголовок META'),
-                AdminFormElement::textarea('meta_description', 'Описание META'),
-                AdminFormElement::text('meta_tags', 'Теги META'),
-
-            ])
-        );
-        $formContacts = AdminForm::form()->addElement(
-            new \SleepingOwl\Admin\Form\FormElements([
-                AdminFormElement::ckeditor('schedule', 'Время работы'),
-                AdminFormElement::ckeditor('address', 'Адрес'),
-                AdminFormElement::textarea('map', 'Карта'),
-            ])
-        );
-        $formRobots = AdminForm::form()->addElement(
-            new \SleepingOwl\Admin\Form\FormElements([
-                AdminFormElement::textarea('robots', 'Файл robots.txt')->setRows(30)->setHelpText('Если оставить пустым, то будет использоваться файл robots по умолчанию'),
-            ])
-        );
-        $tabs = AdminDisplay::tabbed();
-        $tabs->appendTab($formPrimary, 'Общая информация');
-        $tabs->appendTab($formFront, 'Главная страница');
-        $tabs->appendTab($formContacts, 'Контакты');
-        $tabs->appendTab($formRobots, 'Файл robots.txt');
-        return $tabs;
-        $msg = false;
-        $page = Page::find(1);
-        //$content = view('admin.front_page',['msg' => $msg,'page'=>$page]);
-
-        return AdminSection::view($content, 'Главная страница');
-    }
-
-    public function contactsExport()
-    {
-        $cities = \App\Models\City::orderBy('name')
-                                ->get([
-                                    'name',
-                                    //'email',
-                                    'phone1',
-                                    'phone2',
-                                    'address',
-                                    'schedule',
-                                    'lat_map',
-                                    'lng_map',
-                                    'region',
-                                ])
-                                ->toArray();
-        $headers = [
-            'Название (НЕ МЕНЯТЬ)',
-            'Телефон #1',
-            'Телефон #2',
-            'Адрес',
-            'Время работы',
-            'Широта',
-            'Долгота',
-            'Регион',
-        ];
-
-        $filename ='cities_'.date('d.m.Y-H.i').'.csv';
-        header('Content-Type: text/csv; charset=utf-8');
-        Header('Content-Type: application/force-download');
-        header('Content-Disposition: attachment; filename='.$filename.'');
-
-        $output = fopen('php://output', 'w');
-        fputcsv($output, $headers);
-        foreach ($cities as $row){
-            fputcsv($output, $row);
-        }
-        fclose($output);
-    }
-    public function contactsImportForm() {
         $content = view('admin.import')->render();
-	    return AdminSection::view($content, 'Импорт городов');
+        return AdminSection::view($content, 'Импорт');
     }
-    public function contactsImport(Request $request) {
-        if ($request->file('cities') && $request->file('cities')->isValid()) {
-            $request->file('cities')->storeAs('import','cities.csv');
-            $file = fopen(storage_path('app/import/cities.csv'), 'r');
-            $cities = \App\Models\City::all();
-            while (($line = fgetcsv($file)) !== FALSE) {
-                if ($city = $cities->where('name',$line[0])->first()) {
-                    $city->phone1 = $line[1];
-                    $city->phone2 = $line[2];
-                    $city->address = $line[3];
-                    $city->schedule = $line[4];
-                    $city->lat_map = $line[5];
-                    $city->lng_map = $line[6];
-                    $city->region = $line[7];
-                    $city->save();
+    public function importStore()
+    {
+        $extension = request()->price->getClientOriginalExtension();
+        if (!in_array($extension,['csv','xls','xlsx','ods'])) {
+            \MessagesStack::addError('Формат файла импорта не определен');
+            return back();
+        }
+        $fileName = request()->price->getClientOriginalName();
+        $fileArray = explode('.',$fileName);
+        array_pop($fileArray);
+        $fileName = Str::slug(implode('.',$fileArray), '_').'.'.$extension;
+        request()->price->storeAs('prices',$fileName);
+        $results = Excel::toArray(new ProductImport, storage_path('app/prices/'.$fileName));
+        $priceColumn = request()->price_col;
+        $articleColumn = request()->article_col;
+        $availableColumn = request()->available_col;
+        $dateColumn = request()->date_col;
+        $multiplier = (float) request()->multiplier;
+        $productCount = 0;
+        $priceCount = 0;
+        $availableCount = 0;
+        $dateCount = 0;
+        foreach ($results as $sheet) {
+            foreach ($sheet as $key => $item) {
+                $article = trim($item[$articleColumn]);
+                if ($article) {
+                    $product = Product::where('article',$article)->first();
+                    if (!$product) {
+                        continue;
+                    }
+                    $productCount ++;
+                    $price = round(((float) $item[$priceColumn]) * $multiplier,0);
+                    if ($price) {
+                        if ($product->price != $price) {
+                            $product->price = $price;
+                            $product->save();
+                            $priceCount ++;
+                        }
+                    }
+                    if ($item[$availableColumn]) {
+                        $available = trim($item[$availableColumn]) == 'на складе' ? 1 : 0;
+                        if ($product->available != $available) {
+                            $product->available = $available;
+                            $product->save();
+                            $availableCount ++;
+                        }
+                    }
+                    if (trim($item[$dateColumn])) {
+                        $date = \Carbon\Carbon::createFromFormat('d.m.y',trim($item[$dateColumn]));
+                        if ($product->available_date != $date) {
+                            $product->available_date = $date;
+                            $product->save();
+                            $dateCount ++;
+                        }
+                    } elseif ($product->available_date) {
+                            $product->available_date = null;
+                            $product->save();
+                            $dateCount ++;
+                    }
                 }
             }
-            fclose($file);
-
-            \MessagesStack::addSuccess('Контакты обновлены');
-        } else {
-            \MessagesStack::addError('Ошибка загрузки файла');
         }
-        $content = view('admin.import')->render();
-	    return AdminSection::view($content, 'Импорт городов');
+        $message = "<div>Товары обновлены<br>
+                    Найдено товаров: <strong>$productCount</strong><br>
+                    <strong>Обновлено:</strong><br>
+                    Цен: <strong>$priceCount</strong><br>
+                    Ниличие: <strong>$availableCount</strong><br>
+                    Дата поставки: <strong>$productCount</strong></div>";
+        \MessagesStack::addSuccess($message);
+
+        return back();
     }
 
     public function saveImage(Request $request)

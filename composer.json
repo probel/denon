@@ -19,7 +19,9 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "laravelrus/sleepingowl": "dev-development",
+        "maatwebsite/excel": "^3.1",
         "watson/sitemap": "^3.0"
+
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
