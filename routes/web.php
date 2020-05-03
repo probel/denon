@@ -18,20 +18,20 @@ Route::get('/delivery', 'PageController@delivery')->name('delivery');
 Route::get('/warranty', 'PageController@warranty')->name('warranty');
 Route::get('/sitemap.xml', 'PageController@sitemap')->name('sitemap');
 
-Route::get('/category/{slug}', 'CatalogController@categoryFront')->name('category.front');
+Route::get('/category/{id?}', 'CatalogController@categoryFront')->name('category.front');
 
 Route::group(['prefix' => '/news'], function () {
     Route::get('/', 'ArticleController@newsIndex')->name('news.index');
     Route::get('/{slug}', 'ArticleController@newsShow')->name('news.show');
 });
 Route::group(['prefix' => '/promo'], function () {
-    Route::get('/', 'ArticleController@promoIndex')->name('promo.index');
-    Route::get('/{slug}', 'ArticleController@promoShow')->name('promo.show');
+    Route::any('/', 'CatalogController@promoIndex')->name('promo.index');
+    //Route::get('/{slug}', 'ArticleController@promoShow')->name('promo.show');
 });
-Route::group(['prefix' => '/installation'], function () {
+/* Route::group(['prefix' => '/installation'], function () {
     Route::get('/', 'ArticleController@installationIndex')->name('installation.index');
     Route::get('/{slug}', 'ArticleController@installationShow')->name('installation.show');
-});
+}); */
 
 Route::group(['prefix' => '/cart'], function () {
     Route::get('/', 'CartController@show')->name('cart.show');

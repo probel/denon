@@ -50,7 +50,7 @@
                         <h3 class="footer__menu__title"><a href="{{ route('promo.index') }}">Акции</a></h3>
                         <ul class="footer__menu list-unstyled">
                              <li class="footer__menu__item">
-                                <a class="footer__menu__link" href="{{ route('installation.index') }}">Инсталляции</a>
+                                <a class="footer__menu__link" href="{{ Helpers::gpu(11) }}">Инсталляции</a>
                             </li>
                              <li class="footer__menu__item">
                                 <a class="footer__menu__link" href="{{ route('news.index') }}">Новости</a>

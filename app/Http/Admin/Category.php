@@ -88,6 +88,7 @@ class Category extends Section implements Initializable
             $fields[] = AdminFormElement::text('teaser_title', 'Подзаголовок');
             $fields[] = AdminFormElement::ckeditor('teaser_description', 'Описание');
             $fields[] = AdminFormElement::view('admin.form.panelClose');
+            $fields[] = AdminFormElement::checkbox('default','Отображать на главной по умолчанию');
             $tabs[] = AdminDisplay::tab(AdminForm::elements($fields))->setLabel('Содержимое');
 
             $tabs[] = AdminService::seoTab();

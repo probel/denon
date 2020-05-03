@@ -29,16 +29,7 @@ class ArticleController extends Controller
 
         return $this->index($page,$articles);
     }
-    public function promoIndex()
-    {
-        $page = Page::find(8);
-        $articles = Promo::active()
-                    ->whereDate('created_at','<=',\Carbon\Carbon::Now())
-                    ->orderBy('created_at','desc')
-                    ->paginate($page->values['paginate'] ?? 6);
 
-        return $this->index($page,$articles);
-    }
     public function installationIndex()
     {
         $page = Page::find(7);
@@ -63,11 +54,11 @@ class ArticleController extends Controller
         $article = News::active()->where('slug',$slug)->first();
         return $this->show($article);
     }
-    public function promoShow($slug)
+    /* public function promoShow($slug)
     {
         $article = Promo::active()->where('slug',$slug)->first();
         return $this->show($article);
-    }
+    } */
     public function installationShow($slug)
     {
         $article = Installation::active()->where('slug',$slug)->first();

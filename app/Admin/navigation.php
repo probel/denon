@@ -13,16 +13,17 @@ $items = [
     AdminSection::addMenuPage(\App\Models\Product::class)->setPriority(1),
     AdminSection::addMenuPage(\App\Models\Category::class)->setPriority(1),
     AdminSection::addMenuPage(\App\Models\Page::class)->setPriority(1),
-    [
+    AdminSection::addMenuPage(\App\Models\News::class)->setPriority(1),
+    /* [
         'title' => 'Статьи',
         'icon' => 'fa fa-newspaper',
         'priority' => 2,
         'pages' => [
-            new Page(\App\Models\News::class),
-            new Page(\App\Models\Promo::class),
+            new Page(),
+            //new Page(\App\Models\Promo::class),
             new Page(\App\Models\Installation::class),
         ]
-    ],
+    ], */
     AdminSection::addMenuPage(\App\Models\Config::class)->setPriority(3),
 ];
 return $items;

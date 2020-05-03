@@ -61,17 +61,51 @@ class CatalogService
         }
         return $categories;
     }
+
     public static function getCategory($id)
     {
         return self::getCategories()->find($id);
+    }
+    public static function getFrontDefaultCategory()
+    {
+        static $default = null;
+        if (\is_null($default)) {
+            $category = self::getFrontCategory();
+            if ($category) {
+                $default = $category->id;
+            } else {
+                $default = false;
+            }
+        }
+        return $default;
     }
     public static function getFrontCategory()
     {
         static $category = null;
         if (is_null($category)) {
-            $category = self::getCategories()->where('products_count','>',0)->first();
+            $category = self::getCategories()->where('products_count','>',0)->where('default',1)->first();
         }
         return $category;
+    }
+    public static function getFrontProducts()
+    {
+        static $products = null;
+        if (is_null($products)) {
+            $category = self::getFrontCategory();
+            if ($category) {
+                $products = $category->products()->active()->orderBy('order')->take(8)->get();
+            } else {
+                $products = Product::active()
+                            ->where(function ($query) {
+                                $query->where('old_price','>',0)
+                                    ->orWhere('gift',1);
+                            })
+                            ->orderBy('order')
+                            ->take(8)
+                            ->get();
+            }
+        }
+        return $products;
     }
     public static function getNews()
     {

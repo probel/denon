@@ -45,6 +45,7 @@ class Product extends Section implements Initializable
         if (!in_array(request()->next_action, $allow)) return null;
 
         $model->images = request()->images;
+        $model->category_id = request()->category_id;
         $model->icons = request()->icons;
         $model->variations = request()->variations;
         $model->params = request()->params;
@@ -193,12 +194,12 @@ class Product extends Section implements Initializable
                 AdminFormElement::multiselectajax('news', 'Новости')
                     ->setModelForOptions('\App\Models\News')
                     ->setDisplay('title'),
-                AdminFormElement::multiselectajax('promos', 'Акции')
+                /* AdminFormElement::multiselectajax('promos', 'Акции')
                     ->setModelForOptions('\App\Models\Promo')
                     ->setDisplay('title'),
                 AdminFormElement::multiselectajax('installations', 'Инсталяции')
                     ->setModelForOptions('\App\Models\Installation')
-                    ->setDisplay('title'),
+                    ->setDisplay('title'), */
             ]))->setLabel('Обзоры');
             $tabs[] = AdminService::seoTab();
             //dd($product->uploads);

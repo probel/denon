@@ -16,6 +16,8 @@ class Product extends Model
      *
      * @return mixed
      */
+    protected $with = ['category'];
+
     public function scopeFindByPosition($query, $position)
     {
         return $query->where($this->getOrderField(), $position);

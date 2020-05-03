@@ -29,13 +29,28 @@ class CatalogController extends Controller
         ];
         return $res;
     }
-    public function categoryFront($id)
+    public function categoryFront($id = null)
     {
-        $category = Category::active()->findOrFail($id);
+
+        if ($id) {
+            $category = Category::active()->findOrFail($id);
+            $products = $category->products()->active()->orderBy('order')->take(8)->get();
+            $url = $category->getUrl();
+        } else {
+            $products = Product::active()
+                            ->where(function ($query) {
+                                $query->where('old_price','>',0)
+                                    ->orWhere('gift',1);
+                            })
+                            ->orderBy('order')
+                            ->take(8)
+                            ->get();
+            $url = route('promo.index');
+        }
         if (request()->ajax()) {
             return response()->json([
                 'status' => 'success',
-                'html' => view('blocks.catalog',['category'=>$category])->render(),
+                'html' => view('blocks.catalog', compact('products','url'))->render(),
             ]);
         }
         abort(404);
@@ -133,14 +148,55 @@ class CatalogController extends Controller
             $products = $products->where('available',$filter->available);
         }
         if ($filter->promo) {
-            if (in_array($filter->promo,['sale','any'])) {
+            if ($filter->promo == 'any') {
+                $products = $products->where(function ($query) {
+                    $query->where('old_price','>',0)
+                          ->orWhere('gift',1);
+                });
+            } elseif ($filter->promo == 'sale') {
                 $products = $products->where('old_price','>',0);
-            }
-            if (in_array($filter->promo,['gift','any'])) {
+            } elseif ($filter->promo == 'gift') {
                 $products = $products->where('gift',1);
             }
         }
 
+        $products = $products->paginate($paginate);
+        return view('pages.catalog.subCategory',compact('meta', 'title', 'filter', 'sort', 'values', 'bgImage', 'products', 'category', 'breadcrumbs'));
+    }
+    public function promoIndex()
+    {
+        $page = Page::find(8);
+        /* META */
+        $meta = $page->getMeta();
+        $breadcrumbs = [
+            [ 'href'=>'/', 'name'=>   'Denon' ],
+            [ 'href'=> '', 'name'=>   $page->title ],
+        ];
+        $title = $page->title;
+        $values = $page->values;
+        $bgImage = $values['bg_image'] ?? 'images/project/page-title.jpg';
+        $paginate = \Helpers::config('paginate') ?? 6;
+        list($filter,$sort) = \Catalog::getFilter();
+        if (!$filter->promo) {
+            $filter->promo = 'any';
+        }
+
+        $products = Product::active()
+                        ->orderBy('available','desc')
+                        ->orderBy($sort->order,$sort->direction);
+        if ($filter->promo == 'any') {
+            $products = $products->where(function ($query) {
+                $query->where('old_price','>',0)
+                      ->orWhere('gift',1);
+            });
+        } elseif ($filter->promo == 'sale') {
+            $products = $products->where('old_price','>',0);
+        } elseif ($filter->promo == 'gift') {
+            $products = $products->where('gift',1);
+        }
+        $category = (object) [
+            'id' => null,
+        ];
         $products = $products->paginate($paginate);
         return view('pages.catalog.subCategory',compact('meta', 'title', 'filter', 'sort', 'values', 'bgImage', 'products', 'category', 'breadcrumbs'));
     }

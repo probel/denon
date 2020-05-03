@@ -13,7 +13,7 @@
                 <div class="d-xl-flex d-none align-items-center">
                     <ul class="header-top__menu list-unstyled d-flex mb-0">
                         <li class="header-top__menu__item">
-                            <a class="header-top__menu__link text-uppercase" href="{{ route('installation.index') }}">ИНСТАЛЛЯЦИЯ</a>
+                            <a class="header-top__menu__link text-uppercase" href="{{ Helpers::gpu(11) }}">ИНСТАЛЛЯЦИЯ</a>
                         </li>
                         <li class="header-top__menu__item">
                             <a class="header-top__menu__link text-uppercase" href="{{ route('news.index') }}">НОВОСТИ</a>
@@ -52,7 +52,7 @@
                 <nav class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="header-top__menu list-unstyled mb-0 mr-0 d-xl-none">
                         <li class="header-top__menu__item">
-                            <a class="header-top__menu__link text-uppercase" href="{{ route('installation.index') }}">ИНСТАЛЛЯЦИЯ</a>
+                            <a class="header-top__menu__link text-uppercase" href="{{ Helpers::gpu(11) }}">ИНСТАЛЛЯЦИЯ</a>
                         </li>
                         <li class="header-top__menu__item">
                             <a class="header-top__menu__link text-uppercase" href="{{ route('news.index') }}">НОВОСТИ</a>
