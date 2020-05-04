@@ -117,7 +117,7 @@
                     </ul>
                 </nav>
                 <div class="mobile-menu d-flex align-items-center ml-auto">
-                    <div class="mobile-menu__item__wrapper position-relative d-xl-none">
+                    <div class="mobile-menu__item__wrapper position-relative d-xl-none order-2">
                         <a class="mobile-menu__item" href="#" id="mobile-phones__link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-phone-alt"></i>
                         </a>
@@ -132,10 +132,11 @@
                             </ul>
                         </div>
                     </div>
-                    <a class="mobile-menu__item d-xl-none" href="mailto:shop.denon@mail.ru">
+                    <a class="mobile-menu__item d-xl-none order-3" href="mailto:shop.denon@mail.ru">
                         <i class="fas fa-envelope"></i>
                     </a>
-                    <div class="cart-block d-flex align-items-center align-self-center js-cart-informer">
+                    <a class="mobile-menu__item whatsapp-icon order-1" href="{!! Helpers::config('whatsapp_link') !!}">@svg('images/svg/whatsapp.svg')</a>
+                    <div class="cart-block d-flex align-items-center align-self-center order-4 js-cart-informer">
                         @include('shared.cart.informer')
                     </div>
                 </div>

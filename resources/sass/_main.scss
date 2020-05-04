@@ -248,6 +248,9 @@
             .sale {
                 color: $red;
                 font-size: 24px;
+                &-icon {
+                    max-height: 30px;
+                }
             }
             .in-stock {
                 font-size: 12px;

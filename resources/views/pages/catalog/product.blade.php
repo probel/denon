@@ -9,10 +9,10 @@
                 <div class="catalog__item__top d-flex align-items-baseline position-relative">
                     <div class="sale text-uppercase">
                         @if ($product->gift)
-                        <img class="mr-2 pb-2" src="/images/icons/sale.png" alt="Подарок">
+                        <img class="mr-2 " src="/images/icons/sale.png" alt="Подарок">
                         @endif
                         @if ($product->old_price)
-                        Sale
+                        <img class="sale-icon" src="{{ asset('/images/icons/saleicon.png')}}" alt="Sale">
                         @endif
                     </div>
                     <div class="in-stock text-uppercase ml-auto">

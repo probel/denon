@@ -623,7 +623,7 @@ b, strong {
     }
 }
 .cart-block {
-    margin-left: 74px;
+    margin-left: 26px;
     .cart-circle {
         font-size: 12px;
         color: #fff;
@@ -698,6 +698,14 @@ b, strong {
                 width: 74px;
             }
         }
+    }
+}
+.whatsapp-icon {
+    width: 20px;
+    margin-left: 26px;
+    margin-top: -5px;
+    svg path {
+        fill: #fff;
     }
 }
 /*==================================================================================================================

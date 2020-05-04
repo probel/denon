@@ -5,9 +5,11 @@
 
             <div class="sale text-uppercase">
                 @if ($product->gift)
-                <img class="mr-2 pb-2" src="{{ asset('/images/icons/sale.png') }}" alt="Подарок">
+                <img class="mr-2" src="{{ asset('/images/icons/sale.png') }}" alt="Подарок">
                 @endif
-                @if ($product->old_price) Sale @endif
+                @if ($product->old_price)
+                <img class="sale-icon" src="{{ asset('/images/icons/saleicon.png')}}" alt="Sale">
+                @endif
             </div>
             <div class="in-stock text-uppercase ml-auto align-self-center">
                 {{ $product->available ? 'в наличии' : 'нет в наличии'}}

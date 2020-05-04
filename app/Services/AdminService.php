@@ -231,7 +231,8 @@ class AdminService
         })->setOrderable(function($query, $direction) {
             $query->orderBy('name', $direction);
         })->setSearchable(true)->setSearchCallback(function ($column, $query, $search) {
-            return $query->where('name', 'like', '%' . $search . '%');
+            //dd($query,$search);
+            return $query->orWhere('name', 'like', '%' . $search . '%');
         });
     }
     public static function titleColumn()

@@ -10627,7 +10627,7 @@ b, strong {
 }
 
 .cart-block {
-  margin-left: 74px;
+  margin-left: 26px;
 }
 .cart-block .cart-circle {
   font-size: 12px;
@@ -10701,6 +10701,15 @@ b, strong {
 .mobile-menu .dropdown-menu__link .caption {
   display: inline-block;
   width: 74px;
+}
+
+.whatsapp-icon {
+  width: 20px;
+  margin-left: 26px;
+  margin-top: -5px;
+}
+.whatsapp-icon svg path {
+  fill: #fff;
 }
 
 /*==================================================================================================================
@@ -11492,6 +11501,9 @@ b, strong {
 .catalog__item__top .sale {
   color: #87232f;
   font-size: 24px;
+}
+.catalog__item__top .sale-icon {
+  max-height: 30px;
 }
 .catalog__item__top .in-stock {
   font-size: 12px;
