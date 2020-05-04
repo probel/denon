@@ -38,7 +38,7 @@
                         <p class="hide-lg-text"><i class="far fa-clock mr-1"></i>{!! Helpers::config('schedule') !!}</p>
                         <p>
                             <a class="color-broun" href="mailto:{!! Helpers::config('email') !!}">
-                                <i class="fas fa-envelope mr-1"></i><span class="hide-lg-text">Напишите нам</span>
+                                <i class="fas fa-envelope mr-1"></i><span class="hide-lg-text">{{ \Route::currentRouteName() == 'front' ? Helpers::config('email') : 'Напишите нам' }}</span>
                             </a>
                         </p>
                     </div>
@@ -135,7 +135,9 @@
                     <a class="mobile-menu__item d-xl-none order-3" href="mailto:shop.denon@mail.ru">
                         <i class="fas fa-envelope"></i>
                     </a>
-                    <a class="mobile-menu__item whatsapp-icon order-1" href="{!! Helpers::config('whatsapp_link') !!}">@svg('images/svg/whatsapp.svg')</a>
+                    @if (Helpers::config('whatsapp_link'))
+                    <a target="_blank" class="mobile-menu__item whatsapp-icon order-1" href="{!! Helpers::config('whatsapp_link') !!}">@svg('images/svg/whatsapp.svg')</a>
+                    @endif
                     <div class="cart-block d-flex align-items-center align-self-center order-4 js-cart-informer">
                         @include('shared.cart.informer')
                     </div>
