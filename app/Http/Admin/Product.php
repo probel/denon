@@ -96,6 +96,7 @@ class Product extends Section implements Initializable
                 AdminService::seoColumn(),
                 AdminColumn::text('price','Цена')->setWidth('90px'),
                 AdminColumn::custom('Категория',function(\Illuminate\Database\Eloquent\Model $model) {
+                    if (!$model->category) return '';
                     $res = '<a href="/admin/categories/'.$model->category->id.'/edit">'.$model->category->title.'</a>'.
                     '<a target="_blank" href="'.$model->category->getUrl().'"><i class="ml-2 fas fa-external-link-alt"></i></a>';
                     if ($model->category->parent_id) {
