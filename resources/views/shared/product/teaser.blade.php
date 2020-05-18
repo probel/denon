@@ -25,7 +25,7 @@
                     alt="{{ $product->getImage()['alt'] ?? '' }}">
             </a>
         </div>
-        <div class="vendor-code text-uppercase text-right">{{ $product->article }}</div>
+        <div class="vendor-code text-uppercase text-right">{{-- {{ $product->article }} --}}</div>
         <div class="name text-center">
             <a href="{{ $product->getUrl() }}">{!! $product->name !!}</a>
         </div>

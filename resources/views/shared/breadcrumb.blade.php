@@ -7,10 +7,10 @@
                     <ol class="breadcrumb text-uppercase p-0 m-0">
                         @foreach ($breadcrumbs as $link)
                         <li class="breadcrumb-item @if ($loop->last)active @endif">
-                            @if ($loop->last)
-                            {{ $link['name'] }}
-                            @else
+                            @if ($link['href'] ?? null)
                             <a href="{{ $link['href'] }}">{{ $link['name'] }}</a>
+                            @else
+                            {{ $link['name'] }}
                             @endif
                         </li>
                         @endforeach

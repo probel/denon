@@ -36,12 +36,22 @@
                 @endforeach
 
                 <div class="col-xl-4 col-sm-12 d-flex justify-content-between px-0 px-xl-3 flex-wrap">
-                    {{-- @if ($parent = Catalog::getCategory(18))
+                    @if ($parent = Catalog::getCategory(18))
                     <div class="col-custom">
                         <h3 class="footer__menu__title">
                             <a href="{{ $parent->getUrl() }}">{{ $parent->title }}</a>
                         </h3>
                         <ul class="footer__menu list-unstyled">
+                            @if ($child = Catalog::getCategory(20))
+                            <li class="footer__menu__item">
+                                <a class="footer__menu__link" href="{{ $child->getUrl() }}">{{ $child->title }}</a>
+                            </li>
+                            @endif
+                            @if ($child = Catalog::getCategory(21))
+                            <li class="footer__menu__item">
+                                <a class="footer__menu__link" href="{{ $child->getUrl() }}">{{ $child->title }}</a>
+                            </li>
+                            @endif
                             @foreach ($parent->childs as $child)
                              <li class="footer__menu__item">
                                 <a class="footer__menu__link" href="{{ $child->getUrl() }}">{{ $child->title }}</a>
@@ -49,7 +59,7 @@
                             @endforeach
                         </ul>
                     </div>
-                    @endif --}}
+                    @endif
                     {{-- здесь только второй и третий столбец пунктов меню с классом text-right --}}
                     <div class="col-custom text-xl-right text-left">
                         <h3 class="footer__menu__title"><a href="{{ route('promo.index') }}">Акции</a></h3>

@@ -43,7 +43,7 @@
                                             </label>
                                             <label class="checkbox ">
                                                 <input type="radio" name="available" value="any" @if ($filter->available === 'any') checked="checked" @endif>
-                                                <span class="checkbox__text">В наличии, включая отсутсвующие</span>
+                                                <span class="checkbox__text">Все товары</span>
                                             </label>
                                         </div>
                                     </div>
@@ -82,7 +82,7 @@
                                         </div>
                                     </div>
                                     <div class="catalog__item__bottom d-flex justify-content-between">
-                                        <button type="submit" class="btn btn-broun">ПРИМЕНИТЬ</button>
+                                        <button type="submit" class="btn btn-broun mr-4 mr-xl-0"">ПРИМЕНИТЬ</button>
                                         <button type="submit" name="reset" value="1" class="btn btn-triangle btn-broun">СБРОСИТЬ</button>
                                         @csrf
                                     </div>

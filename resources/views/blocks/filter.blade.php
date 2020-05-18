@@ -10,7 +10,7 @@
                         Акции
                     </a>
                 </div>
-                @foreach(Catalog::getCategories()->whereNotNull('parent_id')->where('products_count','>',0) as $key => $item)
+                @foreach(Catalog::getCategories()->where('products_count','>',0) as $key => $item)
                 <div class="catalog__filter__slider__item">
                     <a class="catalog__filter__slider__link text-uppercase text-center js-front-filter-link {{ $item->id == Catalog::getFrontDefaultCategory() ? 'active' : ' ' }}" data-id="{{ $item->id }}" href="{{ $item->getURL() }}">
                         <div class="image__wrapper icon-center">

@@ -5,8 +5,8 @@
     <div class="container">
         <div class="col-xl-10 mx-auto px-0">
             <div class="article-page__content">
-                <div class="article-page__content__title__wrapper d-flex align-items-baseline justify-content-between">
-                    <h1 class="article-page__content__title text-uppercase">{{ $title }}</h1>
+                <div class="article-page__content__title__wrapper positio d-flex align-items-baseline justify-content-end">
+                    {{-- <h1 class="article-page__content__title text-uppercase">{{ $title }}</h1> --}}
                     <div class="article-page__content__date">{{ $article->created_at->format('d.m.Y') }}</div>
                 </div>
                 <div class="article-page__content__text">

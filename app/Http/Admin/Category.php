@@ -89,6 +89,7 @@ class Category extends Section implements Initializable
             $fields[] = AdminFormElement::ckeditor('teaser_description', 'Описание');
             $fields[] = AdminFormElement::view('admin.form.panelClose');
             $fields[] = AdminFormElement::checkbox('default','Отображать на главной по умолчанию');
+            $fields[] = AdminFormElement::checkbox('compare','Отображать сравнение товаров в карточке');
             $tabs[] = AdminDisplay::tab(AdminForm::elements($fields))->setLabel('Содержимое');
 
             $tabs[] = AdminService::seoTab();

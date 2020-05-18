@@ -120,6 +120,9 @@ class CatalogController extends Controller
 
     public function category($category)
     {
+        if ($category->products->count()) {
+            return $this->subCategory($category);
+        }
         /* META */
         $meta = $category->getMeta();
         $breadcrumbs = [
@@ -135,9 +138,11 @@ class CatalogController extends Controller
         $meta = $category->getMeta();
         $breadcrumbs = [
             [ 'href'=>'/', 'name'=>   'Denon' ],
-            [ 'href'=> $category->parent->getUrl(), 'name'=>   $category->parent->title ],
-            [ 'href'=> '', 'name'=>   $category->title ],
         ];
+        if ($category->parent) {
+            $breadcrumbs[] = [ 'href'=> $category->parent->getUrl(), 'name'=>   $category->parent->title ];
+        }
+        $breadcrumbs[] = [ 'href'=> '', 'name'=>   $category->title ];
         $title = $category->title;
         $values = $category->values;
         $bgImage = $values['bg_image'] ?? 'images/project/page-title.jpg';

@@ -1,7 +1,9 @@
 <div class="accordion features" id="features-accordion">
+    @if ($product->category->compare)
     <div class="features__caption d-flex align-items-end">
         <h2 class="features__caption__title mb-0">Предлагаем Вам сравнить модели по параметрам:</h2>
         <div class="features__caption__item product">{!! $product->name !!}</div>
+
         <div class="features__caption__item">
             <select class="form-control js-change-similar" data-row="2" data-pid="{{ $product->id }}">
                 <option selected>Выбрать модель</option>
@@ -18,7 +20,9 @@
                 @endforeach
             </select>
         </div>
+
     </div>
+    @endif
     @if (count($product->params['main'] ?? []))
     <div class="features__item">
         <div class="features__item__header d-flex align-items-center" id="features-item-header-main"
@@ -44,8 +48,10 @@
                             {!! $item['value'] !!}
                             @endif
                         </td>
+                        @if ($product->category->compare)
                         <td class="param-row-2"></td>
                         <td class="param-row-3"></td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>
@@ -78,8 +84,10 @@
                             {!! $item['value'] !!}
                             @endif
                         </td>
+                        @if ($product->category->compare)
                         <td class="param-row-2"></td>
                         <td class="param-row-3"></td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>
@@ -112,8 +120,10 @@
                             {!! $item['value'] !!}
                             @endif
                         </td>
+                        @if ($product->category->compare)
                         <td class="param-row-2"></td>
                         <td class="param-row-3"></td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>

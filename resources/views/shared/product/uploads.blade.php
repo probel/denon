@@ -3,7 +3,7 @@
         <div class="col-lg-4 col-12"></div>
         <div class="col-lg-2 col-sm-3">Дата</div>
         <div class="col-lg-2 col-sm-3">ВЕС</div>
-        <div class="col-lg-2 col-sm-3">ТИП ФАЙЛА</div>
+        <div class="col-lg-2 col-sm-3">ФАЙЛ</div>
         <div class="col-lg-2 col-sm-3"></div>
     </div>
     {{-- здесь класс .item (у этого и следующих downloads__row) --}}

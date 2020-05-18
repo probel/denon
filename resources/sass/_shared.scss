@@ -752,6 +752,7 @@ b, strong {
 
         a {
             color: #382e29;
+            opacity: .5;
             &:hover {
                color: #000;
             }
@@ -759,6 +760,7 @@ b, strong {
         &.active {
             font-weight: bold;
             color: #382e29;
+            opacity: .5;
         }
     }
     &-item + .breadcrumb-item {
@@ -774,7 +776,7 @@ b, strong {
         margin: 18px 0;
         &:before {
             @include triangle;
-            right: 50%;
+            left: calc(50% - 40px);
             border-width: 0 0 64px 41px;
             border-color: transparent transparent $broun transparent;
         }
@@ -801,7 +803,7 @@ b, strong {
                 padding: 0 16px;
                 &:before {
                     @include triangle;
-                    right: 50%;
+                    left: calc(50% - 40px);
                     border-width: 0 0 64px 41px;
                     border-color: transparent transparent $broun transparent;
                 }
