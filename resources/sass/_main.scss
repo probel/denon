@@ -248,8 +248,11 @@
             .sale {
                 color: $red;
                 font-size: 24px;
-                &-icon {
+                display: flex;
+                align-items: center;
+                >img {
                     max-height: 30px;
+                    max-width: 30px;
                 }
             }
             .in-stock {

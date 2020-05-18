@@ -178,7 +178,7 @@ class CatalogController extends Controller
         $paginate = \Helpers::config('paginate') ?? 6;
         list($filter,$sort) = \Catalog::getFilter();
         if (!$filter->promo) {
-            $filter->promo = 'any';
+            $filter->promo = 'sale';
         }
 
         $products = Product::active()

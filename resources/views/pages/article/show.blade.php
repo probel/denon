@@ -21,6 +21,64 @@
 </div>
 <section class="news">
     <div class="row row-second position-relative">
+        @if ($second = $article->getPrev())
+        <div class="col-xl-6 ml-15">
+            <div class="d-flex row-second__wrapper">
+                <div class="row-second__image flex-shrink-0">
+                    <div class="news__item__image" style="background-image: url({{ asset($second->image) }})"></div>
+                </div>
+                <div class="first news__item row-second__news__item py-3 my-auto">
+                    <div class="news__item__height overflow-hidden">
+                        <div class="news__item__date text-right">
+                            {{ $second->created_at->format('d.m.Y') }}
+                        </div>
+                        <h3 class="news__item__title text-uppercase">
+                            <a href="{{ $second->getUrl() }}">{{ $second->title }}</a>
+                        </h3>
+                        <div class="news__item__text text-justify">
+                            {!! $second->description !!}
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <a class="news__item__more text-uppercase " href="{{ $second->getUrl() }}">ЧИТАТЬ ДАЛЬШЕ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+        @if ($last = $article->getNext())
+        <div class="col-xl-6 position-static">
+            <div class="container position-absolute container-absolute">
+                <div class="col-xl-10 mx-auto h-100 px-0">
+                    <div class="col-xl-6 offset-xl-6 px-0">
+                        <div class="d-flex row-second__wrapper">
+                            <div class="row-second__image__second flex-shrink-0">
+                                <div class="news__item__image" style="background-image: url({{ asset($last->image) }})"></div>
+                            </div>
+                            <div class="news__item row-second__news__item py-3 my-auto">
+                                <div class="news__item__height overflow-hidden">
+                                    <div class="news__item__date text-right">
+                                        {{ $last->created_at->format('d.m.Y') }}
+                                    </div>
+                                    <h3 class="news__item__title text-uppercase">
+                                        <a href="{{ $last->getUrl() }}">{{ $last->title }}</a>
+                                    </h3>
+                                    <div class="news__item__text text-justify">
+                                        {!! $last->description !!}
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <a class="news__item__more text-uppercase " href="{{ $last->getUrl() }}">ЧИТАТЬ ДАЛЬШЕ</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+    </div>
+    {{-- <div class="row row-second position-relative">
         @if ($art = $article->getPrev())
         <div class="col-6 ml-15">
             <div class="d-flex row-second__wrapper">
@@ -74,7 +132,7 @@
             </div>
         </div>
         @endif
-    </div>
+    </div> --}}
     <div class="news__row-separator"></div>
 </section>
 @endsection

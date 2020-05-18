@@ -12,7 +12,7 @@
                     :icon="$values['contacts_icon'] ?? ''"
                     :subtitle="$values['contacts_subtitle'] ?? ''"/>
                 <div class="contact-page__content__text">
-                    {!! $values['"contacts_text'] ?? '' !!}
+                    {!! $values['contacts_text'] ?? '' !!}
                 </div>
                 <x-title
                     :title="$values['show_title'] ?? ''"

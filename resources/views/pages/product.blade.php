@@ -25,7 +25,7 @@
             <div class="product-card">
                 <div class="catalog__item__top d-flex align-items-baseline position-relative">
                     <div class="sale text-uppercase">
-                        <img class="mr-2 pb-2" src="/images/icons/sale.png" alt="">Sale
+                        <img class="mr-2 pb-2" src="/images/icons/sale.svg" alt="">Sale
                     </div>
                     <div class="in-stock text-uppercase ml-auto">в наличии</div>
                     <div class="sticker position-absolute text-uppercase">new</div>

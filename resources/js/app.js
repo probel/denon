@@ -8,6 +8,9 @@ window.yaCounterTemp = {
         console.log(goal);
     }
 }
+if (window.innerWidth < 1200) {
+    $('.category-page__filter__options').collapse();
+}
 if (window.similar) {
     $(document).on('change', '.js-change-similar', function () {
         let pid = $(this).data('pid');

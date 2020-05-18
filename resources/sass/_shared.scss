@@ -6,6 +6,7 @@ body {
     position: relative;
     background: #fff;
 }
+
 ::-webkit-scrollbar {
     width: 4px;
 }
@@ -36,6 +37,16 @@ a {
     &:hover {
         color: $blue;
         text-decoration: none;
+    }
+}
+.article-page__content__text {
+    a {
+        color: $blue;
+        &:hover {
+            color: $blue;
+            opacity: .8;
+            text-decoration: none;
+        }
     }
 }
 b, strong {

@@ -95,7 +95,7 @@
                             @endif
                         </li>
                         @endforeach
-                        @if ($cat = \Catalog::getCategory(21))
+                        {{-- @if ($cat = \Catalog::getCategory(21))
                         <li class="header__menu__item">
                             <a class="header__menu__link text-uppercase {{ Request::is($cat->getPath().'*') ? 'current' : '' }}" href="{{ $cat->getUrl() }}">{!! $cat->getTitle() !!}</a>
                         </li>
@@ -104,7 +104,7 @@
                         <li class="header__menu__item">
                             <a class="header__menu__link text-uppercase {{ Request::is($cat->getPath().'*') ? 'current' : '' }}" href="{{ $cat->getUrl() }}">{!! $cat->getTitle() !!}</a>
                         </li>
-                        @endif
+                        @endif --}}
                         <li class="header__menu__item">
                             <a class="header__menu__link text-uppercase {{ Request::is('promo*') ? 'current' : '' }}" href="{{ route('promo.index') }}"><i class="fas fa-bullhorn mr-1"></i> АКЦИИ</a>
                         </li>

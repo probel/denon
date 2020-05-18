@@ -5,7 +5,7 @@
 
             <div class="sale text-uppercase">
                 @if ($product->gift)
-                <img class="mr-2" src="{{ asset('/images/icons/sale.png') }}" alt="Подарок">
+                <img class="mr-2" src="{{ asset('/images/icons/sale.svg') }}" alt="Подарок">
                 @endif
                 @if ($product->old_price)
                 <img class="sale-icon" src="{{ asset('/images/icons/saleicon.png')}}" alt="Sale">

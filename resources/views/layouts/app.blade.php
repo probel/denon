@@ -19,7 +19,7 @@
         <meta property="og:description" content="{{ $meta['description'] }}" />
         <meta content="{{ $meta['description'] }}" name="description"/>
     @endif
-    <link href="/images/favicon.png" rel="shortcut icon" type="image/x-icon">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     @if(isset($meta['keywords']) && $meta['keywords'])
         <meta content="{{ $meta['keywords'] }}" name="keywords"/>
     @endif
@@ -37,7 +37,7 @@
     </div>
 
     @include('shared.popups')
-   
+
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap&subset=cyrillic" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" crossorigin="anonymous">

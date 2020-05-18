@@ -9,7 +9,7 @@
                 <div class="catalog__item__top d-flex align-items-baseline position-relative">
                     <div class="sale text-uppercase">
                         @if ($product->gift)
-                        <img class="mr-2 " src="/images/icons/sale.png" alt="Подарок">
+                        <img class="mr-2 " src="/images/icons/sale.svg" alt="Подарок">
                         @endif
                         @if ($product->old_price)
                         <img class="sale-icon" src="{{ asset('/images/icons/saleicon.png')}}" alt="Sale">
@@ -76,10 +76,13 @@
                                 {{ csrf_field() }}
                                 <div class="d-flex justify-content-between align-items-end flex-wrap">
                                     <div class="price__wrapper">
-                                        @if ($product->old_price)
-                                        <div class="old-price"><span class="js-product-old_sum">{{ number_format($product->old_price, 0, '.', ' ') }}</span> РУБ</div>
+                                        @if ($product->price)
+                                            @if ($product->old_price)
+                                            <div class="old-price"><span class="js-product-old_sum">{{ number_format($product->old_price, 0, '.', ' ') }}</span> РУБ</div>
+                                            @endif
+
+                                            <div class="price-sum"><strong class="js-product-sum">{{ number_format($product->price, 0, '.', ' ') }} </strong> РУБ</div>
                                         @endif
-                                        <div class="price-sum"><strong class="js-product-sum">{{ number_format($product->price, 0, '.', ' ') }} </strong> РУБ</div>
                                     </div>
                                     <div class="d-flex align-items-end count__wrapper">
                                         <div class="plusminus d-flex align-items-center js-plusminus">
@@ -169,8 +172,12 @@
                 <div class="product-description__bottom">
                     <form action="{{ route('cart.set') }}" class="product-card__form d-flex h-100 align-items-end justify-content-end flex-wrap js-form__to-cart">
                         <div class="price__wrapper">
-                            <div class="old-price"><span class="js-product-old_sum">{{ number_format($product->old_price, 0, '.', ' ') }}</span> РУБ</div>
-                            <div class="price-sum"><strong class="js-product-sum">{{ number_format($product->price, 0, '.', ' ') }}</strong> РУБ</div>
+                            @if ($product->price)
+                                @if ($product->old_price)
+                                <div class="old-price"><span class="js-product-old_sum">{{ number_format($product->old_price, 0, '.', ' ') }}</span> РУБ</div>
+                                @endif
+                                <div class="price-sum"><strong class="js-product-sum">{{ number_format($product->price, 0, '.', ' ') }}</strong> РУБ</div>
+                            @endif
                         </div>
                         <div class="plusminus d-flex align-items-center js-plusminus">
                             <div class="plusminus__caption text-uppercase">Количество:</div>
