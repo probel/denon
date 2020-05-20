@@ -93,12 +93,11 @@ class CatalogService
         if (is_null($products)) {
             $category = self::getFrontCategory();
             if ($category) {
-                $products = $category->products()->active()->orderBy('order')->take(8)->get();
+                $products = $category->products()->active()->where('old_price','>',0)->orderBy('order')->take(8)->get();
             } else {
                 $products = Product::active()
                             ->where(function ($query) {
-                                $query->where('old_price','>',0)
-                                    ->orWhere('gift',1);
+                                $query->where('old_price','>',0);
                             })
                             ->orderBy('order')
                             ->take(8)

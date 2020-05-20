@@ -3,7 +3,7 @@
         @foreach($values["slider"] ?? [] as $key => $item)
             <div class="first-screen__slider__item" style="background-image: url({{ asset($item['image'] ?? '') }});">
                 <div class="container d-flex position-relative">
-                    <div class="offset-lg-1 my-auto">
+                    <div class="offset-lg-1 w-100 my-auto">
                         <div class="first-screen__slider__item__in position-relative d-flex flex-column justify-content-between">
                             <h2 class="title text-uppercase">{{ $item['title'] ?? '' }}</h2>
                         <div>

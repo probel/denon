@@ -16,10 +16,8 @@
                 </div>
             </div>
             <div class="row">
-                @foreach (Catalog::getCategories()->whereNull('parent_id')->where('id','<>',18) as $parent)
-                @if ($parent->childs->count())
-
-
+                @foreach (Catalog::getCategories()->whereNull('parent_id')->whereNotIn('id',[18,20,21]) as $parent)
+                @if ($parent->childs->count() || $parent->products->count() )
                 <div class="col-xl-2 col-sm-4 {{ $loop->first ? 'offset-xl-1' : '' }}">
                     <h3 class="footer__menu__title">
                         <a href="{{ $parent->getUrl() }}">{{ $parent->title }}</a>
@@ -41,17 +39,17 @@
                         <h3 class="footer__menu__title">
                             <a href="{{ $parent->getUrl() }}">{{ $parent->title }}</a>
                         </h3>
+                        @if ($pr = Catalog::getCategory(20))
+                        <h3 class="footer__menu__title">
+                            <a href="{{ $pr->getUrl() }}">{{ $pr->title }}</a>
+                        </h3>
+                        @endif
+                        @if ($pr = Catalog::getCategory(21))
+                        <h3 class="footer__menu__title">
+                            <a href="{{ $pr->getUrl() }}">{{ $pr->title }}</a>
+                        </h3>
+                        @endif
                         <ul class="footer__menu list-unstyled">
-                            @if ($child = Catalog::getCategory(20))
-                            <li class="footer__menu__item">
-                                <a class="footer__menu__link" href="{{ $child->getUrl() }}">{{ $child->title }}</a>
-                            </li>
-                            @endif
-                            @if ($child = Catalog::getCategory(21))
-                            <li class="footer__menu__item">
-                                <a class="footer__menu__link" href="{{ $child->getUrl() }}">{{ $child->title }}</a>
-                            </li>
-                            @endif
                             @foreach ($parent->childs as $child)
                              <li class="footer__menu__item">
                                 <a class="footer__menu__link" href="{{ $child->getUrl() }}">{{ $child->title }}</a>

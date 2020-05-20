@@ -93,8 +93,8 @@
                                     </a>
                                     <div class="category-page__filter__options collapse show" id="category-page-filter-4">
                                         <ul class="category-page__filter__list list-unstyled">
-                                            @foreach (\Catalog::getCategories()->whereNull('parent_id') as $parent)
-                                                @foreach ($parent->childs->where('status',1)->sortBy('order') as $child)
+                                            @foreach (\Catalog::getCategories()->where('products_count','>',0)->sortBy('order') as $child)
+
                                                 <li class="category-page__filter__list__item">
                                                     <a
                                                         class="category-page__filter__list__link {{$child->id == $category->id ? 'active' : '' }}"
@@ -102,7 +102,6 @@
                                                         {{ $child->title }}
                                                     </a>
                                                 </li>
-                                                @endforeach
                                             @endforeach
                                         </ul>
                                     </div>
