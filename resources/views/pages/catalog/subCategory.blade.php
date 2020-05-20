@@ -69,7 +69,7 @@
                                         <div class="category-page__filter__options collapse show" id="category-page-filter-3">
                                             <label class="checkbox">
                                                 <input type="radio" name="promo" value="sale" @if ($filter->promo === 'sale') checked="checked" @endif>
-                                                <span class="checkbox__text">Товары со скидой</span>
+                                                <span class="checkbox__text">Товары со скидкой</span>
                                             </label>
                                             <label class="checkbox">
                                                 <input type="radio" name="promo" value="gift" @if ($filter->promo === 'gift') checked="checked" @endif>

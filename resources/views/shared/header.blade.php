@@ -31,8 +31,8 @@
                         </li>
                     </ul>
                     <div class="header-top__contacts">
-                        <p>{!! Helpers::config('phone_shop') !!} (магазин)</p>
-                        <p>{!! Helpers::config('phone_service') !!} (сервис)</p>
+                        <p>{!! Helpers::config('phone_shop') !!}</p>
+                        <p>{!! Helpers::config('phone_service') !!}</p>
                     </div>
                     <div class="header-top__contacts">
                         <p class="hide-lg-text"><i class="far fa-clock mr-1"></i>{!! Helpers::config('schedule') !!}</p>

@@ -217,7 +217,7 @@
                                             aria-expanded="true"
                                             aria-controls="collapseOne">
                                     <div class="icon position-relative"></div>
-                                    <h2 class="title text-uppercase">ОСНОВНЫЕ ХАРАКТЕРИСТКИ</h2>
+                                    <h2 class="title text-uppercase">ОСНОВНЫЕ ХАРАКТЕРИСТИКИ</h2>
                                 </div>
 
                                 <div id="features-item-content-1" class="collapse show" aria-labelledby="features-item-header-1" data-parent="#features-accordion">

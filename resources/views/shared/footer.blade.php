@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="row">
-                @foreach (Catalog::getCategories()->whereNull('parent_id')->whereNotIn('id',[18,20,21]) as $parent)
+                @foreach (Catalog::getCategories()->whereNull('parent_id')->whereNotIn('id',[18,20,21,33]) as $parent)
                 @if ($parent->childs->count() || $parent->products->count() )
                 <div class="col-xl-2 col-sm-4 {{ $loop->first ? 'offset-xl-1' : '' }}">
                     <h3 class="footer__menu__title">
@@ -33,12 +33,21 @@
                 @endif
                 @endforeach
 
+                <div class="col-xl-2 col-sm-4">
+                    @if ($parent = Catalog::getCategory(18) )
+                    <h3 class="footer__menu__title">
+                        <a href="{{ $parent->getUrl() }}">{{ $parent->title }}</a>
+                    </h3>
+                    @endif
+                    @if ($parent = Catalog::getCategory(33) )
+                    <h3 class="footer__menu__title">
+                        <a href="{{ $parent->getUrl() }}">{{ $parent->title }}</a>
+                    </h3>
+                    @endif
+                </div>
+
                 <div class="col-xl-4 col-sm-12 d-flex justify-content-between px-0 px-xl-3 flex-wrap">
-                    @if ($parent = Catalog::getCategory(18))
                     <div class="col-custom">
-                        <h3 class="footer__menu__title">
-                            <a href="{{ $parent->getUrl() }}">{{ $parent->title }}</a>
-                        </h3>
                         @if ($pr = Catalog::getCategory(20))
                         <h3 class="footer__menu__title">
                             <a href="{{ $pr->getUrl() }}">{{ $pr->title }}</a>
@@ -49,15 +58,7 @@
                             <a href="{{ $pr->getUrl() }}">{{ $pr->title }}</a>
                         </h3>
                         @endif
-                        <ul class="footer__menu list-unstyled">
-                            @foreach ($parent->childs as $child)
-                             <li class="footer__menu__item">
-                                <a class="footer__menu__link" href="{{ $child->getUrl() }}">{{ $child->title }}</a>
-                            </li>
-                            @endforeach
-                        </ul>
                     </div>
-                    @endif
                     {{-- здесь только второй и третий столбец пунктов меню с классом text-right --}}
                     <div class="col-custom text-xl-right text-left">
                         <h3 class="footer__menu__title"><a href="{{ route('promo.index') }}">Акции</a></h3>
