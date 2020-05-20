@@ -50,15 +50,11 @@ class Product extends Model
     {
         return $this->belongsToMany(Installation::class, 'product_installations');
     }
-    public function promos()
-    {
-        return $this->belongsToMany(Promo::class, 'product_promos');
-    }
+
     public function related()
     {
         $items = $this->news;
-        $items = $items->merge($this->promos);
-        $items = $items->merge($this->installations);
+
         $items = $items->where('status',1)->sortByDesc('created_at');
         return $items;
     }
