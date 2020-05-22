@@ -51,7 +51,7 @@ class CatalogService
     }
     public static function getCategories()
     {
-        $categories = null;
+        static $categories = null;
         if (is_null($categories)) {
             $categories = Category::with(['parent','childs'])
                             ->withCount('childs','products')

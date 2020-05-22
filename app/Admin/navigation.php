@@ -25,5 +25,6 @@ $items = [
         ]
     ], */
     AdminSection::addMenuPage(\App\Models\Config::class)->setPriority(3),
+    AdminSection::addMenuPage(\App\Models\User::class)->setPriority(3),
 ];
 return $items;

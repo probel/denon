@@ -19,7 +19,7 @@
         <meta property="og:description" content="{{ $meta['description'] }}" />
         <meta content="{{ $meta['description'] }}" name="description"/>
     @endif
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     @if(isset($meta['keywords']) && $meta['keywords'])
         <meta content="{{ $meta['keywords'] }}" name="keywords"/>
     @endif
