@@ -23,7 +23,7 @@
     "@fancyapps/fancybox": "^3.5.7",
     "bootstrap": "^4.4.1",
     "jquery-lazy": "^1.7.10",
-    "jquery-validation": "^1.19.1",
+    "jquery-validation": "^1.19.3",
     "popper.js": "^1.16.1",
     "slick-slider": "^1.8.2"
   }
